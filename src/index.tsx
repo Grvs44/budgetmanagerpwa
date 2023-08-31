@@ -12,6 +12,7 @@ import PayeeList, { payeeListLoader } from './pages/PayeeList'
 import PayeeDetail from './pages/PayeeDetail'
 import PaymentList, { paymentListLoader } from './pages/PaymentList'
 import PaymentDetail from './pages/PaymentDetail'
+import JoinForm, { joinFormAction } from './pages/JoinForm'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,16 @@ const router = createBrowserRouter([
         path: 'payee/:payeeId/payment',
         element: <PaymentList />,
         loader: paymentListLoader,
+      },
+      {
+        path: 'join',
+        element: <JoinForm />,
+        action: joinFormAction
+      },
+      {
+        path: 'join/:id',
+        element: <JoinForm />,
+        action: joinFormAction
       },
     ],
   },
