@@ -1,34 +1,37 @@
 import React from 'react'
 import { Button, Container, Typography } from '@mui/material'
 import { Link, useLoaderData } from 'react-router-dom'
-import { getBudgets } from '../api/budget'
+import { getPayments } from '../api/payment'
 
-export default function BudgetList() {
+export default function PaymentList() {
   const { list } = useLoaderData()
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
-        Budgets
+        Payees
       </Typography>
       <Link to="create">
-        <Button>Create budget</Button>
+        <Button>Create Payment</Button>
       </Link>
       {list.results.length ? (
         <ul>
           {list.results.map((item) => (
             <li key={item.id}>
-              <Link to={item.id.toString()}>{item.name}</Link>
+              <Link to={`../payment/${item.id}`}>{item.amount}</Link>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No budgets</p>
+        <p>No payments</p>
       )}
     </Container>
   )
 }
 
-export async function budgetListLoader({ request, params }) {
-  const list = await getBudgets(new URL(request.url).searchParams)
+export async function paymentListLoader({ request, params }) {
+  const searchParams = new URL(request.url).searchParams
+  if (params.budgetId) searchParams.set('budget', params.budgetId)
+  else if (params.payeeId) searchParams.set('payee', params.payeeId)
+  const list = await getPayments(searchParams)
   return { list }
 }
