@@ -1,18 +1,26 @@
 {
   "name": "budgetmanagerpwa",
-  "version": "5.0.0",
+  "version": "0.0.1",
   "private": true,
+  "homepage": "/budgetmanager",
   "proxy": "http://localhost:8000",
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/material": "latest",
+    "@types/js-cookie": "^3.0.3",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/react-router-dom": "^5.3.3",
+    "js-cookie": "^3.0.5",
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "latest",
     "react-scripts": "latest",
     "typescript": "latest"
+  },
+  "devDependencies": {
+    "eslint": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
