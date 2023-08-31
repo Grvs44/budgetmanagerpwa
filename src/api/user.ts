@@ -1,5 +1,5 @@
-import { fetchJson } from './api'
+import { getObject } from './api'
 
 export async function getUser(id: number) {
-  return await fetchJson(`user/${id}/`)
+  return await getObject('user', id)
 }

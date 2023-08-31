@@ -38,3 +38,33 @@ export async function getFields(table: string) {
   })
   return response.actions.POST
 }
+
+export async function getObject(entity: string, id: number) {
+  return await fetchJson(`${entity}/${id}/`)
+}
+
+export async function getList(entity: string, params: Record<string, string>) {
+  const searchParams = new URLSearchParams(params)
+  if (searchParams.size === 0) return await fetchJson(`${entity}/`)
+  else return await fetchJson(`${entity}/?${searchParams}`)
+}
+
+export async function createObject(entity: string, data: object) {
+  return await sendJson(`${entity}/`, {
+    method: 'post',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function updateObject(entity: string, id: number, data: object) {
+  return await sendJson(`${entity}/${id}/`, {
+    method: 'put',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteObject(entity: string, id: number) {
+  return await sendJson(`${entity}/${id}/`, {
+    method: 'delete',
+  })
+}

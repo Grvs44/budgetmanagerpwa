@@ -1,29 +1,27 @@
-import { fetchJson, sendJson } from './api'
+import {
+  createObject,
+  deleteObject,
+  getList,
+  getObject,
+  updateObject,
+} from './api'
 
 export async function getPament(id: number) {
-  return await fetchJson(`payment/${id}/`)
+  return await getObject('payment', id)
 }
 
-export async function getPayments(filters: string) {
-  return await fetchJson(`payment/?${filters}`)
+export async function getPayments(params: Record<string, string>) {
+  return await getList('payment', params)
 }
 
 export async function createPayment(data: object) {
-  return await sendJson('payment/', {
-    method: 'post',
-    body: JSON.stringify(data),
-  })
+  return await createObject('payment', data)
 }
 
-export async function updatePayment(id: number, changes: object) {
-  return await sendJson(`payment/${id}/`, {
-    method: 'put',
-    body: JSON.stringify(changes),
-  })
+export async function updatePayment(id: number, data: object) {
+  return await updateObject('payment', id, data)
 }
 
 export async function deletePayment(id: number) {
-  return await sendJson(`payment/${id}`, {
-    method: 'delete',
-  })
+  return await deleteObject('payment', id)
 }

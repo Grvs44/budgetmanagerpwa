@@ -1,29 +1,27 @@
-import { fetchJson, sendJson } from './api'
+import {
+  createObject,
+  deleteObject,
+  getList,
+  getObject,
+  updateObject,
+} from './api'
 
 export async function getBudget(id: number) {
-  return await fetchJson(`budget/${id}/`)
+  return await getObject('budget', id)
 }
 
-export async function getBudgets(filters: string) {
-  return await fetchJson(`budget/?${filters}`)
+export async function getBudgets(params: Record<string, string>) {
+  return await getList('budget', params)
 }
 
 export async function createBudget(data: object) {
-  return await sendJson('budget/', {
-    method: 'post',
-    body: JSON.stringify(data),
-  })
+  return await createObject('budget', data)
 }
 
-export async function updateBudget(id: number, changes: object) {
-  return await sendJson(`budget/${id}/`, {
-    method: 'put',
-    body: JSON.stringify(changes),
-  })
+export async function updateBudget(id: number, data: object) {
+  return await updateObject('budget', id, data)
 }
 
 export async function deleteBudget(id: number) {
-  return await sendJson(`budget/${id}`, {
-    method: 'delete',
-  })
+  return await deleteObject('budget', id)
 }
