@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Typography } from '@mui/material'
+import { Button, Container, List, ListItem, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { Link, useLoaderData } from 'react-router-dom'
 import { getBudgets } from '../api/budget'
@@ -15,13 +15,13 @@ export default function BudgetList() {
         <Button><AddIcon /> New</Button>
       </Link>
       {list.results.length ? (
-        <ul>
+        <List>
           {list.results.map((item) => (
-            <li key={item.id}>
+            <ListItem key={item.id}>
               <Link to={item.id.toString()}>{item.name}</Link>
-            </li>
+            </ListItem>
           ))}
-        </ul>
+        </List>
       ) : (
         <p>No budgets</p>
       )}
