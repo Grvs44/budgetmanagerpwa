@@ -8,6 +8,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@mui/icons-material": "^5.14.8",
     "@mui/material": "latest",
     "@types/js-cookie": "^3.0.3",
     "@types/react": "latest",
