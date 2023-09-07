@@ -1,6 +1,7 @@
 import {
   createObject,
   deleteObject,
+  fetchJson,
   getList,
   getObject,
   updateObject,
@@ -24,4 +25,8 @@ export async function updateBudget(id: number, data: object) {
 
 export async function deleteBudget(id: number) {
   return await deleteObject('budget', id)
+}
+
+export async function getBudgetTotal(id: number) {
+  return await fetchJson(`budget/${id}/total/`)
 }

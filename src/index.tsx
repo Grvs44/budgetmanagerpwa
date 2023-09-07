@@ -7,12 +7,14 @@ import App from './App'
 import theme from './theme'
 import ErrorPage from './pages/ErrorPage'
 import BudgetList, { budgetListLoader } from './pages/BudgetList'
-import BudgetDetail from './pages/BudgetDetail'
+import BudgetDetail, { budgetDetailLoader } from './pages/BudgetDetail'
 import PayeeList, { payeeListLoader } from './pages/PayeeList'
 import PayeeDetail from './pages/PayeeDetail'
 import PaymentList, { paymentListLoader } from './pages/PaymentList'
 import PaymentDetail from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
+import EditBudget, { editBudgetAction, editBudgetLoader } from './pages/EditBudget'
+import CreateBudget, { createBudgetAction } from './pages/CreateBudget'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,18 @@ const router = createBrowserRouter([
       {
         path: ':id',
         element: <BudgetDetail />,
+        loader: budgetDetailLoader,
+      },
+      {
+        path: ':id/edit',
+        element: <EditBudget />,
+        loader: editBudgetLoader,
+        action: editBudgetAction,
+      },
+      {
+        path: 'new',
+        element: <CreateBudget />,
+        action: createBudgetAction,
       },
       {
         path: 'payee',
