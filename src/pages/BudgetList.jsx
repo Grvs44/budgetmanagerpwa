@@ -1,19 +1,29 @@
 import React from 'react'
 import { Button, Container, List, ListItem, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { Link, useLoaderData } from 'react-router-dom'
-import { getBudgets } from '../api/budget'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { createBudget, getBudgets } from '../api/budget'
+import BudgetForm from '../components/BudgetForm'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
+  const navigate = useNavigate()
+
+  const [createOpen, setCreateOpen] = React.useState(false)
+  const onCreateSubmit = async (data) => {
+    const budget = await createBudget(data)
+    console.log(budget)
+    return navigate(budget.id.toString())
+  }
+
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
         Budgets
       </Typography>
-      <Link to="new">
-        <Button><AddIcon /> New</Button>
-      </Link>
+      <Button onClick={() => setCreateOpen(true)}>
+        <AddIcon /> New
+      </Button>
       {list.results.length ? (
         <List>
           {list.results.map((item) => (
@@ -25,6 +35,12 @@ export default function BudgetList() {
       ) : (
         <p>No budgets</p>
       )}
+      <BudgetForm
+        onClose={() => setCreateOpen(false)}
+        onSubmit={onCreateSubmit}
+        open={createOpen}
+        title="Create Budget"
+      />
     </Container>
   )
 }

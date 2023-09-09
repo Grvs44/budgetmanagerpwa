@@ -13,12 +13,6 @@ import PayeeDetail from './pages/PayeeDetail'
 import PaymentList, { paymentListLoader } from './pages/PaymentList'
 import PaymentDetail from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
-import EditBudget, {
-  editBudgetAction,
-  editBudgetLoader,
-} from './pages/EditBudget'
-import CreateBudget, { createBudgetAction } from './pages/CreateBudget'
-import DeleteBudget, { deleteBudgetAction } from './pages/DeleteBudget'
 
 const router = createBrowserRouter([
   {
@@ -35,24 +29,6 @@ const router = createBrowserRouter([
         path: ':id',
         element: <BudgetDetail />,
         loader: budgetDetailLoader,
-        children: [
-          {
-            path: 'delete',
-            element: <DeleteBudget />,
-            action: deleteBudgetAction,
-          },
-        ],
-      },
-      {
-        path: ':id/edit',
-        element: <EditBudget />,
-        loader: editBudgetLoader,
-        action: editBudgetAction,
-      },
-      {
-        path: 'new',
-        element: <CreateBudget />,
-        action: createBudgetAction,
       },
       {
         path: 'payee',

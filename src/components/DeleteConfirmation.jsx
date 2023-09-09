@@ -3,20 +3,23 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogTitle from '@mui/material/DialogTitle'
-import { Form } from 'react-router-dom'
 
-export default function DeleteConfirmation({ message }) {
-  const onCancel = () => history.back()
+export default function DeleteConfirmation({ onClose, onSubmit, open, title }) {
+  const onFormSubmit = async event => {
+    event.preventDefault()
+    await onSubmit()
+    onClose()
+  }
   return (
-    <Dialog open={true} onClose={onCancel}>
-      <DialogTitle>{message}</DialogTitle>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>{title}</DialogTitle>
       <DialogActions>
-        <Form method="post">
-          <Button onClick={onCancel} type="button">
+        <form onSubmit={onFormSubmit}>
+          <Button onClick={onClose} type="button">
             Cancel
           </Button>
           <Button type="submit">Delete</Button>
-        </Form>
+        </form>
       </DialogActions>
     </Dialog>
   )
