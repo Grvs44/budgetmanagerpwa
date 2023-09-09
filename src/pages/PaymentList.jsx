@@ -1,18 +1,27 @@
 import React from 'react'
 import { Button, Container, Typography } from '@mui/material'
-import { Link, useLoaderData } from 'react-router-dom'
-import { getPayments } from '../api/payment'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { createPayment, getPayments } from '../api/payment'
+import PaymentForm from '../components/PaymentForm'
 
 export default function PaymentList() {
   const { list } = useLoaderData()
+  const navigate = useNavigate()
+
+  const [createOpen, setCreateOpen] = React.useState(false)
+
+  const onCreateSubmit = async (data) => {
+    const payment = await createPayment(data)
+    console.log(payment)
+    return navigate(payment.id.toString())
+  }
+
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
-        Payees
+        Payments
       </Typography>
-      <Link to="create">
-        <Button>Create Payment</Button>
-      </Link>
+      <Button onClick={() => setCreateOpen(true)}>Add payment</Button>
       {list.results.length ? (
         <ul>
           {list.results.map((item) => (
@@ -24,6 +33,12 @@ export default function PaymentList() {
       ) : (
         <p>No payments</p>
       )}
+      <PaymentForm
+        onClose={() => setCreateOpen(false)}
+        onSubmit={onCreateSubmit}
+        open={createOpen}
+        title="Add payment"
+      />
     </Container>
   )
 }
