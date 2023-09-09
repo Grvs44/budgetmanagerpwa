@@ -37,6 +37,7 @@ export default function PayeeList() {
         onClose={() => setCreateOpen(false)}
         onSubmit={onCreateSubmit}
         open={createOpen}
+        title="Add payee"
       />
     </Container>
   )

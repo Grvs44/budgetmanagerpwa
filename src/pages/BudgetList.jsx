@@ -39,7 +39,7 @@ export default function BudgetList() {
         onClose={() => setCreateOpen(false)}
         onSubmit={onCreateSubmit}
         open={createOpen}
-        title="Create Budget"
+        title="Add budget"
       />
     </Container>
   )

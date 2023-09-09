@@ -11,7 +11,7 @@ import BudgetDetail, { budgetDetailLoader } from './pages/BudgetDetail'
 import PayeeList, { payeeListLoader } from './pages/PayeeList'
 import PayeeDetail, { payeeDetailLoader } from './pages/PayeeDetail'
 import PaymentList, { paymentListLoader } from './pages/PaymentList'
-import PaymentDetail from './pages/PaymentDetail'
+import PaymentDetail, { paymentDetailLoader } from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
 
 const router = createBrowserRouter([
@@ -48,6 +48,7 @@ const router = createBrowserRouter([
       {
         path: 'payment/:id',
         element: <PaymentDetail />,
+        loader: paymentDetailLoader,
       },
       {
         path: ':budgetId/payee',

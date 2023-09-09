@@ -6,7 +6,7 @@ import {
   updateObject,
 } from './api'
 
-export async function getPament(id: number) {
+export async function getPayment(id: number) {
   return await getObject('payment', id)
 }
 
