@@ -9,7 +9,7 @@ import ErrorPage from './pages/ErrorPage'
 import BudgetList, { budgetListLoader } from './pages/BudgetList'
 import BudgetDetail, { budgetDetailLoader } from './pages/BudgetDetail'
 import PayeeList, { payeeListLoader } from './pages/PayeeList'
-import PayeeDetail from './pages/PayeeDetail'
+import PayeeDetail, { payeeDetailLoader } from './pages/PayeeDetail'
 import PaymentList, { paymentListLoader } from './pages/PaymentList'
 import PaymentDetail from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
@@ -38,6 +38,7 @@ const router = createBrowserRouter([
       {
         path: 'payee/:id',
         element: <PayeeDetail />,
+        loader: payeeDetailLoader,
       },
       {
         path: 'payment',

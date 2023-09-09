@@ -1,15 +1,9 @@
 import React from 'react'
-import {
-  Checkbox,
-  FormControlLabel,
-  List,
-  ListItem,
-  TextField,
-} from '@mui/material'
+import { List, ListItem, TextField } from '@mui/material'
 import FormDialog from './FormDialog'
 
-export default function BudgetForm({
-  budget = { active: true },
+export default function PayeeForm({
+  payee = {},
   onClose,
   onSubmit,
   open,
@@ -19,9 +13,12 @@ export default function BudgetForm({
     <FormDialog open={open} onClose={onClose} onSubmit={onSubmit} title={title}>
       <List>
         <ListItem>
+          <TextField defaultValue={payee.budget} label="Budget" name="budget" required />
+        </ListItem>
+        <ListItem>
           <TextField
             name="name"
-            defaultValue={budget.name}
+            defaultValue={payee.name}
             label="Name"
             required
             autoComplete="false"
@@ -30,15 +27,9 @@ export default function BudgetForm({
         <ListItem>
           <TextField
             name="description"
-            defaultValue={budget.description}
+            defaultValue={payee.description}
             label="Description"
             multiline
-          />
-        </ListItem>
-        <ListItem>
-          <FormControlLabel
-            control={<Checkbox name="active" defaultChecked={budget.active} />}
-            label="Active"
           />
         </ListItem>
       </List>
