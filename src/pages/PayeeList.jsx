@@ -1,18 +1,27 @@
 import React from 'react'
 import { Button, Container, Typography } from '@mui/material'
-import { Link, useLoaderData } from 'react-router-dom'
-import { getPayees } from '../api/payee'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { createPayee, getPayees } from '../api/payee'
+import PayeeForm from '../components/PayeeForm'
 
 export default function PayeeList() {
   const { list } = useLoaderData()
+  const navigate = useNavigate()
+
+  const [createOpen, setCreateOpen] = React.useState(false)
+
+  const onCreateSubmit = async (data) => {
+    const payee = await createPayee(data)
+    console.log(payee)
+    return navigate(payee.id.toString())
+  }
+
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
         Payees
       </Typography>
-      <Link to="create">
-        <Button>Create Payee</Button>
-      </Link>
+      <Button onClick={() => setCreateOpen(true)}>Create Payee</Button>
       {list.results.length ? (
         <ul>
           {list.results.map((item) => (
@@ -24,6 +33,11 @@ export default function PayeeList() {
       ) : (
         <p>No payees</p>
       )}
+      <PayeeForm
+        onClose={() => setCreateOpen(false)}
+        onSubmit={onCreateSubmit}
+        open={createOpen}
+      />
     </Container>
   )
 }
