@@ -1,6 +1,7 @@
 import {
   createObject,
   deleteObject,
+  fetchJson,
   getList,
   getObject,
   updateObject,
@@ -24,4 +25,8 @@ export async function updatePayment(id: number, data: object) {
 
 export async function deletePayment(id: number) {
   return await deleteObject('payment', id)
+}
+
+export async function canEditPayment(id: number) {
+  return await fetchJson(`payment/${id}/edit/`)
 }

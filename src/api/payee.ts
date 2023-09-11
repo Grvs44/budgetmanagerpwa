@@ -30,3 +30,7 @@ export async function deletePayee(id: number) {
 export async function getPayeeTotal(id: number) {
   return await fetchJson(`payee/${id}/total/`)
 }
+
+export async function canEditPayee(id: number) {
+  return await fetchJson(`payee/${id}/edit/`)
+}

@@ -4,11 +4,17 @@ import { Button, ButtonGroup, Container, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DeleteConfirmation from '../components/DeleteConfirmation'
-import { deletePayee, getPayee, getPayeeTotal, updatePayee } from '../api/payee'
+import {
+  canEditPayee,
+  deletePayee,
+  getPayee,
+  getPayeeTotal,
+  updatePayee,
+} from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
 
 export default function BudgetDetail() {
-  const [initialPayee, total] = useLoaderData()
+  const [initialPayee, canEdit, total] = useLoaderData()
   const navigate = useNavigate()
 
   const [payee, setPayee] = React.useState(initialPayee)
@@ -31,15 +37,17 @@ export default function BudgetDetail() {
         {payee.name}
       </Typography>
       <Typography>Total: {total}</Typography>
-      <ButtonGroup>
-        <Button onClick={() => setEditOpen(true)}>
-          <EditIcon /> Edit
-        </Button>
+      {canEdit ? (
+        <ButtonGroup>
+          <Button onClick={() => setEditOpen(true)}>
+            <EditIcon /> Edit
+          </Button>
           <Button onClick={() => setDeleteOpen(true)}>
             <DeleteIcon />
             Delete
           </Button>
-      </ButtonGroup>
+        </ButtonGroup>
+      ) : null}
       <Link to="payment">
         <Button>View payments</Button>
       </Link>
@@ -62,6 +70,7 @@ export default function BudgetDetail() {
 
 export async function payeeDetailLoader({ params }) {
   const payee = await getPayee(params.id)
+  const canEdit = await canEditPayee(params.id)
   const total = await getPayeeTotal(params.id)
-  return [payee, total]
+  return [payee, canEdit, total]
 }

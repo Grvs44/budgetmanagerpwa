@@ -1,5 +1,11 @@
 import React from 'react'
-import { getBudget, getBudgetTotal, updateBudget, deleteBudget } from '../api/budget'
+import {
+  getBudget,
+  getBudgetTotal,
+  updateBudget,
+  deleteBudget,
+  canEditBudget,
+} from '../api/budget'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
@@ -8,7 +14,7 @@ import BudgetForm from '../components/BudgetForm'
 import DeleteConfirmation from '../components/DeleteConfirmation'
 
 export default function BudgetDetail() {
-  const [initialBudget, total] = useLoaderData()
+  const [initialBudget, canEdit, total] = useLoaderData()
   const navigate = useNavigate()
 
   const [budget, setBudget] = React.useState(initialBudget)
@@ -31,15 +37,17 @@ export default function BudgetDetail() {
         {budget.name}
       </Typography>
       <Typography>Total: {total}</Typography>
-      <ButtonGroup>
-        <Button onClick={() => setEditOpen(true)}>
-          <EditIcon /> Edit
-        </Button>
+      {canEdit ? (
+        <ButtonGroup>
+          <Button onClick={() => setEditOpen(true)}>
+            <EditIcon /> Edit
+          </Button>
           <Button onClick={() => setDeleteOpen(true)}>
             <DeleteIcon />
             Delete
           </Button>
-      </ButtonGroup>
+        </ButtonGroup>
+      ) : null}
       <Link to="payee">
         <Button>View payees</Button>
       </Link>
@@ -65,6 +73,7 @@ export default function BudgetDetail() {
 
 export async function budgetDetailLoader({ params }) {
   const budget = await getBudget(params.id)
+  const canEdit = await canEditBudget(params.id)
   const total = await getBudgetTotal(params.id)
-  return [budget, total]
+  return [budget, canEdit, total]
 }
