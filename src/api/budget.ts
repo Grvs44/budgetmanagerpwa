@@ -30,3 +30,7 @@ export async function deleteBudget(id: number) {
 export async function getBudgetTotal(id: number) {
   return await fetchJson(`budget/${id}/total/`)
 }
+
+export async function canEditBudget(id: number) {
+  return await fetchJson(`budget/${id}/edit/`)
+}

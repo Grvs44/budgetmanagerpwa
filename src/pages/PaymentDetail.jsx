@@ -4,11 +4,16 @@ import { Button, ButtonGroup, Container, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DeleteConfirmation from '../components/DeleteConfirmation'
-import { deletePayment, getPayment, updatePayment } from '../api/payment'
+import {
+  canEditPayment,
+  deletePayment,
+  getPayment,
+  updatePayment,
+} from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
 
 export default function BudgetDetail() {
-  const [initialPayment] = useLoaderData()
+  const [initialPayment, canEdit] = useLoaderData()
   const navigate = useNavigate()
 
   const [payment, setPayment] = React.useState(initialPayment)
@@ -30,15 +35,17 @@ export default function BudgetDetail() {
       <Typography variant="h4" component="h1" gutterBottom>
         {payment.notes}
       </Typography>
-      <ButtonGroup>
-        <Button onClick={() => setEditOpen(true)}>
-          <EditIcon /> Edit
-        </Button>
+      {canEdit ? (
+        <ButtonGroup>
+          <Button onClick={() => setEditOpen(true)}>
+            <EditIcon /> Edit
+          </Button>
           <Button onClick={() => setDeleteOpen(true)}>
             <DeleteIcon />
             Delete
           </Button>
-      </ButtonGroup>
+        </ButtonGroup>
+      ) : null}
       <PaymentForm
         payment={payment}
         onClose={() => setEditOpen(false)}
@@ -58,5 +65,6 @@ export default function BudgetDetail() {
 
 export async function paymentDetailLoader({ params }) {
   const payment = await getPayment(params.id)
-  return [payment]
+  const canEdit = await canEditPayment(params.id)
+  return [payment, canEdit]
 }
