@@ -9,7 +9,18 @@ export default function BudgetList() {
   const { list } = useLoaderData()
   const navigate = useNavigate()
 
+  const [budgetList, setBudgetList] = React.useState(list.results)
+  const [nextPage, setNextPage] = React.useState(list.next)
   const [createOpen, setCreateOpen] = React.useState(false)
+
+  const onNextPageClick = async () => {
+    console.log(nextPage)
+    const newList = await getBudgets(nextPage)
+    console.log(newList)
+    setBudgetList(budgetList.concat(newList.results))
+    setNextPage(newList.next)
+  }
+
   const onCreateSubmit = async (data) => {
     const budget = await createBudget(data)
     console.log(budget)
@@ -24,14 +35,22 @@ export default function BudgetList() {
       <Button onClick={() => setCreateOpen(true)}>
         <AddIcon /> New
       </Button>
-      {list.results.length ? (
-        <List>
-          {list.results.map((item) => (
-            <ListItem key={item.id}>
-              <Link to={item.id.toString()}>{item.name}</Link>
-            </ListItem>
-          ))}
-        </List>
+      {budgetList.length ? (
+        <Container>
+          <Typography>
+            Showing {budgetList.length} of {list.count}
+          </Typography>
+          <List>
+            {list.results.map((item) => (
+              <ListItem key={item.id}>
+                <Link to={item.id.toString()}>{item.name}</Link>
+              </ListItem>
+            ))}
+          </List>
+          {nextPage ? (
+            <Button onClick={onNextPageClick}>Load more</Button>
+          ) : null}
+        </Container>
       ) : (
         <p>No budgets</p>
       )}
@@ -45,7 +64,9 @@ export default function BudgetList() {
   )
 }
 
-export async function budgetListLoader({ request, params }) {
-  const list = await getBudgets(new URL(request.url).searchParams)
+export async function budgetListLoader({ request }) {
+  const params = new URL(request.url).searchParams
+  params.delete('offset')
+  const list = await getBudgets(params)
   return { list }
 }
