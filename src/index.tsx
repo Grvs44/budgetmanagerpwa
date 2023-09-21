@@ -14,10 +14,11 @@ import PaymentList, { paymentListLoader } from './pages/PaymentList'
 import PaymentDetail, { paymentDetailLoader } from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
+import { rootPath } from './settings'
 
 const router = createBrowserRouter([
   {
-    path: 'budgetmanager',
+    path: rootPath,
     element: <App />,
     errorElement: <ErrorPage />,
     loader: getCurrentUser,

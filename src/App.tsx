@@ -1,16 +1,17 @@
 import React from 'react'
 import { Box, Container } from '@mui/material'
 import { Outlet, useLoaderData } from 'react-router-dom'
+import TopBar from './components/TopBar'
 
 export default function App() {
   const user: any = useLoaderData()
 
   return (
-    <Container maxWidth="sm">
-      <p>Welcome, {user.username}</p>
+    <div>
+      <TopBar user={user} />
       <Box sx={{ my: 4 }}>
         <Outlet />
       </Box>
-    </Container>
+    </div>
   )
 }
