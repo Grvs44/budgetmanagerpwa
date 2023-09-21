@@ -1,8 +1,6 @@
 import React from 'react'
 import { Box, Container } from '@mui/material'
-import { Outlet, redirect, useLoaderData } from 'react-router-dom'
-import { getCurrentUser } from './api/user'
-import { loginUrl } from './settings'
+import { Outlet, useLoaderData } from 'react-router-dom'
 
 export default function App() {
   const user: any = useLoaderData()
@@ -15,12 +13,4 @@ export default function App() {
       </Box>
     </Container>
   )
-}
-
-export async function appLoader() {
-  try {
-    const user = await getCurrentUser()
-    if (user) return user
-  } catch (Response) {}
-  return redirect(loginUrl + location.pathname)
 }
