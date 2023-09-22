@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useDispatch } from 'react-redux'
 import DeleteConfirmation from '../components/DeleteConfirmation'
 import {
   canEditPayment,
@@ -11,6 +12,7 @@ import {
   updatePayment,
 } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
+import { setTitle } from '../redux/titleSlice'
 
 export default function BudgetDetail() {
   const [initialPayment, canEdit] = useLoaderData()
@@ -19,6 +21,9 @@ export default function BudgetDetail() {
   const [payment, setPayment] = React.useState(initialPayment)
   const [editOpen, setEditOpen] = React.useState(false)
   const [deleteOpen, setDeleteOpen] = React.useState(false)
+
+  const dispatch = useDispatch()
+  dispatch(setTitle('Payment'))
 
   const onEditSubmit = async (data) => {
     const newPayment = await updatePayment(payment.id, data)
@@ -32,9 +37,6 @@ export default function BudgetDetail() {
 
   return (
     <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        {payment.notes}
-      </Typography>
       {canEdit ? (
         <ButtonGroup>
           <Button onClick={() => setEditOpen(true)}>

@@ -7,3 +7,7 @@ export async function getUser(id: number) {
 export async function getCurrentUser() {
   return await fetchJson('user/me/')
 }
+
+export async function getTotal() {
+  return await fetchJson('total/')
+}

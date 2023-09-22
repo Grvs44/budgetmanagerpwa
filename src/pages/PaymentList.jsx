@@ -1,14 +1,19 @@
 import React from 'react'
 import { Button, Container, Typography } from '@mui/material'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { createPayment, getPayments } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
+import { setTitle } from '../redux/titleSlice'
 
 export default function PaymentList() {
   const { list } = useLoaderData()
   const navigate = useNavigate()
 
   const [createOpen, setCreateOpen] = React.useState(false)
+
+  const dispatch = useDispatch()
+  dispatch(setTitle('Home'))
 
   const onCreateSubmit = async (data) => {
     const payment = await createPayment(data)

@@ -12,6 +12,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 import { rootPath } from '../settings'
+import { useSelector } from 'react-redux'
 
 export default function TopBar({ user }) {
   const [open, setOpen] = React.useState(false)
@@ -31,7 +32,7 @@ export default function TopBar({ user }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Budget Manager
+            {useSelector((state) => state.title.title)}
           </Typography>
         </Toolbar>
       </AppBar>
