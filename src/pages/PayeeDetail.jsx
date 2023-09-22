@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DeleteConfirmation from '../components/DeleteConfirmation'
@@ -12,6 +13,7 @@ import {
   updatePayee,
 } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
+import { setTitle } from '../redux/titleSlice'
 
 export default function BudgetDetail() {
   const [initialPayee, canEdit, total] = useLoaderData()
@@ -20,6 +22,9 @@ export default function BudgetDetail() {
   const [payee, setPayee] = React.useState(initialPayee)
   const [editOpen, setEditOpen] = React.useState(false)
   const [deleteOpen, setDeleteOpen] = React.useState(false)
+
+  const dispatch = useDispatch()
+  dispatch(setTitle(payee.name))
 
   const onEditSubmit = async (data) => {
     const newPayee = await updatePayee(payee.id, data)
@@ -33,9 +38,6 @@ export default function BudgetDetail() {
 
   return (
     <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        {payee.name}
-      </Typography>
       <Typography>Total: {total}</Typography>
       {canEdit ? (
         <ButtonGroup>

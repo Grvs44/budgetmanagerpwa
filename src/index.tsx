@@ -15,6 +15,9 @@ import PaymentDetail, { paymentDetailLoader } from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
 import { rootPath } from './settings'
+import Home, { homeLoader } from './pages/Home'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const router = createBrowserRouter([
   {
@@ -24,12 +27,17 @@ const router = createBrowserRouter([
     loader: getCurrentUser,
     children: [
       {
-        path: '',
+        path:'',
+        element:<Home />,
+        loader: homeLoader,
+      },
+      {
+        path: 'budget',
         element: <BudgetList />,
         loader: budgetListLoader,
       },
       {
-        path: ':id',
+        path: 'budget/:id',
         element: <BudgetDetail />,
         loader: budgetDetailLoader,
       },
@@ -54,12 +62,12 @@ const router = createBrowserRouter([
         loader: paymentDetailLoader,
       },
       {
-        path: ':budgetId/payee',
+        path: 'budget/:budgetId/payee',
         element: <PayeeList />,
         loader: payeeListLoader,
       },
       {
-        path: ':budgetId/payment',
+        path: 'budget/:budgetId/payment',
         element: <PaymentList />,
         loader: paymentListLoader,
       },
@@ -83,8 +91,9 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
+  <Provider store={store}>
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <RouterProvider router={router} />
-  </ThemeProvider>
+  </ThemeProvider></Provider>
 )

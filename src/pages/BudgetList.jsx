@@ -2,8 +2,10 @@ import React from 'react'
 import { Button, Container, List, ListItem, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
+import { setTitle } from '../redux/titleSlice'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
@@ -12,6 +14,9 @@ export default function BudgetList() {
   const [budgetList, setBudgetList] = React.useState(list.results)
   const [nextPage, setNextPage] = React.useState(list.next)
   const [createOpen, setCreateOpen] = React.useState(false)
+
+  const dispatch = useDispatch()
+  dispatch(setTitle('Budgets'))
 
   const onNextPageClick = async () => {
     console.log(nextPage)

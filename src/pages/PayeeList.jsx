@@ -1,14 +1,19 @@
 import React from 'react'
 import { Button, Container, Typography } from '@mui/material'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { createPayee, getPayees } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
+import { setTitle } from '../redux/titleSlice'
 
 export default function PayeeList() {
   const { list } = useLoaderData()
   const navigate = useNavigate()
 
   const [createOpen, setCreateOpen] = React.useState(false)
+
+  const dispatch = useDispatch()
+  dispatch(setTitle('Payees'))
 
   const onCreateSubmit = async (data) => {
     const payee = await createPayee(data)
