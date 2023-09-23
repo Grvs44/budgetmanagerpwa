@@ -13,7 +13,9 @@ export default function PayeeList() {
   const [createOpen, setCreateOpen] = React.useState(false)
 
   const dispatch = useDispatch()
-  React.useEffect(() => dispatch(setTitle('Payees')))
+  React.useEffect(() => {
+    dispatch(setTitle('Payees'))
+  }, [])
 
   const onCreateSubmit = async (data) => {
     const payee = await createPayee(data)

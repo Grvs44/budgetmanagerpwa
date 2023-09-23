@@ -8,11 +8,16 @@ import { setCurrentUser } from './redux/userSlice'
 export default function App() {
   const user: any = useLoaderData()
   const dispatch = useDispatch()
-  dispatch(setCurrentUser(user))
+  React.useEffect(() => {
+    dispatch(setCurrentUser(user))
+  }, [])
 
   return (
     <div>
-      <TopBar user={user} title={useSelector((state: any) => state.title.title)} />
+      <TopBar
+        user={user}
+        title={useSelector((state: any) => state.title.title)}
+      />
       <Box sx={{ my: 4 }}>
         <Outlet />
       </Box>

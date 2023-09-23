@@ -23,7 +23,9 @@ export default function BudgetDetail() {
   const [deleteOpen, setDeleteOpen] = React.useState(false)
 
   const dispatch = useDispatch()
-  React.useEffect(() => dispatch(setTitle('Payment')))
+  React.useEffect(() => {
+    dispatch(setTitle('Payment'))
+  }, [])
 
   const onEditSubmit = async (data) => {
     const newPayment = await updatePayment(payment.id, data)
