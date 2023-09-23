@@ -27,8 +27,8 @@ const router = createBrowserRouter([
     loader: getCurrentUser,
     children: [
       {
-        path:'',
-        element:<Home />,
+        path: '',
+        element: <Home />,
         loader: homeLoader,
       },
       {
@@ -92,8 +92,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <RouterProvider router={router} />
-  </ThemeProvider></Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </Provider>
 )
