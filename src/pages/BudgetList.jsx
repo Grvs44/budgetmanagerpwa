@@ -16,7 +16,7 @@ export default function BudgetList() {
   const [createOpen, setCreateOpen] = React.useState(false)
 
   const dispatch = useDispatch()
-  dispatch(setTitle('Budgets'))
+  React.useEffect(() => dispatch(setTitle('Budgets')))
 
   const onNextPageClick = async () => {
     console.log(nextPage)

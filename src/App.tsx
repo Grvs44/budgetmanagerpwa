@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Container } from '@mui/material'
 import { Outlet, useLoaderData } from 'react-router-dom'
 import TopBar from './components/TopBar'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from './redux/userSlice'
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <div>
-      <TopBar user={user} />
+      <TopBar user={user} title={useSelector((state: any) => state.title.title)} />
       <Box sx={{ my: 4 }}>
         <Outlet />
       </Box>
