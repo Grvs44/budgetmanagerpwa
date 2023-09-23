@@ -1,12 +1,13 @@
 import React from 'react'
-import { Button, Container, Typography } from '@mui/material'
+import { Button, Container } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
 import { setTitle } from '../redux/titleSlice'
 import List from '../components/List'
+import BudgetListItem from '../components/BudgetListItem'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
@@ -31,7 +32,11 @@ export default function BudgetList() {
         <AddIcon /> New
       </Button>
       {list.count ? (
-        <List initialList={list} onNextPage={getBudgets} />
+        <List
+          initialList={list}
+          onNextPage={getBudgets}
+          ItemComponent={BudgetListItem}
+        />
       ) : (
         <p>No budgets</p>
       )}
