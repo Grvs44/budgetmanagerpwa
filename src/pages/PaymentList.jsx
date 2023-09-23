@@ -13,7 +13,9 @@ export default function PaymentList() {
   const [createOpen, setCreateOpen] = React.useState(false)
 
   const dispatch = useDispatch()
-  React.useEffect(() => dispatch(setTitle('Payments')))
+  React.useEffect(() => {
+    dispatch(setTitle('Payments'))
+  }, [])
 
   const onCreateSubmit = async (data) => {
     const payment = await createPayment(data)

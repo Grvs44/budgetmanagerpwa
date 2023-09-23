@@ -9,7 +9,9 @@ export default function Home() {
   const { total } = useLoaderData()
   const user = useSelector((state) => state.user.currentUser)
   const dispatch = useDispatch()
-  React.useEffect(() => dispatch(setTitle('Home')))
+  React.useEffect(() => {
+    dispatch(setTitle('Home'))
+  }, [])
 
   return (
     <Box>
