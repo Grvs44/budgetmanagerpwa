@@ -1,10 +1,13 @@
 import React from 'react'
-import { Button, Container, Typography } from '@mui/material'
-import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { Button, Container } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createPayee, getPayees } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
 import { setTitle } from '../redux/titleSlice'
+import List from '../components/List'
+import PayeeListItem from '../components/PayeeListItem'
 
 export default function PayeeList() {
   const { list } = useLoaderData()
@@ -25,18 +28,9 @@ export default function PayeeList() {
 
   return (
     <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Payees
-      </Typography>
-      <Button onClick={() => setCreateOpen(true)}>Create Payee</Button>
-      {list.results.length ? (
-        <ul>
-          {list.results.map((item) => (
-            <li key={item.id}>
-              <Link to={`../payee/${item.id}`}>{item.name}</Link>
-            </li>
-          ))}
-        </ul>
+      <Button onClick={() => setCreateOpen(true)}><AddIcon /> New</Button>
+      {list.count ? (
+        <List initialList={list} onNextPage={getPayees} ItemComponent={PayeeListItem} />
       ) : (
         <p>No payees</p>
       )}
