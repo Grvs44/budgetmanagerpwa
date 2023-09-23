@@ -1,32 +1,23 @@
 import React from 'react'
-import { Button, Container, List, ListItem, Typography } from '@mui/material'
+import { Button, Container, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
 import { setTitle } from '../redux/titleSlice'
+import List from '../components/List'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
   const navigate = useNavigate()
 
-  const [budgetList, setBudgetList] = React.useState(list.results)
-  const [nextPage, setNextPage] = React.useState(list.next)
   const [createOpen, setCreateOpen] = React.useState(false)
 
   const dispatch = useDispatch()
   React.useEffect(() => {
     dispatch(setTitle('Budgets'))
   }, [])
-
-  const onNextPageClick = async () => {
-    console.log(nextPage)
-    const newList = await getBudgets(nextPage)
-    console.log(newList)
-    setBudgetList(budgetList.concat(newList.results))
-    setNextPage(newList.next)
-  }
 
   const onCreateSubmit = async (data) => {
     const budget = await createBudget(data)
@@ -36,28 +27,11 @@ export default function BudgetList() {
 
   return (
     <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Budgets
-      </Typography>
       <Button onClick={() => setCreateOpen(true)}>
         <AddIcon /> New
       </Button>
-      {budgetList.length ? (
-        <Container>
-          <Typography>
-            Showing {budgetList.length} of {list.count}
-          </Typography>
-          <List>
-            {list.results.map((item) => (
-              <ListItem key={item.id}>
-                <Link to={item.id.toString()}>{item.name}</Link>
-              </ListItem>
-            ))}
-          </List>
-          {nextPage ? (
-            <Button onClick={onNextPageClick}>Load more</Button>
-          ) : null}
-        </Container>
+      {list.count ? (
+        <List initialList={list} onNextPage={getBudgets} />
       ) : (
         <p>No budgets</p>
       )}
