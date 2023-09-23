@@ -1,8 +1,7 @@
 import React from 'react'
-import { Button, Container, List as MuiList, ListItem, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Button, Container, List as MuiList, Typography } from '@mui/material'
 
-export default function List({ initialList, onNextPage }) {
+export default function List({ initialList, onNextPage, ItemComponent }) {
   const [list, setList] = React.useState(initialList.results)
   const [nextPage, setNextPage] = React.useState(initialList.next)
 
@@ -19,9 +18,7 @@ export default function List({ initialList, onNextPage }) {
       </Typography>
       <MuiList>
         {list.map((item) => (
-          <ListItem key={item.id}>
-            <Link to={item.id.toString()}>{item.name}</Link>
-          </ListItem>
+          <ItemComponent item={item} key={item.id} />
         ))}
       </MuiList>
       {nextPage ? <Button onClick={onNextPageClick}>Load more</Button> : null}
