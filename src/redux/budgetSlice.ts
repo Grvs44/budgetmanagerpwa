@@ -15,9 +15,12 @@ export const budgetSlice = createSlice({
     clearBudgets: (state) => {
       state.budgets = []
     },
+    replaceBudgets: (state, action) => {
+      state.budgets = action.payload
+    },
   },
 })
 
-export const { addBudgets, clearBudgets } = budgetSlice.actions
+export const { addBudgets, clearBudgets, replaceBudgets } = budgetSlice.actions
 
 export default budgetSlice.reducer
