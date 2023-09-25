@@ -12,7 +12,7 @@ import {
   updatePayee,
 } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
-import { useTitle } from '../title'
+import { useTitle } from '../provider'
 
 export default function BudgetDetail() {
   const [initialPayee, canEdit, total] = useLoaderData()

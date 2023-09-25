@@ -11,7 +11,7 @@ import {
   updatePayment,
 } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
-import { useTitle } from '../title'
+import { useTitle } from '../provider'
 
 export default function BudgetDetail() {
   const [initialPayment, canEdit] = useLoaderData()

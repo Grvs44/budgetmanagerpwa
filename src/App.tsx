@@ -1,17 +1,16 @@
 import React from 'react'
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 import { Outlet, useLoaderData } from 'react-router-dom'
 import TopBar from './components/TopBar'
-import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentUser } from './redux/userSlice'
-import { useTitle } from './title'
+import { useAccount, useTitle } from './provider'
 
 export default function App() {
+  const {setAccount} = useAccount()
   const { title } = useTitle()
   const user: any = useLoaderData()
-  const dispatch = useDispatch()
+
   React.useEffect(() => {
-    dispatch(setCurrentUser(user))
+    setAccount(user)
   }, [])
 
   return (

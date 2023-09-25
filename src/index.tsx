@@ -16,9 +16,8 @@ import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
 import { rootPath } from './settings'
 import Home, { homeLoader } from './pages/Home'
-import { Provider } from 'react-redux'
 import store from './redux/store'
-import { TitleProvider } from './title'
+import { Provider } from './provider'
 
 const router = createBrowserRouter([
   {
@@ -92,12 +91,10 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Provider store={store}>
-    <TitleProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </TitleProvider>
+  <Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </Provider>
 )
