@@ -5,19 +5,19 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
-import { setTitle } from '../redux/titleSlice'
 import List from '../components/List'
 import BudgetListItem from '../components/BudgetListItem'
+import { useTitle } from '../title'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
   const navigate = useNavigate()
+  const { setTitle } = useTitle()
 
   const [createOpen, setCreateOpen] = React.useState(false)
 
-  const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(setTitle('Budgets'))
+    setTitle('Budgets')
   }, [])
 
   const onCreateSubmit = async (data) => {
