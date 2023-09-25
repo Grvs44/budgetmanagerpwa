@@ -18,6 +18,7 @@ import { rootPath } from './settings'
 import Home, { homeLoader } from './pages/Home'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import { TitleProvider } from './title'
 
 const router = createBrowserRouter([
   {
@@ -92,9 +93,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <TitleProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </TitleProvider>
   </Provider>
 )

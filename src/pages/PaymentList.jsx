@@ -1,23 +1,22 @@
 import React from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import { Button, Container, Typography } from '@mui/material'
-import { Link, useLoaderData, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Button, Container } from '@mui/material'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import { createPayment, getPayments } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
-import { setTitle } from '../redux/titleSlice'
 import List from '../components/List'
 import PaymentListItem from '../components/PaymentListItem'
+import { useTitle } from '../title'
 
 export default function PaymentList() {
   const { list } = useLoaderData()
   const navigate = useNavigate()
+  const { setTitle } = useTitle()
 
   const [createOpen, setCreateOpen] = React.useState(false)
 
-  const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(setTitle('Payments'))
+    setTitle('Payments')
   }, [])
 
   const onCreateSubmit = async (data) => {

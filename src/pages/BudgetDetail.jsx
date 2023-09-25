@@ -8,24 +8,23 @@ import {
 } from '../api/budget'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Typography } from '@mui/material'
-import { useDispatch } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import BudgetForm from '../components/BudgetForm'
 import DeleteConfirmation from '../components/DeleteConfirmation'
-import { setTitle } from '../redux/titleSlice'
+import { useTitle } from '../title'
 
 export default function BudgetDetail() {
   const [initialBudget, canEdit, total] = useLoaderData()
   const navigate = useNavigate()
+  const { setTitle } = useTitle()
 
   const [budget, setBudget] = React.useState(initialBudget)
   const [editOpen, setEditOpen] = React.useState(false)
   const [deleteOpen, setDeleteOpen] = React.useState(false)
 
-  const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(setTitle(budget.name))
+    setTitle(budget.name)
   }, [])
 
   const onEditSubmit = async (data) => {
