@@ -1,10 +1,13 @@
 import React from 'react'
+import AddIcon from '@mui/icons-material/Add'
 import { Button, Container, Typography } from '@mui/material'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createPayment, getPayments } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
 import { setTitle } from '../redux/titleSlice'
+import List from '../components/List'
+import PaymentListItem from '../components/PaymentListItem'
 
 export default function PaymentList() {
   const { list } = useLoaderData()
@@ -25,18 +28,15 @@ export default function PaymentList() {
 
   return (
     <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Payments
-      </Typography>
-      <Button onClick={() => setCreateOpen(true)}>Add payment</Button>
-      {list.results.length ? (
-        <ul>
-          {list.results.map((item) => (
-            <li key={item.id}>
-              <Link to={`../payment/${item.id}`}>{item.amount}</Link>
-            </li>
-          ))}
-        </ul>
+      <Button onClick={() => setCreateOpen(true)}>
+        <AddIcon /> New
+      </Button>
+      {list.count ? (
+        <List
+          initialList={list}
+          onNextPage={getPayments}
+          ItemComponent={PaymentListItem}
+        />
       ) : (
         <p>No payments</p>
       )}
