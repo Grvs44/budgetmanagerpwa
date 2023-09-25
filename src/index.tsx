@@ -16,7 +16,6 @@ import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
 import { rootPath } from './settings'
 import Home, { homeLoader } from './pages/Home'
-import store from './redux/store'
 import { Provider } from './provider'
 
 const router = createBrowserRouter([
