@@ -7,7 +7,7 @@ import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
 import List from '../components/List'
 import BudgetListItem from '../components/BudgetListItem'
-import { useTitle } from '../title'
+import { useTitle } from '../provider'
 
 export default function BudgetList() {
   const { list } = useLoaderData()

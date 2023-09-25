@@ -6,7 +6,7 @@ import { createPayee, getPayees } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
 import List from '../components/List'
 import PayeeListItem from '../components/PayeeListItem'
-import { useTitle } from '../title'
+import { useTitle } from '../provider'
 
 export default function PayeeList() {
   const { list } = useLoaderData()
