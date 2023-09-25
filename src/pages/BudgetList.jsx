@@ -8,7 +8,6 @@ import BudgetForm from '../components/BudgetForm'
 import { setTitle } from '../redux/titleSlice'
 import List from '../components/List'
 import BudgetListItem from '../components/BudgetListItem'
-import { addBudgets, replaceBudgets } from '../redux/budgetSlice'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
@@ -19,19 +18,12 @@ export default function BudgetList() {
   const dispatch = useDispatch()
   React.useEffect(() => {
     dispatch(setTitle('Budgets'))
-    dispatch(replaceBudgets(list.results))
   }, [])
 
   const onCreateSubmit = async (data) => {
     const budget = await createBudget(data)
     console.log(budget)
     return navigate(budget.id.toString())
-  }
-
-  const onNextPage = async (nextPage) => {
-    const list = await getBudgets(nextPage)
-    dispatch(addBudgets(list.results))
-    return list
   }
 
   return (
@@ -42,7 +34,7 @@ export default function BudgetList() {
       {list.count ? (
         <List
           initialList={list}
-          onNextPage={onNextPage}
+          onNextPage={getBudgets}
           ItemComponent={BudgetListItem}
         />
       ) : (
