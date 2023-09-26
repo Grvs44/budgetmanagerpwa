@@ -1,13 +1,13 @@
 // From https://stackoverflow.com/a/65705439/18309216
 import React from 'react'
 
-const TitleContext = React.createContext()
+const TitleContext = React.createContext({})
 export const useTitle = () => React.useContext(TitleContext)
 
-const AccountContext = React.createContext()
+const AccountContext = React.createContext({})
 export const useAccount = () => React.useContext(AccountContext)
 
-export const Provider = ({ children }) => {
+export const Provider = ({ children }: any) => {
   const [title, setTitle] = React.useState('Budget Manager')
   document.title = title
 
@@ -18,9 +18,10 @@ export const Provider = ({ children }) => {
   })
 
   return (
-    <AccountContext.Provider value={{account, setAccount}}>
-    <TitleContext.Provider value={{ title, setTitle }}>
-      {children}
-    </TitleContext.Provider></AccountContext.Provider>
+    <AccountContext.Provider value={{ account, setAccount }}>
+      <TitleContext.Provider value={{ title, setTitle }}>
+        {children}
+      </TitleContext.Provider>
+    </AccountContext.Provider>
   )
 }
