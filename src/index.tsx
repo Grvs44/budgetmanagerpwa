@@ -34,31 +34,37 @@ const router = createBrowserRouter([
         path: 'budget',
         element: <BudgetList />,
         loader: budgetListLoader,
-      },
-      {
-        path: 'budget/:id',
-        element: <BudgetDetail />,
-        loader: budgetDetailLoader,
+        children: [
+          {
+            path: ':id',
+            element: <BudgetDetail />,
+            loader: budgetDetailLoader,
+          },
+        ],
       },
       {
         path: 'payee',
         element: <PayeeList />,
         loader: payeeListLoader,
-      },
-      {
-        path: 'payee/:id',
-        element: <PayeeDetail />,
-        loader: payeeDetailLoader,
+        children: [
+          {
+            path: ':id',
+            element: <PayeeDetail />,
+            loader: payeeDetailLoader,
+          },
+        ],
       },
       {
         path: 'payment',
         element: <PaymentList />,
         loader: paymentListLoader,
-      },
-      {
-        path: 'payment/:id',
-        element: <PaymentDetail />,
-        loader: paymentDetailLoader,
+        children: [
+          {
+            path: ':id',
+            element: <PaymentDetail />,
+            loader: paymentDetailLoader,
+          },
+        ],
       },
       {
         path: 'budget/:budgetId/payee',

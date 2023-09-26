@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Container } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom'
 import { createPayee, getPayees } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
 import List from '../components/List'
@@ -45,6 +45,7 @@ export default function PayeeList() {
         open={createOpen}
         title="Add payee"
       />
+      <Outlet />
     </Container>
   )
 }

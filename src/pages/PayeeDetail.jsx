@@ -13,6 +13,7 @@ import {
 } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
 import { useTitle } from '../provider'
+import DetailDrawer from '../components/DetailDrawer'
 
 export default function BudgetDetail() {
   const [initialPayee, canEdit, total] = useLoaderData()
@@ -38,36 +39,38 @@ export default function BudgetDetail() {
   }
 
   return (
-    <Container>
-      <Typography>Total: {total}</Typography>
-      {canEdit ? (
-        <ButtonGroup>
-          <Button onClick={() => setEditOpen(true)}>
-            <EditIcon /> Edit
-          </Button>
-          <Button onClick={() => setDeleteOpen(true)}>
-            <DeleteIcon />
-            Delete
-          </Button>
-        </ButtonGroup>
-      ) : null}
-      <Link to="payment">
-        <Button>View payments</Button>
-      </Link>
-      <PayeeForm
-        payee={payee}
-        onClose={() => setEditOpen(false)}
-        onSubmit={onEditSubmit}
-        open={editOpen}
-        title={`Edit ${payee.name}`}
-      />
-      <DeleteConfirmation
-        onClose={() => setDeleteOpen(false)}
-        onSubmit={onDeleteSubmit}
-        open={deleteOpen}
-        title="Are you sure you want to delete this payee?"
-      />
-    </Container>
+    <DetailDrawer>
+      <Container>
+        <Typography>Total: {total}</Typography>
+        {canEdit ? (
+          <ButtonGroup>
+            <Button onClick={() => setEditOpen(true)}>
+              <EditIcon /> Edit
+            </Button>
+            <Button onClick={() => setDeleteOpen(true)}>
+              <DeleteIcon />
+              Delete
+            </Button>
+          </ButtonGroup>
+        ) : null}
+        <Link to="payment">
+          <Button>View payments</Button>
+        </Link>
+        <PayeeForm
+          payee={payee}
+          onClose={() => setEditOpen(false)}
+          onSubmit={onEditSubmit}
+          open={editOpen}
+          title={`Edit ${payee.name}`}
+        />
+        <DeleteConfirmation
+          onClose={() => setDeleteOpen(false)}
+          onSubmit={onDeleteSubmit}
+          open={deleteOpen}
+          title="Are you sure you want to delete this payee?"
+        />
+      </Container>
+    </DetailDrawer>
   )
 }
 
