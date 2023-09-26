@@ -1,7 +1,7 @@
 import React from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { Button, Container } from '@mui/material'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom'
 import { createPayment, getPayments } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
 import List from '../components/List'
@@ -45,6 +45,7 @@ export default function PaymentList() {
         open={createOpen}
         title="Add payment"
       />
+      <Outlet />
     </Container>
   )
 }
