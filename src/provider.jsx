@@ -1,13 +1,13 @@
 // From https://stackoverflow.com/a/65705439/18309216
 import React from 'react'
 
-const TitleContext = React.createContext({})
+const TitleContext = React.createContext()
 export const useTitle = () => React.useContext(TitleContext)
 
-const AccountContext = React.createContext({})
+const AccountContext = React.createContext()
 export const useAccount = () => React.useContext(AccountContext)
 
-export const Provider = ({ children }: any) => {
+export const Provider = ({ children }) => {
   const [title, setTitle] = React.useState('Budget Manager')
   document.title = title
 
