@@ -7,7 +7,7 @@ import {
   canEditBudget,
 } from '../api/budget'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
-import { Button, ButtonGroup, Container, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import BudgetForm from '../components/BudgetForm'
@@ -53,12 +53,20 @@ export default function BudgetDetail() {
             </Button>
           </ButtonGroup>
         ) : null}
-        <Link to="payee">
-          <Button>View payees</Button>
-        </Link>
-        <Link to="payment">
-          <Button>View payments</Button>
-        </Link>
+        <Box>
+          <Typography>{budget.name}</Typography>
+          <Typography>{budget.description}</Typography>
+          <Typography>{budget.active?'active':'inactive'}</Typography>
+          <Typography>Last modified at {budget.last_modified} by {budget.modified_by}</Typography>
+        </Box>
+        <ButtonGroup orientation="vertical">
+          <Link to="payee">
+            <Button>View payees</Button>
+          </Link>
+          <Link to="payment">
+            <Button>View payments</Button>
+          </Link>
+        </ButtonGroup>
         <BudgetForm
           budget={budget}
           onClose={() => setEditOpen(false)}
