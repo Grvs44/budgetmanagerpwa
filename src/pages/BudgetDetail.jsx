@@ -12,21 +12,15 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import BudgetForm from '../components/BudgetForm'
 import DeleteConfirmation from '../components/DeleteConfirmation'
-import { useTitle } from '../provider'
 import DetailDrawer from '../components/DetailDrawer'
 
 export default function BudgetDetail() {
   const [initialBudget, canEdit, total] = useLoaderData()
   const navigate = useNavigate()
-  const { setTitle } = useTitle()
 
   const [budget, setBudget] = React.useState(initialBudget)
   const [editOpen, setEditOpen] = React.useState(false)
   const [deleteOpen, setDeleteOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    setTitle(budget.name)
-  }, [])
 
   const onEditSubmit = async (data) => {
     const newBudget = await updateBudget(budget.id, data)

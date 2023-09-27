@@ -11,21 +11,15 @@ import {
   updatePayment,
 } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
-import { useTitle } from '../provider'
 import DetailDrawer from '../components/DetailDrawer'
 
 export default function BudgetDetail() {
   const [initialPayment, canEdit] = useLoaderData()
   const navigate = useNavigate()
-  const { setTitle } = useTitle()
 
   const [payment, setPayment] = React.useState(initialPayment)
   const [editOpen, setEditOpen] = React.useState(false)
   const [deleteOpen, setDeleteOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    setTitle('Payment')
-  }, [])
 
   const onEditSubmit = async (data) => {
     const newPayment = await updatePayment(payment.id, data)

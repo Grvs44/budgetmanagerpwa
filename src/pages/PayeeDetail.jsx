@@ -12,21 +12,15 @@ import {
   updatePayee,
 } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
-import { useTitle } from '../provider'
 import DetailDrawer from '../components/DetailDrawer'
 
 export default function BudgetDetail() {
   const [initialPayee, canEdit, total] = useLoaderData()
   const navigate = useNavigate()
-  const { setTitle } = useTitle()
 
   const [payee, setPayee] = React.useState(initialPayee)
   const [editOpen, setEditOpen] = React.useState(false)
   const [deleteOpen, setDeleteOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    setTitle(payee.name)
-  }, [])
 
   const onEditSubmit = async (data) => {
     const newPayee = await updatePayee(payee.id, data)
