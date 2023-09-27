@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
-import { Button, ButtonGroup, Container, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DeleteConfirmation from '../components/DeleteConfirmation'
@@ -47,9 +47,24 @@ export default function BudgetDetail() {
             </Button>
           </ButtonGroup>
         ) : null}
-        <Link to="payment">
-          <Button>View payments</Button>
-        </Link>
+        <Box>
+          <Typography>{payee.name}</Typography>
+          <Typography>{payee.description}</Typography>
+          <Typography>
+            Budget: <Link to={`../../budget/${payee.budget}`}>budget name</Link>
+          </Typography>
+          <Typography>
+            Last modified at {payee.last_modified} by {payee.modified_by}
+          </Typography>
+        </Box>
+        <ButtonGroup>
+          <Link to="budget">
+            <Button>View budget</Button>
+          </Link>
+          <Link to="payment">
+            <Button>View payments</Button>
+          </Link>
+        </ButtonGroup>
         <PayeeForm
           payee={payee}
           onClose={() => setEditOpen(false)}
