@@ -16,7 +16,8 @@ import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
 import { rootPath } from './settings'
 import Home, { homeLoader } from './pages/Home'
-import { Provider } from './provider'
+import { Provider } from './context/provider'
+import { BudgetContext, ObjectProvider } from './context/object'
 
 const router = createBrowserRouter([
   {
@@ -32,15 +33,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'budget',
-        element: <BudgetList />,
+        element: <ObjectProvider Context={BudgetContext}><BudgetList /></ObjectProvider>,
         loader: budgetListLoader,
-        children: [
-          {
-            path: ':id',
-            element: <BudgetDetail />,
-            loader: budgetDetailLoader,
-          },
-        ],
       },
       {
         path: 'payee',

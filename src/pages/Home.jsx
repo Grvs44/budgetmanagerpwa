@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { getTotal } from '../api/user'
-import { useAccount, useTitle } from '../provider'
+import { useAccount, useTitle } from '../context/provider'
 
 export default function Home() {
   const { total } = useLoaderData()

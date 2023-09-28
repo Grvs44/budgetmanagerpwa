@@ -1,17 +1,18 @@
 import React from 'react'
 import { Button, Container } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { Outlet, useLoaderData, useNavigate } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
 import List from '../components/List'
 import BudgetListItem from '../components/BudgetListItem'
-import { useTitle } from '../provider'
+import { useTitle } from '../context/provider'
+import { BudgetContext } from '../context/object'
 
 export default function BudgetList() {
   const { list } = useLoaderData()
-  const navigate = useNavigate()
   const { setTitle } = useTitle()
+  const {resetItems, addItem} = React.useContext(BudgetContext)
 
   const [createOpen, setCreateOpen] = React.useState(false)
 
@@ -19,10 +20,15 @@ export default function BudgetList() {
     setTitle('Budgets')
   }, [])
 
+  React.useEffect(() => {
+    resetItems(list)
+  }, [list])
+
   const onCreateSubmit = async (data) => {
     const budget = await createBudget(data)
     console.log(budget)
-    return navigate(budget.id.toString())
+    addItem(budget)
+    return null
   }
 
   return (
@@ -32,7 +38,7 @@ export default function BudgetList() {
       </Button>
       {list.count ? (
         <List
-          initialList={list}
+          Context={BudgetContext}
           onNextPage={getBudgets}
           ItemComponent={BudgetListItem}
         />
@@ -45,7 +51,6 @@ export default function BudgetList() {
         open={createOpen}
         title="Add budget"
       />
-      <Outlet />
     </Container>
   )
 }
