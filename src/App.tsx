@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { Outlet, useLoaderData } from 'react-router-dom'
 import TopBar from './components/TopBar'
-import { useAccount, useTitle } from './provider'
+import { useAccount, useTitle } from './context/provider'
 
 export default function App() {
   const {setAccount} = useAccount()
