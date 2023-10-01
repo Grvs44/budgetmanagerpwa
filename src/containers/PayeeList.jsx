@@ -1,28 +1,26 @@
 import React from 'react'
 import { Button, Container } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { Outlet, useLoaderData, useNavigate } from 'react-router-dom'
 import { createPayee, getPayees } from '../api/payee'
 import PayeeForm from '../components/PayeeForm'
 import List from '../components/List'
 import PayeeListItem from '../components/PayeeListItem'
-import { useTitle } from '../context/global'
+import { PayeeContext } from '../context/payee'
 
-export default function PayeeList() {
-  const { list } = useLoaderData()
-  const navigate = useNavigate()
-  const { setTitle } = useTitle()
+export default function PayeeList({ list }) {
+  const { resetItems, addItem } = React.useContext(PayeeContext)
 
   const [createOpen, setCreateOpen] = React.useState(false)
 
   React.useEffect(() => {
-    setTitle('Payees')
-  }, [])
+    resetItems(list)
+  }, [list])
 
   const onCreateSubmit = async (data) => {
     const payee = await createPayee(data)
     console.log(payee)
-    return navigate(payee.id.toString())
+    addItem(payee)
+    return null
   }
 
   return (
@@ -32,7 +30,7 @@ export default function PayeeList() {
       </Button>
       {list.count ? (
         <List
-          initialList={list}
+          Context={PayeeContext}
           onNextPage={getPayees}
           ItemComponent={PayeeListItem}
         />
@@ -45,14 +43,6 @@ export default function PayeeList() {
         open={createOpen}
         title="Add payee"
       />
-      <Outlet />
     </Container>
   )
-}
-
-export async function payeeListLoader({ request, params }) {
-  const searchParams = new URL(request.url).searchParams
-  if (params.budgetId) searchParams.set('budget', params.budgetId)
-  const list = await getPayees(searchParams)
-  return { list }
 }

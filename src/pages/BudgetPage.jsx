@@ -1,5 +1,5 @@
 import React from 'react'
-import { BudgetContext } from '../context/object'
+import { BudgetProvider } from '../context/budget'
 import BudgetList from '../containers/BudgetList'
 import { getBudgets } from '../api/budget'
 import { useLoaderData } from 'react-router-dom'
@@ -14,9 +14,9 @@ export default function BudgetPage() {
   }, [])
 
   return (
-    <ObjectProvider Context={BudgetContext}>
+    <BudgetProvider>
       <BudgetList list={list} />
-    </ObjectProvider>
+    </BudgetProvider>
   )
 }
 

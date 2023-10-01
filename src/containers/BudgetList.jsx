@@ -5,7 +5,7 @@ import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
 import List from '../components/List'
 import BudgetListItem from '../components/BudgetListItem'
-import { BudgetContext } from '../context/object'
+import { BudgetContext } from '../context/budget'
 
 export default function BudgetList({ list }) {
   const { resetItems, addItem } = React.useContext(BudgetContext)
