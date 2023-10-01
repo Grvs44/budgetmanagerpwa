@@ -6,16 +6,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import theme from './theme'
 import ErrorPage from './pages/ErrorPage'
-import PayeeList, { payeeListLoader } from './pages/PayeeList'
-import PayeeDetail, { payeeDetailLoader } from './pages/PayeeDetail'
-import PaymentList, { paymentListLoader } from './pages/PaymentList'
-import PaymentDetail, { paymentDetailLoader } from './pages/PaymentDetail'
 import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
 import { rootPath } from './settings'
 import Home, { homeLoader } from './pages/Home'
 import { GlobalProvider } from './context/global'
 import BudgetPage, { budgetPageLoader } from './pages/BudgetPage'
+import PayeePage, { payeePageLoader } from './pages/PayeePage'
+import PaymentPage, { paymentPageLoader } from './pages/PaymentPage'
 
 const router = createBrowserRouter([
   {
@@ -36,42 +34,28 @@ const router = createBrowserRouter([
       },
       {
         path: 'payee',
-        element: <PayeeList />,
-        loader: payeeListLoader,
-        children: [
-          {
-            path: ':id',
-            element: <PayeeDetail />,
-            loader: payeeDetailLoader,
-          },
-        ],
+        element: <PayeePage />,
+        loader: payeePageLoader,
       },
       {
         path: 'payment',
-        element: <PaymentList />,
-        loader: paymentListLoader,
-        children: [
-          {
-            path: ':id',
-            element: <PaymentDetail />,
-            loader: paymentDetailLoader,
-          },
-        ],
+        element: <PaymentPage />,
+        loader: paymentPageLoader,
       },
       {
         path: 'budget/:budgetId/payee',
-        element: <PayeeList />,
-        loader: payeeListLoader,
+        element: <PayeePage />,
+        loader: payeePageLoader,
       },
       {
         path: 'budget/:budgetId/payment',
-        element: <PaymentList />,
-        loader: paymentListLoader,
+        element: <PaymentPage />,
+        loader: paymentPageLoader,
       },
       {
         path: 'payee/:payeeId/payment',
-        element: <PaymentList />,
-        loader: paymentListLoader,
+        element: <PaymentPage />,
+        loader: paymentPageLoader,
       },
       {
         path: 'join',

@@ -1,16 +1,14 @@
 import React from 'react'
 
-export const BudgetContext = React.createContext()
-export const PayeeContext = React.createContext()
-export const PaymentContext = React.createContext()
-
 export const ObjectProvider = ({ children, Context }) => {
-  const [items, setItems] = React.useState({
+  const initialState = {
     count: 0,
     nextPage: null,
     results: [],
     addedItems: 0,
-  })
+  }
+
+  const [items, setItems] = React.useState(initialState)
 
   const addItem = (newItem) => {
     setItems({
@@ -19,6 +17,10 @@ export const ObjectProvider = ({ children, Context }) => {
       results: items.results.concat(newItem),
       addedItems: items.addedItems + 1,
     })
+  }
+
+  const clearItems = () => {
+    setItems(initialState)
   }
 
   const resetItems = (newItems) => {
@@ -43,7 +45,7 @@ export const ObjectProvider = ({ children, Context }) => {
 
   return (
     <Context.Provider
-      value={{ items, setItems, addItem, resetItems, updateItems }}
+      value={{ items, setItems, addItem, clearItems, resetItems, updateItems }}
     >
       {children}
     </Context.Provider>
