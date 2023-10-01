@@ -7,7 +7,7 @@ export const useTitle = () => React.useContext(TitleContext)
 const AccountContext = React.createContext()
 export const useAccount = () => React.useContext(AccountContext)
 
-export const Provider = ({ children }) => {
+export const GlobalProvider = ({ children }) => {
   const [title, setTitle] = React.useState('Budget Manager')
   document.title = title
 

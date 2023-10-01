@@ -6,8 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import theme from './theme'
 import ErrorPage from './pages/ErrorPage'
-import BudgetList, { budgetListLoader } from './pages/BudgetList'
-import BudgetDetail, { budgetDetailLoader } from './pages/BudgetDetail'
 import PayeeList, { payeeListLoader } from './pages/PayeeList'
 import PayeeDetail, { payeeDetailLoader } from './pages/PayeeDetail'
 import PaymentList, { paymentListLoader } from './pages/PaymentList'
@@ -16,8 +14,8 @@ import JoinForm, { joinFormAction } from './pages/JoinForm'
 import { getCurrentUser } from './api/user'
 import { rootPath } from './settings'
 import Home, { homeLoader } from './pages/Home'
-import { Provider } from './context/provider'
-import { BudgetContext, ObjectProvider } from './context/object'
+import { GlobalProvider } from './context/global'
+import BudgetPage, { budgetPageLoader } from './pages/BudgetPage'
 
 const router = createBrowserRouter([
   {
@@ -33,8 +31,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'budget',
-        element: <ObjectProvider Context={BudgetContext}><BudgetList /></ObjectProvider>,
-        loader: budgetListLoader,
+        element: <BudgetPage />,
+        loader: budgetPageLoader,
       },
       {
         path: 'payee',
@@ -90,10 +88,10 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Provider>
+  <GlobalProvider>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </Provider>
+  </GlobalProvider>
 )

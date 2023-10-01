@@ -11,7 +11,8 @@ export default function BudgetListItem({ item }) {
         ) : (
           <Typography>inactive</Typography>
         )}
-        <Typography>User {item.user}</Typography>
+        <Typography>{budget.description}</Typography>
+          <Typography>Last modified at {budget.last_modified} by {budget.modified_by}</Typography>
       </Box>
     </ListItem>
   )

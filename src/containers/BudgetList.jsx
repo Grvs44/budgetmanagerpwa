@@ -1,24 +1,16 @@
 import React from 'react'
 import { Button, Container } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { useLoaderData } from 'react-router-dom'
 import { createBudget, getBudgets } from '../api/budget'
 import BudgetForm from '../components/BudgetForm'
 import List from '../components/List'
 import BudgetListItem from '../components/BudgetListItem'
-import { useTitle } from '../context/provider'
 import { BudgetContext } from '../context/object'
 
-export default function BudgetList() {
-  const { list } = useLoaderData()
-  const { setTitle } = useTitle()
-  const {resetItems, addItem} = React.useContext(BudgetContext)
+export default function BudgetList({ list }) {
+  const { resetItems, addItem } = React.useContext(BudgetContext)
 
   const [createOpen, setCreateOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    setTitle('Budgets')
-  }, [])
 
   React.useEffect(() => {
     resetItems(list)
@@ -53,11 +45,4 @@ export default function BudgetList() {
       />
     </Container>
   )
-}
-
-export async function budgetListLoader({ request }) {
-  const params = new URL(request.url).searchParams
-  params.delete('offset')
-  const list = await getBudgets(params)
-  return { list }
 }
