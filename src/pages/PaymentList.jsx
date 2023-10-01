@@ -6,7 +6,7 @@ import { createPayment, getPayments } from '../api/payment'
 import PaymentForm from '../components/PaymentForm'
 import List from '../components/List'
 import PaymentListItem from '../components/PaymentListItem'
-import { useTitle } from '../context/provider'
+import { useTitle } from '../context/global'
 
 export default function PaymentList() {
   const { list } = useLoaderData()
