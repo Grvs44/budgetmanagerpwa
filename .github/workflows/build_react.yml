@@ -25,7 +25,7 @@ jobs:
         run: npm run build
       - name: Package
         working-directory: ./build
-        run: zip ../../budgetmanagerpwa-${{ env.APPVERSION }}.zip ./* -r
+        run: zip ../budgetmanagerpwa-${{ env.APPVERSION }}.zip ./* -r
       - name: Upload to release
         env:
           GH_TOKEN: ${{ github.token }}
