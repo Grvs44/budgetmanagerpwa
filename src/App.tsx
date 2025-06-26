@@ -1,24 +1,42 @@
 import React from 'react'
-import { Box } from '@mui/material'
-import { Outlet, useLoaderData } from 'react-router-dom'
-import TopBar from './components/TopBar'
-import { useAccount, useTitle } from './context/global'
+import { Box, CircularProgress } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { Outlet } from 'react-router-dom'
+import TopBar from './containers/TopBar'
+import LoginPage from './pages/LoginPage'
+import { useGetCurrentUserQuery } from './redux/apiSlice'
+import { setDeferredPrompt, setShow } from './redux/installSlice'
+import { State } from './redux/types'
 
 export default function App() {
-  const {setAccount} = useAccount()
-  const { title } = useTitle()
-  const user: any = useLoaderData()
+  const dispatch = useDispatch()
+  const user = useGetCurrentUserQuery()
+  const { title } = useSelector((state: State) => state.title)
 
-  React.useEffect(() => {
-    setAccount(user)
-  }, [])
+  React.useEffect(
+    () =>
+      window.addEventListener('beforeinstallprompt', (event: Event) => {
+        event.preventDefault()
+        dispatch(setShow(true))
+        dispatch(setDeferredPrompt(event))
+      }),
+    [],
+  )
 
-  return (
+  return user.isLoading ? (
+    <Box
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+    >
+      <CircularProgress />
+    </Box>
+  ) : user.data ? (
     <div>
-      <TopBar user={user} title={title} />
+      <TopBar user={user.data} title={title} />
       <Box sx={{ my: 4 }}>
         <Outlet />
       </Box>
     </div>
+  ) : (
+    <LoginPage />
   )
 }
