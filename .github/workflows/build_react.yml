@@ -1,0 +1,39 @@
+# Adapted from Grvs/Inclusive-Venues
+name: Build React
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get app version
+        run: echo APPVERSION=$(npm pkg get version) >> $GITHUB_ENV
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_VITE_API_URL: /budgetmanager/api/
+          envkey_VITE_VERSION: ${{ env.APPVERSION }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Package
+        working-directory: ./build
+        run: zip ../../budgetmanagerpwa-${{ env.APPVERSION }}.zip ./* -r
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ref=${{ github.ref }}
+          if [[ "$ref" == refs/tags/* ]]; then
+            tag="${ref#refs/tags/}"
+          else
+            tag=$(git ls-remote --tags --sort=committerdate | grep -o 'v.*' | sort -r | head -1)
+          fi
+          gh release upload $tag budgetmanagerpwa-${{ env.APPVERSION }}.zip
