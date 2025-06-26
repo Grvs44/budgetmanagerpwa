@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Settings } from './types'
+import type { Settings } from './types'
+
+const STORAGE_KEY = 'budgetmanagersettings'
 
 const defaultSettings: Settings = {
   currency: '',
 }
 
 const getInitialState: () => Settings = () => {
-  const settings = localStorage.getItem(import.meta.env.VITE_STORAGE_KEY)
+  const settings = localStorage.getItem(STORAGE_KEY)
   return settings ? JSON.parse(settings) : defaultSettings
 }
 
@@ -15,10 +17,7 @@ export const settingsSlice = createSlice({
   initialState: getInitialState(),
   reducers: {
     saveSettings: (state, action) => {
-      localStorage.setItem(
-        import.meta.env.VITE_STORAGE_KEY,
-        JSON.stringify(action.payload)
-      )
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(action.payload))
       return action.payload
     },
   },
