@@ -16,16 +16,20 @@ export type JoinDialogProps = {
 
 const JoinDialog: React.FC<JoinDialogProps> = (props) => {
   const [joinBudget] = useJoinBudgetMutation()
+  const [loading, setLoading] = React.useState<boolean>(false)
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
+    setLoading(true)
     try {
       await joinBudget(
         Object.fromEntries(new FormData(event.currentTarget).entries()),
       ).unwrap()
+      setLoading(false)
       alert('Joined budget')
       props.onClose()
     } catch (error: any) {
+      setLoading(false)
       alert('Error joining budget: ' + error?.data?.detail)
     }
   }
@@ -54,7 +58,12 @@ const JoinDialog: React.FC<JoinDialogProps> = (props) => {
         <Button type="button" onClick={props.onClose}>
           Close
         </Button>
-        <Button type="submit" variant="contained">
+        <Button
+          type="submit"
+          variant="contained"
+          loading={loading}
+          loadingPosition="start"
+        >
           Join
         </Button>
       </DialogActions>
