@@ -24,6 +24,7 @@ const JoinDialog: React.FC<JoinDialogProps> = (props) => {
         Object.fromEntries(new FormData(event.currentTarget).entries()),
       ).unwrap()
       alert('Joined budget')
+      props.onClose()
     } catch (error: any) {
       alert('Error joining budget: ' + error?.data?.detail)
     }
