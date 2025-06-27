@@ -1,8 +1,9 @@
-import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { setTitle } from '../redux/titleSlice'
+import { Box, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
+import { Outlet } from 'react-router-dom'
 import { useGetCurrentUserQuery, useGetTotalQuery } from '../redux/apiSlice'
+import { setTitle } from '../redux/titleSlice'
 
 export default function Home() {
   const total = useGetTotalQuery()
@@ -23,6 +24,7 @@ export default function Home() {
       <Typography variant="h5" component="h2" hidden={total.isLoading}>
         Total: {total.data}
       </Typography>
+      <Outlet />
     </Box>
   )
 }
