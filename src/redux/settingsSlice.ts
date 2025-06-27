@@ -12,16 +12,19 @@ const getInitialState: () => Settings = () => {
   return settings ? JSON.parse(settings) : defaultSettings
 }
 
+const saveSettings = (data: Settings) =>
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState: getInitialState(),
   reducers: {
-    saveSettings: (state, action) => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(action.payload))
-      return action.payload
+    setCurrency(state, action: { payload: string }) {
+      state.currency = action.payload
+      saveSettings(state)
     },
   },
 })
 
-export const { saveSettings } = settingsSlice.actions
+export const { setCurrency } = settingsSlice.actions
 export default settingsSlice.reducer

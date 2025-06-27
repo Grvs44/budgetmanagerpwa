@@ -1,8 +1,11 @@
-import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { red } from '@mui/material/colors'
+import { createTheme } from '@mui/material/styles'
 
 // A custom theme for this app
 const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
   palette: {
     primary: {
       main: '#556cd6',
@@ -28,6 +31,6 @@ const theme = createTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
-});
+})
 
-export default theme;
+export default theme

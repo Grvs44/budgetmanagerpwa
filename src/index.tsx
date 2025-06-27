@@ -7,10 +7,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import BudgetPage from './pages/BudgetPage'
 import ErrorPage from './pages/ErrorPage'
-import Home from './pages/Home'
+import HomePage from './pages/HomePage'
 import JoinPage from './pages/JoinPage'
 import PayeePage from './pages/PayeePage'
 import PaymentPage from './pages/PaymentPage'
+import SettingsPage from './pages/SettingsPage'
 import store from './redux/store'
 import theme from './theme'
 
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Home />,
+        element: <HomePage />,
         children: [
           {
             path: 'join',
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: 'payee/:payeeId/payment',
         element: <PaymentPage />,
+      },
+      {
+        path: 'settings',
+        element: <SettingsPage />,
       },
     ],
   },
