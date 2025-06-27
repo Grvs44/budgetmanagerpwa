@@ -1,4 +1,5 @@
 import React from 'react'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import HomeIcon from '@mui/icons-material/Home'
 import PaymentsIcon from '@mui/icons-material/Payments'
 import SavingsIcon from '@mui/icons-material/Savings'
@@ -62,6 +63,14 @@ export default function MenuDrawer(props: MenuDrawerProps) {
           </ListItemButtonLink>
         </ListItem>
         <div style={{ marginTop: 'auto' }}>
+          <ListItem>
+            <ListItemButtonLink to="join">
+              <ListItemIcon>
+                <AddShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText>Join Budget</ListItemText>
+            </ListItemButtonLink>
+          </ListItem>
           <Divider component="li" />
           <InstallPwaListItem />
           <AccountListItem user={props.user} />
