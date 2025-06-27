@@ -60,7 +60,15 @@ export const apiSlice = createApi({
       if (csrfToken) headers.set('X-CSRFToken', csrfToken)
     },
   }),
-  tagTypes: ['Budget', 'BudgetTotal', 'Payee', 'PayeeTotal', 'Payment', 'User'],
+  tagTypes: [
+    'Budget',
+    'BudgetTotal',
+    'Payee',
+    'PayeeTotal',
+    'Payment',
+    'Total',
+    'User',
+  ],
   endpoints: (builder) => ({
     // User
     getCurrentUser: builder.query<User | undefined, void>({
@@ -125,6 +133,7 @@ export const apiSlice = createApi({
     }),
     getTotal: builder.query<number, void>({
       query: () => 'total/',
+      providesTags: [{ type: 'Total' }],
     }),
     joinBudget: builder.mutation({
       query: (body) => ({
@@ -132,6 +141,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: [{ type: 'Budget', id: PARTIAL }, { type: 'Total' }],
     }),
 
     // Budgets

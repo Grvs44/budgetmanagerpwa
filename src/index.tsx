@@ -1,18 +1,18 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
-import theme from './theme'
-import ErrorPage from './pages/ErrorPage'
-import JoinForm from './pages/JoinForm'
-import Home from './pages/Home'
 import BudgetPage from './pages/BudgetPage'
+import ErrorPage from './pages/ErrorPage'
+import Home from './pages/Home'
+import JoinPage from './pages/JoinPage'
 import PayeePage from './pages/PayeePage'
 import PaymentPage from './pages/PaymentPage'
+import store from './redux/store'
+import theme from './theme'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +23,16 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <Home />,
+        children: [
+          {
+            path: 'join',
+            element: <JoinPage />,
+          },
+          {
+            path: 'join/:id',
+            element: <JoinPage />,
+          },
+        ],
       },
       {
         path: 'budget',
@@ -48,14 +58,6 @@ const router = createBrowserRouter([
         path: 'payee/:payeeId/payment',
         element: <PaymentPage />,
       },
-      {
-        path: 'join',
-        element: <JoinForm />,
-      },
-      {
-        path: 'join/:id',
-        element: <JoinForm />,
-      },
     ],
   },
 ])
@@ -66,5 +68,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <CssBaseline />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </Provider>
+  </Provider>,
 )
