@@ -6,7 +6,7 @@ import { useGetCurrentUserQuery, useGetTotalQuery } from '../redux/apiSlice'
 import { setTitle } from '../redux/titleSlice'
 import type { State } from '../redux/types'
 
-export default function Home() {
+export default function HomePage() {
   const total = useGetTotalQuery()
   const { data: user, isLoading } = useGetCurrentUserQuery()
   const dispatch = useDispatch()

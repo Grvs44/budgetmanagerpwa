@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import BudgetPage from './pages/BudgetPage'
 import ErrorPage from './pages/ErrorPage'
-import Home from './pages/Home'
+import HomePage from './pages/HomePage'
 import JoinPage from './pages/JoinPage'
 import PayeePage from './pages/PayeePage'
 import PaymentPage from './pages/PaymentPage'
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Home />,
+        element: <HomePage />,
         children: [
           {
             path: 'join',
