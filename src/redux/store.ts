@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import installReducer from './installSlice'
-import titleReducer from './titleSlice'
-import settingsReducer from './settingsSlice'
 import { apiSlice } from './apiSlice'
+import installReducer from './installSlice'
+import { licenseSlice } from './licenseSlice'
+import settingsReducer from './settingsSlice'
+import titleReducer from './titleSlice'
 
 export default configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export default configureStore({
     title: titleReducer,
     settings: settingsReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
+    [licenseSlice.reducerPath]: licenseSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -17,5 +19,7 @@ export default configureStore({
         ignoredActions: ['install/setDeferredPrompt'],
         ignoredPaths: ['install.deferredPrompt'],
       },
-    }).concat(apiSlice.middleware),
+    })
+      .concat(apiSlice.middleware)
+      .concat(licenseSlice.middleware),
 })

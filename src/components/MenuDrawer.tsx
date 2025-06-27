@@ -3,6 +3,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import HomeIcon from '@mui/icons-material/Home'
 import PaymentsIcon from '@mui/icons-material/Payments'
 import SavingsIcon from '@mui/icons-material/Savings'
+import SettingsIcon from '@mui/icons-material/Settings'
 import StoreIcon from '@mui/icons-material/Store'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
@@ -74,6 +75,14 @@ export default function MenuDrawer(props: MenuDrawerProps) {
           <Divider component="li" />
           <InstallPwaListItem />
           <AccountListItem user={props.user} />
+          <ListItem>
+            <ListItemButtonLink to="settings">
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText>Settings</ListItemText>
+            </ListItemButtonLink>
+          </ListItem>
         </div>
       </List>
     </SwipeableDrawer>
