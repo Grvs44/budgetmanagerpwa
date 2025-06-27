@@ -2,7 +2,7 @@
   "name": "budgetmanagerpwa",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/budgetmanager",
+  "repository": "https://github.com/Grvs44/budgetmanagerpwa",
   "license": "BSD-3-Clause",
   "author": {
     "name": "Elli Greaves",
