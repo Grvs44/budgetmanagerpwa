@@ -1,26 +1,20 @@
 import React from 'react'
-import {
-  Checkbox,
-  FormControlLabel,
-  List,
-  ListItem,
-  TextField,
-} from '@mui/material'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import TextField from '@mui/material/TextField'
 import { DatePicker } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import {
-  useGetBudgetQuery,
-  useGetPayeeQuery,
-  useGetPayeesSearchQuery,
-} from '../redux/apiSlice'
-import DropDown from './DropDown'
+import { useGetBudgetQuery, useGetPayeeQuery } from '../redux/apiSlice'
 import FormDialog from './FormDialog'
 import 'dayjs/locale/en-gb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { EditablePayment, Nameable } from '../redux/types'
 import BudgetDropDown from './BudgetDropDown'
+import PayeeDropDown from './PayeeDropDown'
 
 dayjs.extend(customParseFormat)
 
@@ -77,23 +71,14 @@ export default function PaymentForm({
         <ListItem>
           <BudgetDropDown
             defaultValue={budgetQuery.data}
-            disabled={false}
             onChange={setBudget}
           />
         </ListItem>
         <ListItem>
-          <DropDown
+          <PayeeDropDown
             defaultValue={payeeQuery.data}
-            label="Payee"
-            required
             onChange={setPayee}
-            disabled={budget == null}
-            hook={(input, open) =>
-              useGetPayeesSearchQuery(
-                { name: input, budget: { id: budget ? budget.id : 0 } }, // TODO
-                { skip: !open || budget == undefined },
-              )
-            }
+            budget={budget || null}
           />
         </ListItem>
         <ListItem>

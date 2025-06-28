@@ -228,7 +228,7 @@ export const apiSlice = createApi({
       forceRefetch,
       keepUnusedDataFor: 0,
     }),
-    getPayeesSearch: builder.query<string, PayeeSearch>({
+    getPayeesSearch: builder.query<PageState<Payee>, PayeeSearch>({
       query: ({ name, budget }) =>
         `payee/?limit=10&ordering=-last_used&budget=${
           budget.id
