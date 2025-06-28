@@ -11,8 +11,8 @@ import {
   useGetPayeeTotalQuery,
   useGetUserQuery,
 } from '../redux/apiSlice'
-import { showUserDetails } from '../redux/utils'
 import Dialog from './Dialog'
+import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
 type ViewContentProps = {
@@ -66,10 +66,7 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
         <DialogContent>
           <Typography>Budget: {budget.data?.name}</Typography>
           <Typography>{payee.data?.description}</Typography>
-          <Typography>
-            Last modified on {payee.data?.last_modified} by{' '}
-            {user.data ? showUserDetails(user.data) : <Skeleton />}
-          </Typography>
+          <ModifiedText data={payee.data} user={user} />
           <TotalText
             data={total.data}
             isFetching={total.isFetching}

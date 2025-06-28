@@ -1,6 +1,6 @@
 import { User } from './types'
 
-export const showUserDetails = (user: User | null) =>
+export const showUserDetails = (user: User | null | undefined) =>
   user
     ? user.first_name
       ? user.last_name
@@ -11,7 +11,7 @@ export const showUserDetails = (user: User | null) =>
 
 export const getPaymentTitle = (
   payment: { amount: number },
-  payee: { name: string }
+  payee: { name: string },
 ) =>
   `${Math.abs(payment.amount)} ${payment.amount > 0 ? 'from' : 'to'} ${
     payee.name
