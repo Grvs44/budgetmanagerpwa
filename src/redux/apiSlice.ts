@@ -153,13 +153,14 @@ export const apiSlice = createApi({
       keepUnusedDataFor: 0,
       providesTags: [{ type: 'Budget', id: PARTIAL }],
     }),
-    getBudgetsSearch: builder.query<string, string>({
+    getBudgetsSearch: builder.query<PageState<Budget>, string>({
       query: (name) =>
         'budget/?limit=10&ordering=-last_used&search=' + encodeURI(name),
+      providesTags: [{ type: 'Budget', id: PARTIAL }],
     }),
     getBudget: builder.query<Budget, number | null | undefined>({
       query: (id) => `budget/${id}/`,
-      providesTags: (data, error, arg) => [{ type: 'Budget', id: data?.id }],
+      providesTags: (data) => [{ type: 'Budget', id: data?.id }],
     }),
     getBudgetTotal: builder.query<string, number | null | undefined>({
       query: (id) => `budget/${id}/total/`,
@@ -227,7 +228,7 @@ export const apiSlice = createApi({
       forceRefetch,
       keepUnusedDataFor: 0,
     }),
-    getPayeesSearch: builder.query<string, PayeeSearch>({
+    getPayeesSearch: builder.query<PageState<Payee>, PayeeSearch>({
       query: ({ name, budget }) =>
         `payee/?limit=10&ordering=-last_used&budget=${
           budget.id
@@ -235,7 +236,7 @@ export const apiSlice = createApi({
     }),
     getPayee: builder.query<Payee, number | null | undefined>({
       query: (id) => `payee/${id}/`,
-      providesTags: (data, error, arg) => [{ type: 'Payee', id: data?.id }],
+      providesTags: (data) => [{ type: 'Payee', id: data?.id }],
     }),
     getPayeeTotal: builder.query<string, number | null | undefined>({
       query: (id) => `payee/${id}/total/`,
@@ -300,7 +301,7 @@ export const apiSlice = createApi({
     }),
     getPayment: builder.query<Payment, number | null>({
       query: (id) => `payment/${id}/`,
-      providesTags: (data, error, arg) => [{ type: 'Payment', id: data?.id }],
+      providesTags: (data) => [{ type: 'Payment', id: data?.id }],
     }),
     createPayment: builder.mutation<Payment, SubmitPayment>({
       query: (body) => ({
