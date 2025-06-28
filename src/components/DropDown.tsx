@@ -1,60 +1,79 @@
 // From https://mui.com/material-ui/react-autocomplete
+// and https://github.com/Grvs44/Inclusive-Venues/blob/v1.0.1/react/src/components/DropDown.tsx
 import React from 'react'
 import Autocomplete from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
 import TextField from '@mui/material/TextField'
 import type { Nameable } from '../redux/types'
 
-export type DropDownProps = {
-  defaultValue?: Nameable | null
+export type DropDownProps<T extends Nameable> = {
+  defaultValue?: T | null
+  value?: T | null
   label: string
-  name: string
   required?: boolean
   disabled?: boolean
-  onChange: (value: Nameable | null) => void
-  hook: (input: string, open: boolean) => any
+  fullWidth?: boolean
+  onChange: (value: T | null) => void
+  data: T[]
+  isFetching: boolean
+  open: boolean
+  setOpen: (open: boolean) => void
+  input: string
+  setInput: (input: string) => void
 }
 
-export default function DropDown(props: DropDownProps) {
-  const [open, setOpen] = React.useState<boolean>(false)
-  const [input, setInput] = React.useState<string>('')
-  const { data, isLoading } = props.hook(input, open)
-  const loading = open && isLoading
+export default function DropDown<T extends Nameable>(props: DropDownProps<T>) {
+  const [currentData, setCurrentData] = React.useState<T[]>([])
+  const loading = props.open && props.isFetching
+
+  React.useEffect(() => {
+    if (props.input == '') {
+      setCurrentData(props.data)
+    } else {
+      const lower = props.input.toLowerCase()
+      setCurrentData(
+        props.data.filter((x) => x.name.toLowerCase().includes(lower)),
+      )
+    }
+  }, [props.input])
+
+  React.useEffect(() => setCurrentData(props.data), [props.data])
 
   return (
     <Autocomplete
       filterOptions={(x) => x}
       defaultValue={props.defaultValue}
+      value={props.value}
       disabled={props.disabled}
-      sx={{ width: 300 }}
-      open={open}
-      onOpen={() => {
-        setOpen(true)
-      }}
-      onClose={() => {
-        setOpen(false)
-      }}
+      fullWidth={props.fullWidth}
+      open={props.open}
+      onOpen={() => props.setOpen(true)}
+      onClose={() => props.setOpen(false)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       getOptionKey={(option) => option.id}
       getOptionLabel={(option) => option.name}
-      onChange={(event, value, reason) => props.onChange(value)}
-      onInputChange={(event, value, reason) => setInput(value)}
-      options={data ? data.results : []}
+      onChange={(_, value) => props.onChange(value)}
+      onInputChange={(_, value) => props.setInput(value)}
+      options={currentData}
       loading={loading}
       renderInput={(params) => (
         <TextField
           {...params}
           label={props.label}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
+          required={props.required}
+          value={props.input}
+          slotProps={{
+            input: {
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            },
           }}
         />
       )}

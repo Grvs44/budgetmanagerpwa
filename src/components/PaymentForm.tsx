@@ -12,7 +12,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import {
   useGetBudgetQuery,
-  useGetBudgetsSearchQuery,
   useGetPayeeQuery,
   useGetPayeesSearchQuery,
 } from '../redux/apiSlice'
@@ -21,6 +20,7 @@ import FormDialog from './FormDialog'
 import 'dayjs/locale/en-gb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { EditablePayment, Nameable } from '../redux/types'
+import BudgetDropDown from './BudgetDropDown'
 
 dayjs.extend(customParseFormat)
 
@@ -75,23 +75,16 @@ export default function PaymentForm({
     >
       <List>
         <ListItem>
-          <DropDown
+          <BudgetDropDown
             defaultValue={budgetQuery.data}
-            label="Budget"
-            name="budget"
-            required
             disabled={false}
             onChange={setBudget}
-            hook={(input, open) =>
-              useGetBudgetsSearchQuery(input, { skip: !open })
-            }
           />
         </ListItem>
         <ListItem>
           <DropDown
             defaultValue={payeeQuery.data}
             label="Payee"
-            name="payee"
             required
             onChange={setPayee}
             disabled={budget == null}
@@ -109,7 +102,7 @@ export default function PaymentForm({
             defaultValue={payment.amount}
             label="Amount"
             type="number"
-            inputProps={{ step: '0.01' }}
+            slotProps={{ htmlInput: { step: '0.01' } }}
             required
             autoComplete="false"
           />

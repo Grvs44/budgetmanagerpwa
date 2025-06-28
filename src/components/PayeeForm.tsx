@@ -2,9 +2,9 @@ import React from 'react'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import TextField from '@mui/material/TextField'
-import { useGetBudgetQuery, useGetBudgetsSearchQuery } from '../redux/apiSlice'
+import { useGetBudgetQuery } from '../redux/apiSlice'
 import type { EditablePayee, Nameable, SubmitPayee } from '../redux/types'
-import DropDown from './DropDown'
+import BudgetDropDown from './BudgetDropDown'
 import FormDialog from './FormDialog'
 
 export type PayeeFormProps = {
@@ -42,16 +42,10 @@ export default function PayeeForm(props: PayeeFormProps) {
     >
       <List>
         <ListItem>
-          <DropDown
+          <BudgetDropDown
             defaultValue={budget.data}
-            label="Budget"
-            name="budget"
-            required
             disabled={budget.isLoading}
             onChange={setData}
-            hook={(input: string, open: boolean) =>
-              useGetBudgetsSearchQuery(input, { skip: !open })
-            }
           />
         </ListItem>
         <ListItem>
