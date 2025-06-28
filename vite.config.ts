@@ -18,7 +18,7 @@ export default defineConfig({
       injectRegister: 'inline',
       strategies: 'injectManifest',
       srcDir: 'src',
-      filename: 'service-worker.js',
+      filename: 'service-worker.ts',
       manifest: false,
     }),
     createHtmlPlugin({ minify: true }),
