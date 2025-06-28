@@ -11,8 +11,8 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import type { Budget } from '../redux/types'
-import { showUserDetails } from '../redux/utils'
 import Dialog from './Dialog'
+import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
 export type BudgetViewDialogProps = {
@@ -50,10 +50,7 @@ function ViewContent(props: BudgetViewDialogProps) {
         <DialogContent>
           <Typography>{data?.description}</Typography>
           <Typography>{data?.active ? 'Active' : 'Inactive'}</Typography>
-          <Typography>
-            Last modified on {data?.last_modified} by{' '}
-            {user.data ? showUserDetails(user.data) : <Skeleton />}
-          </Typography>
+          <ModifiedText data={data} user={user} />
           <TotalText
             data={total.data}
             isFetching={total.isFetching}
