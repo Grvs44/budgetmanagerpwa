@@ -12,7 +12,7 @@ export type FormDialogProps = {
   onSubmit: (data: any) => void
   open: boolean
   title: string
-  type?: DialogType
+  type: DialogType
 }
 
 export default function FormDialog({
