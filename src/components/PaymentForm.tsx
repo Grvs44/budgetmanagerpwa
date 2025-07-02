@@ -99,7 +99,9 @@ export default function PaymentForm({
           >
             <DatePicker
               name="date"
-              defaultValue={dayjs(payment.date)}
+              defaultValue={
+                payment.date ? dayjs(payment.date) : dayjs(Date.now())
+              }
               label="Date"
             />
           </LocalizationProvider>
