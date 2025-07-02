@@ -11,7 +11,7 @@ import {
   useGetPayeeTotalQuery,
   useGetUserQuery,
 } from '../redux/apiSlice'
-import Dialog from './Dialog'
+import Dialog, { DialogType } from './Dialog'
 import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
@@ -34,7 +34,7 @@ export default function PayeeViewDialog({
   onDelete,
 }: PayeeViewDialogProps) {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} type={DialogType.PayeeView}>
       <ViewContent
         onClose={onClose}
         onEdit={onEdit}

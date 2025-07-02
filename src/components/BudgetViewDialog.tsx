@@ -11,7 +11,7 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import type { Budget } from '../redux/types'
-import Dialog from './Dialog'
+import Dialog, { DialogType } from './Dialog'
 import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
@@ -25,7 +25,11 @@ export type BudgetViewDialogProps = {
 
 export default function BudgetViewDialog(props: BudgetViewDialogProps) {
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog
+      open={props.open}
+      onClose={props.onClose}
+      type={DialogType.BudgetView}
+    >
       <ViewContent {...props} />
     </Dialog>
   )

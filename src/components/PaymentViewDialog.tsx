@@ -12,7 +12,7 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import { showUserDetails } from '../redux/utils'
-import Dialog from './Dialog'
+import Dialog, { DialogType } from './Dialog'
 
 export type PaymmentViewDialogProps = {
   open: boolean
@@ -39,7 +39,11 @@ export default function PaymentViewDialog({
     skip: skip || payment.data?.modified_by == null,
   })
   return (
-    <Dialog open={open && paymentId != null} onClose={onClose}>
+    <Dialog
+      open={open && paymentId != null}
+      onClose={onClose}
+      type={DialogType.PaymentView}
+    >
       <DialogTitle>
         {!payment.data
           ? 'Loading'

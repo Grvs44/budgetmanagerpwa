@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
 import CloseButton from '../components/CloseButton'
-import Dialog from '../components/Dialog'
+import Dialog, { DialogType } from '../components/Dialog'
 import { useJoinBudgetMutation } from '../redux/apiSlice'
 
 export type JoinDialogProps = {
@@ -38,6 +38,7 @@ const JoinDialog: React.FC<JoinDialogProps> = (props) => {
     <Dialog
       open={props.open}
       onClose={props.onClose}
+      type={DialogType.Other}
       slotProps={{ paper: { component: 'form', onSubmit } }}
     >
       <DialogTitle>Join Budget</DialogTitle>

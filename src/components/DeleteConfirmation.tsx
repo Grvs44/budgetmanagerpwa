@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import DialogActions from '@mui/material/DialogActions'
 import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from './Dialog'
+import Dialog, { DialogType } from './Dialog'
 
 export type DeleteConfirmationProps = {
   onClose: () => void
@@ -18,7 +18,11 @@ const DeleteConfirmation = (props: DeleteConfirmationProps) => {
     props.onClose()
   }
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog
+      open={props.open}
+      onClose={props.onClose}
+      type={DialogType.Other}
+    >
       <DialogTitle>{props.title}</DialogTitle>
       <DialogActions>
         <form onSubmit={onFormSubmit}>
