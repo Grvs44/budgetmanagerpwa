@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -11,7 +12,6 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import type { Budget } from '../redux/types'
-import Dialog from './Dialog'
 import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 

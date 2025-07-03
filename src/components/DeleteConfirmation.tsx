@@ -1,8 +1,8 @@
 import React from 'react'
+import Dialog from '@mui/material//Dialog'
 import Button from '@mui/material/Button'
 import DialogActions from '@mui/material/DialogActions'
 import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from './Dialog'
 
 export type DeleteConfirmationProps = {
   onClose: () => void
