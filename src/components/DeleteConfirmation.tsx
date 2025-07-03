@@ -1,4 +1,4 @@
-import React from 'react'
+import type { FormEvent } from 'react'
 import Dialog from '@mui/material//Dialog'
 import Button from '@mui/material/Button'
 import DialogActions from '@mui/material/DialogActions'
@@ -12,7 +12,7 @@ export type DeleteConfirmationProps = {
 }
 
 const DeleteConfirmation = (props: DeleteConfirmationProps) => {
-  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     props.onSubmit()
     props.onClose()

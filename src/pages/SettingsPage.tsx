@@ -1,15 +1,15 @@
 // Adapted from Grvs44/Inclusive-Venues
-import React from 'react'
+import { FC, useEffect } from 'react'
 import { Container, Divider, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import LicenseContainer from '../containers/LicenseContainer'
 import SettingsContainer from '../containers/SettingsContainer'
 import { setTitle } from '../redux/titleSlice'
 
-const SettingsPage: React.FC = () => {
+const SettingsPage: FC = () => {
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(setTitle('Settings'))
   }, [])
 

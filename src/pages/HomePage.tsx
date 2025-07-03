@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Container, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
@@ -13,7 +13,7 @@ export default function HomePage() {
   const dispatch = useDispatch()
   const settings = useSelector((state: State) => state.settings)
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(setTitle('Budget Manager'))
   }, [])
 

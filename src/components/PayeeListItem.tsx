@@ -1,4 +1,3 @@
-import React from 'react'
 import Box from '@mui/material/Box'
 import ListItem from '@mui/material/ListItem'
 import Skeleton from '@mui/material/Skeleton'

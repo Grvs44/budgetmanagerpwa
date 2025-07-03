@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
 import type { LinkProps } from 'react-router-dom'
 import { ListItemButton } from '@mui/material'

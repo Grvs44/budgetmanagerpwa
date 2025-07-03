@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import TextField from '@mui/material/TextField'
@@ -19,11 +19,11 @@ export default function PayeeForm(props: PayeeFormProps) {
   const budget = useGetBudgetQuery(props.payee?.budget, {
     skip: props.payee?.budget == undefined,
   })
-  const [data, setData] = React.useState<Nameable | null | undefined>(
+  const [data, setData] = useState<Nameable | null | undefined>(
     props.payee?.budget ? budget.data : null,
   )
 
-  React.useEffect(() => setData(budget.data), [budget.isLoading])
+  useEffect(() => setData(budget.data), [budget.isLoading])
 
   const onFormSubmit = (formData: EditablePayee) => {
     if (data == null) alert('Missing budget')

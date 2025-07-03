@@ -1,4 +1,3 @@
-import React from 'react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import HomeIcon from '@mui/icons-material/Home'
 import PaymentsIcon from '@mui/icons-material/Payments'

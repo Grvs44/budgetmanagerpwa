@@ -1,4 +1,4 @@
-import React from 'react'
+import { JSX } from 'react/jsx-runtime'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 
 export type FormDialogProps = {
-  children: React.JSX.Element
+  children: JSX.Element
   onClose: () => void
   onSubmit: (data: any) => void
   open: boolean

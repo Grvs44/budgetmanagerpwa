@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -16,7 +16,7 @@ export type AccountDialogProps = {
 
 // Adapted from Grvs44/Inclusive-Venues
 const AccountDialog: React.FC<AccountDialogProps> = (props) => {
-  const [loading, setLoading] = React.useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [logout] = useLogoutMutation()
 
   const onLogout = async () => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, FormEventHandler, useState } from 'react'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -8,11 +8,11 @@ import { useLoginMutation } from '../redux/apiSlice'
 import type { UserLogin } from '../redux/types'
 
 // Adapted from Grvs44/Inclusive-Venues
-const LoginPage: React.FC = () => {
-  const [loading, setLoading] = React.useState<boolean>(false)
+const LoginPage: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
   const [login] = useLoginMutation()
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const data = Object.fromEntries(formData.entries())

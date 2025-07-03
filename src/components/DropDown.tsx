@@ -1,6 +1,6 @@
 // From https://mui.com/material-ui/react-autocomplete
 // and https://github.com/Grvs44/Inclusive-Venues/blob/v1.0.1/react/src/components/DropDown.tsx
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Autocomplete from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
 import TextField from '@mui/material/TextField'
@@ -23,10 +23,10 @@ export type DropDownProps<T extends Nameable> = {
 }
 
 export default function DropDown<T extends Nameable>(props: DropDownProps<T>) {
-  const [currentData, setCurrentData] = React.useState<T[]>([])
+  const [currentData, setCurrentData] = useState<T[]>([])
   const loading = props.open && props.isFetching
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.input == '') {
       setCurrentData(props.data)
     } else {
@@ -37,7 +37,7 @@ export default function DropDown<T extends Nameable>(props: DropDownProps<T>) {
     }
   }, [props.input])
 
-  React.useEffect(() => setCurrentData(props.data), [props.data])
+  useEffect(() => setCurrentData(props.data), [props.data])
 
   return (
     <Autocomplete

@@ -1,13 +1,13 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Container } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import BudgetList from '../containers/BudgetList'
 import { setTitle } from '../redux/titleSlice'
-import { useDispatch } from 'react-redux'
 
 export default function BudgetPage() {
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(setTitle('Budgets'))
   }, [])
 

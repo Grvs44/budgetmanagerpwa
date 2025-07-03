@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import List from '@mui/material/List'
@@ -44,14 +44,14 @@ export default function PaymentForm({
   const budgetQuery = useGetBudgetQuery(payeeQuery.data?.budget, {
     skip: payeeQuery.data == null,
   })
-  const [payee, setPayee] = React.useState<Nameable | null | undefined>(
+  const [payee, setPayee] = useState<Nameable | null | undefined>(
     payment.payee ? payeeQuery.data : undefined,
   )
-  const [budget, setBudget] = React.useState<Nameable | null | undefined>(
+  const [budget, setBudget] = useState<Nameable | null | undefined>(
     budgetQuery.data,
   )
-  React.useEffect(() => setPayee(payeeQuery.data), [payeeQuery.isLoading])
-  React.useEffect(() => setBudget(budgetQuery.data), [budgetQuery.data != null])
+  useEffect(() => setPayee(payeeQuery.data), [payeeQuery.isLoading])
+  useEffect(() => setBudget(budgetQuery.data), [budgetQuery.data != null])
   const onFormSubmit = (formData: EditablePayment) => {
     if (payee == null) alert('Missing payee')
     else {

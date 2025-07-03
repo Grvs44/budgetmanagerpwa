@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import AppBar from '@mui/material/AppBar'
 import IconButton from '@mui/material/IconButton'
@@ -14,7 +14,7 @@ export type TopBarProps = {
 }
 
 export default function TopBar({ user, title }: TopBarProps) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   return (
     <>

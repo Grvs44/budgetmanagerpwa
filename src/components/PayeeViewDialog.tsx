@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -46,7 +46,7 @@ export default function PayeeViewDialog({
 }
 
 function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
-  const [showTotal, setShowTotal] = React.useState<boolean>(false)
+  const [showTotal, setShowTotal] = useState<boolean>(false)
   const payee = useGetPayeeQuery(payeeId, { skip: payeeId == null })
   const budget = useGetBudgetQuery(payee.data?.budget, {
     skip: payee.isLoading,

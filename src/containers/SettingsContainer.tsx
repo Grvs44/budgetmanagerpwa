@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, useState } from 'react'
 import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
@@ -10,9 +10,9 @@ import SetThemeItem from '../components/SetThemeItem'
 import { setCurrency } from '../redux/settingsSlice'
 import type { State } from '../redux/types'
 
-const SettingsContainer: React.FC = () => {
+const SettingsContainer: FC = () => {
   const dispatch = useDispatch()
-  const [currencyOpen, setCurrencyOpen] = React.useState<boolean>(false)
+  const [currencyOpen, setCurrencyOpen] = useState<boolean>(false)
   const settings = useSelector((state: State) => state.settings)
 
   const submitCurrency = (value: string) => {
