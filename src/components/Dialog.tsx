@@ -4,11 +4,6 @@ import MuiDialog from '@mui/material/Dialog'
 import type { DialogProps } from '@mui/material/Dialog'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-type OnClose = (
-  event: {},
-  reason: 'backdropClick' | 'escapeKeyDown' | 'backClick',
-) => void
-
 export enum DialogType {
   BudgetView,
   PayeeView,
@@ -23,26 +18,16 @@ enum OpenState {
   Done,
 }
 
-const Dialog: FC<DialogProps & { type: DialogType }> = ({
-  onClose,
-  type,
-  ...props
-}) => {
+const Dialog: FC<DialogProps & { type: DialogType }> = ({ type, ...props }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [openState, setOpenState] = useState<OpenState>(OpenState.Initial)
 
-  const onDialogClose: OnClose = (event, reason) => {
-    setOpenState(OpenState.Done)
-    if (reason == 'backClick') reason = 'escapeKeyDown'
-    else navigate(-1)
-    onClose ? onClose(event, reason) : null
-    setOpenState(OpenState.Initial)
-  }
-
   useEffect(() => {
-    if (openState == OpenState.Open && location.state?.type != type)
-      onDialogClose({}, 'backClick')
+    if (openState == OpenState.Open && location.state?.type != type) {
+      setOpenState(OpenState.Initial)
+      props.onClose ? props.onClose({}, 'escapeKeyDown') : null
+    }
   }, [location.state])
 
   useEffect(() => {
@@ -50,10 +35,14 @@ const Dialog: FC<DialogProps & { type: DialogType }> = ({
       navigate('', { state: { type } })
       console.log('push', type)
       setOpenState(OpenState.Open)
+    } else if (!props.open && openState == OpenState.Open) {
+      setOpenState(OpenState.Done)
+      navigate(-1)
+      setOpenState(OpenState.Initial)
     }
   }, [props.open])
 
-  return <MuiDialog onClose={onDialogClose} {...props} />
+  return <MuiDialog {...props} />
 }
 
 export default Dialog
