@@ -3,8 +3,7 @@ import Button from '@mui/material/Button'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from './Dialog'
-import type { DialogType } from './Dialog'
+import Dialog, { DialogType } from './Dialog'
 
 export type FormDialogProps = {
   children: React.JSX.Element
@@ -12,7 +11,6 @@ export type FormDialogProps = {
   onSubmit: (data: any) => void
   open: boolean
   title: string
-  type: DialogType
 }
 
 export default function FormDialog({
@@ -21,14 +19,13 @@ export default function FormDialog({
   onSubmit,
   open,
   title,
-  type,
 }: FormDialogProps) {
   const onFormSubmit = (event: any) => {
     event.preventDefault()
     onSubmit(Object.fromEntries(new FormData(event.target).entries()))
   }
   return (
-    <Dialog open={open} onClose={onClose} type={type}>
+    <Dialog open={open} onClose={onClose} type={DialogType.Edit}>
       <form onSubmit={onFormSubmit}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>{children}</DialogContent>
