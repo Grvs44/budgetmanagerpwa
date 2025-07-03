@@ -1,10 +1,10 @@
 import React from 'react'
 import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
-import Dialog, { DialogType } from './Dialog'
 
 export type SetCurrencyDialogProps = {
   open: boolean
@@ -23,7 +23,6 @@ const SetCurrencyDialog: React.FC<SetCurrencyDialogProps> = (props) => {
     <Dialog
       open={props.open}
       onClose={props.onClose}
-      type={DialogType.Other}
       slotProps={{ paper: { component: 'form', onSubmit } }}
     >
       <DialogTitle>Set currency</DialogTitle>

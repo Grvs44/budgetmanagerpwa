@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -11,7 +12,6 @@ import {
   useGetPayeeTotalQuery,
   useGetUserQuery,
 } from '../redux/apiSlice'
-import Dialog, { DialogType } from './Dialog'
 import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
@@ -34,7 +34,7 @@ export default function PayeeViewDialog({
   onDelete,
 }: PayeeViewDialogProps) {
   return (
-    <Dialog open={open} onClose={onClose} type={DialogType.PayeeView}>
+    <Dialog open={open} onClose={onClose}>
       <ViewContent
         onClose={onClose}
         onEdit={onEdit}

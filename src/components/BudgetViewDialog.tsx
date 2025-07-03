@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -11,7 +12,6 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import type { Budget } from '../redux/types'
-import Dialog, { DialogType } from './Dialog'
 import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
@@ -25,11 +25,7 @@ export type BudgetViewDialogProps = {
 
 export default function BudgetViewDialog(props: BudgetViewDialogProps) {
   return (
-    <Dialog
-      open={props.open}
-      onClose={props.onClose}
-      type={DialogType.BudgetView}
-    >
+    <Dialog open={props.open} onClose={props.onClose}>
       <ViewContent {...props} />
     </Dialog>
   )
