@@ -66,12 +66,12 @@ export default function DropDown<T extends Nameable>(props: DropDownProps<T>) {
             input: {
               ...params.InputProps,
               endAdornment: (
-                <React.Fragment>
+                <>
                   {loading ? (
                     <CircularProgress color="inherit" size={20} />
                   ) : null}
                   {params.InputProps.endAdornment}
-                </React.Fragment>
+                </>
               ),
             },
           }}

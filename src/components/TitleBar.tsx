@@ -8,14 +8,14 @@ export default function TitleBar() {
   )
 
   useEffect(() => {
-    if ('windowControlsOverlay' in navigator) {
-      navigator.windowControlsOverlay.addEventListener(
-        'geometrychange',
-        debounce(() => {
+    navigator.windowControlsOverlay?.addEventListener(
+      'geometrychange',
+      debounce(() => {
+        if (navigator.windowControlsOverlay) {
           setArea(navigator.windowControlsOverlay.getTitlebarAreaRect())
-        }),
-      )
-    }
+        }
+      }),
+    )
   }, [navigator])
 
   return area ? (
