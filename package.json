@@ -25,7 +25,7 @@
   "scripts": {
     "start": "vite",
     "host": "vite --host",
-    "build": "vite build"
+    "build": "tsc && vite build"
   },
   "browserslist": {
     "production": [
