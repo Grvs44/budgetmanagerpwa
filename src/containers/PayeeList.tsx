@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { Button, Container, List } from '@mui/material'
 import Typography from '@mui/material/Typography'
@@ -15,16 +15,16 @@ import {
 import type { Payee, SubmitPayee } from '../redux/types'
 
 export default function PayeeList() {
-  const [createOpen, setCreateOpen] = React.useState<boolean>(false)
-  const [page, setPage] = React.useState<number>(0)
+  const [createOpen, setCreateOpen] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(0)
   const query = useGetPayeesQuery(page)
   const [createPayee] = useCreatePayeeMutation()
   const [updatePayee] = useUpdatePayeeMutation()
-  const [viewOpen, setViewOpen] = React.useState<boolean>(false)
-  const [viewPayee, setViewPayee] = React.useState<number | null>(null)
-  const [editOpen, setEditOpen] = React.useState<boolean>(false)
-  const [deleteOpen, setDeleteOpen] = React.useState<boolean>(false)
-  const [editData, setEditData] = React.useState<Payee | null>(null)
+  const [viewOpen, setViewOpen] = useState<boolean>(false)
+  const [viewPayee, setViewPayee] = useState<number | null>(null)
+  const [editOpen, setEditOpen] = useState<boolean>(false)
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
+  const [editData, setEditData] = useState<Payee | null>(null)
   const [deletePayee] = useDeletePayeeMutation()
 
   const list = query.data

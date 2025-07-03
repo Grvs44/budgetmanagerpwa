@@ -1,4 +1,4 @@
-import React from 'react'
+import type { FC } from 'react'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
@@ -10,7 +10,7 @@ export type TotalTextProps = {
   onShow: () => void
 }
 
-const TotalText: React.FC<TotalTextProps> = (props) => {
+const TotalText: FC<TotalTextProps> = (props) => {
   return (
     <Typography>
       {'Total: '}

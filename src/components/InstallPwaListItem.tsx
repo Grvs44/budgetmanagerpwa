@@ -1,5 +1,4 @@
 // Adapted from https://github.com/sufst/wireless-telemetry-gui/blob/main/src/modules/navigation/InstallPwaListItem.tsx
-import React from 'react'
 import InstallDesktopIcon from '@mui/icons-material/InstallDesktop'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Box, CircularProgress } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
@@ -6,14 +6,14 @@ import TopBar from './containers/TopBar'
 import LoginPage from './pages/LoginPage'
 import { useGetCurrentUserQuery } from './redux/apiSlice'
 import { setDeferredPrompt, setShow } from './redux/installSlice'
-import { State } from './redux/types'
+import type { State } from './redux/types'
 
 export default function App() {
   const dispatch = useDispatch()
   const user = useGetCurrentUserQuery()
   const { title } = useSelector((state: State) => state.title)
 
-  React.useEffect(
+  useEffect(
     () =>
       window.addEventListener('beforeinstallprompt', (event: Event) => {
         event.preventDefault()

@@ -1,4 +1,4 @@
-import React from 'react'
+import type { FC } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
 
@@ -6,7 +6,7 @@ export type CloseButtonProps = {
   onClick: () => void
 }
 
-const CloseButton: React.FC<CloseButtonProps> = (props) => (
+const CloseButton: FC<CloseButtonProps> = (props) => (
   <IconButton
     // Adapted from https://mui.com/material-ui/react-dialog/#customization
     aria-label="close"

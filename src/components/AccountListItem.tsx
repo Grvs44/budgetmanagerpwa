@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -10,7 +10,7 @@ import AccountDialog from './AccountDialog'
 export type AccountListItemProps = { user: User }
 
 const AccountListItem = (props: AccountListItemProps) => {
-  const [open, setOpen] = React.useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
   return (
     <ListItem>
       <ListItemButton onClick={() => setOpen(true)}>

@@ -1,12 +1,12 @@
 // Adapted from Grvs44/Inclusive-Venues
-import React from 'react'
+import { FC, useState } from 'react'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
 import { useGetLicenseQuery } from '../redux/licenseSlice'
 
-const LicenseContainer: React.FC = () => {
-  const [open, setOpen] = React.useState<boolean>(false)
+const LicenseContainer: FC = () => {
+  const [open, setOpen] = useState<boolean>(false)
   const query = useGetLicenseQuery(undefined, { skip: !open })
 
   return open ? (

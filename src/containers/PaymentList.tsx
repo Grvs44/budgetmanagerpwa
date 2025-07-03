@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { Button, Container, List, Typography } from '@mui/material'
 import DeleteConfirmation from '../components/DeleteConfirmation'
@@ -14,15 +14,15 @@ import {
 import { Payment, type SubmitPayment } from '../redux/types'
 
 export default function PaymentList() {
-  const [createOpen, setCreateOpen] = React.useState<boolean>(false)
-  const [page, setPage] = React.useState<number>(0)
+  const [createOpen, setCreateOpen] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(0)
   const query = useGetPaymentsQuery(page)
   const [createPayment] = useCreatePaymentMutation()
-  const [viewOpen, setViewOpen] = React.useState<boolean>(false)
-  const [viewData, setViewData] = React.useState<number | null>(null)
-  const [editOpen, setEditOpen] = React.useState<boolean>(false)
-  const [deleteOpen, setDeleteOpen] = React.useState<boolean>(false)
-  const [editData, setEditData] = React.useState<Payment | null>(null)
+  const [viewOpen, setViewOpen] = useState<boolean>(false)
+  const [viewData, setViewData] = useState<number | null>(null)
+  const [editOpen, setEditOpen] = useState<boolean>(false)
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
+  const [editData, setEditData] = useState<Payment | null>(null)
 
   const [updatePayment] = useUpdatePaymentMutation()
   const [deletePayment] = useDeletePaymentMutation()

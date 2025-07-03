@@ -1,19 +1,19 @@
 // Adapted from https://learn.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to/window-controls-overlay
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { debounce } from '@mui/material'
 
 export default function TitleBar() {
-  const [area, setArea] = React.useState(
-    navigator.windowControlsOverlay?.getTitlebarAreaRect()
+  const [area, setArea] = useState(
+    navigator.windowControlsOverlay?.getTitlebarAreaRect(),
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     if ('windowControlsOverlay' in navigator) {
       navigator.windowControlsOverlay.addEventListener(
         'geometrychange',
         debounce(() => {
           setArea(navigator.windowControlsOverlay.getTitlebarAreaRect())
-        })
+        }),
       )
     }
   }, [navigator])

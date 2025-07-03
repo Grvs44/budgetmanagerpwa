@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, FormEventHandler, useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -14,11 +14,11 @@ export type JoinDialogProps = {
   onClose: () => void
 }
 
-const JoinDialog: React.FC<JoinDialogProps> = (props) => {
+const JoinDialog: FC<JoinDialogProps> = (props) => {
   const [joinBudget] = useJoinBudgetMutation()
-  const [loading, setLoading] = React.useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     setLoading(true)
     try {
