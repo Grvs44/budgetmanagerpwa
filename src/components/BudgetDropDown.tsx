@@ -7,6 +7,7 @@ export type BudgetDropDownProps = {
   defaultValue?: Nameable | null
   disabled?: boolean
   onChange: (value: Nameable | null) => void
+  value?: Nameable | null
 }
 
 const BudgetDropDown: FC<BudgetDropDownProps> = (props) => {
@@ -24,6 +25,7 @@ const BudgetDropDown: FC<BudgetDropDownProps> = (props) => {
       setOpen={setOpen}
       input={input}
       setInput={setInput}
+      value={props.value}
       {...props}
     />
   )

@@ -19,11 +19,9 @@ export default function PayeeForm(props: PayeeFormProps) {
   const budget = useGetBudgetQuery(props.payee?.budget, {
     skip: props.payee?.budget == undefined,
   })
-  const [data, setData] = useState<Nameable | null | undefined>(
-    props.payee?.budget ? budget.data : null,
-  )
+  const [data, setData] = useState<Nameable | null | undefined>(null)
 
-  useEffect(() => setData(budget.data), [budget.isLoading])
+  useEffect(() => setData(budget.data || null), [budget.data])
 
   const onFormSubmit = (formData: EditablePayee) => {
     if (data == null) alert('Missing budget')
@@ -43,8 +41,8 @@ export default function PayeeForm(props: PayeeFormProps) {
       <List>
         <ListItem>
           <BudgetDropDown
-            defaultValue={budget.data}
-            disabled={budget.isLoading}
+            value={data}
+            disabled={budget.isFetching}
             onChange={setData}
           />
         </ListItem>

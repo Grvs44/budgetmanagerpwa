@@ -44,14 +44,10 @@ export default function PaymentForm({
   const budgetQuery = useGetBudgetQuery(payeeQuery.data?.budget, {
     skip: payeeQuery.data == null,
   })
-  const [payee, setPayee] = useState<Nameable | null | undefined>(
-    payment.payee ? payeeQuery.data : undefined,
-  )
-  const [budget, setBudget] = useState<Nameable | null | undefined>(
-    budgetQuery.data,
-  )
-  useEffect(() => setPayee(payeeQuery.data), [payeeQuery.isLoading])
-  useEffect(() => setBudget(budgetQuery.data), [budgetQuery.data != null])
+  const [payee, setPayee] = useState<Nameable | null | undefined>(null)
+  const [budget, setBudget] = useState<Nameable | null | undefined>(null)
+  useEffect(() => setPayee(payeeQuery.data || null), [payeeQuery.data])
+  useEffect(() => setBudget(budgetQuery.data || null), [budgetQuery.data])
   const onFormSubmit = (formData: EditablePayment) => {
     if (payee == null) alert('Missing payee')
     else {
@@ -69,14 +65,11 @@ export default function PaymentForm({
     >
       <List>
         <ListItem>
-          <BudgetDropDown
-            defaultValue={budgetQuery.data}
-            onChange={setBudget}
-          />
+          <BudgetDropDown value={budget} onChange={setBudget} />
         </ListItem>
         <ListItem>
           <PayeeDropDown
-            defaultValue={payeeQuery.data}
+            value={payee}
             onChange={setPayee}
             budget={budget || null}
           />
