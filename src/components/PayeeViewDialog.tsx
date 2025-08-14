@@ -83,7 +83,7 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
           disabled={!budget.isSuccess}
           onClick={() => {
             if (budget.data) {
-              dialog.setViewBudget(budget.data.id)
+              dialog.setViewId(budget.data.id)
               dialog.setViewOpen(true)
             }
           }}

@@ -18,7 +18,7 @@ const BudgetDialogContainer: FC = () => {
 
   const onEdit = ({ budget }: { budget: Budget }) => {
     dialog.setViewOpen(false)
-    dialog.setEditBudget(budget)
+    dialog.setEditItem(budget)
     dialog.setEditOpen(true)
   }
 
@@ -30,17 +30,17 @@ const BudgetDialogContainer: FC = () => {
     }
     await updateBudget(newBudget).unwrap()
     dialog.setEditOpen(false)
-    dialog.setViewBudget(newBudget.id)
+    dialog.setViewId(newBudget.id)
     dialog.setViewOpen(true)
   }
 
   const onDeleteSubmit = async () => {
     try {
-      if (dialog.viewBudget == null) return
+      if (dialog.viewId == null) return
       dialog.setPage(0)
-      await deleteBudget({ id: dialog.viewBudget }).unwrap()
+      await deleteBudget({ id: dialog.viewId }).unwrap()
       dialog.setViewOpen(false)
-      dialog.setViewBudget(null)
+      dialog.setViewId(null)
     } catch (error) {
       console.error(error)
     }
@@ -50,7 +50,7 @@ const BudgetDialogContainer: FC = () => {
     try {
       const budget = await createBudget(data).unwrap()
       dialog.setPage(0)
-      dialog.setViewBudget(budget.id)
+      dialog.setViewId(budget.id)
       dialog.setViewOpen(true)
     } catch (e) {
       console.error(e)
@@ -69,14 +69,14 @@ const BudgetDialogContainer: FC = () => {
         open={dialog.viewOpen}
         onClose={() => {
           dialog.setViewOpen(false)
-          dialog.setViewBudget(null)
+          dialog.setViewId(null)
         }}
-        budgetId={dialog.viewBudget}
+        budgetId={dialog.viewId}
         onEdit={onEdit}
         onDelete={() => dialog.setDeleteOpen(true)}
       />
       <BudgetForm
-        budget={dialog.editBudget}
+        budget={dialog.editItem}
         open={dialog.editOpen}
         onClose={() => dialog.setEditOpen(false)}
         onSubmit={onSubmit}

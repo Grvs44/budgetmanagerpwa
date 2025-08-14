@@ -15,7 +15,7 @@ export default function BudgetList() {
   const list = query.data
 
   const onItemClick = (id: number) => {
-    dialog.setViewBudget(id)
+    dialog.setViewId(id)
     dialog.setViewOpen(true)
   }
 

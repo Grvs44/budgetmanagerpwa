@@ -1,46 +1,17 @@
-import {
-  createContext,
-  Dispatch,
-  FC,
-  ReactNode,
-  SetStateAction,
-  useContext,
-  useState,
-} from 'react'
+import { createContext, FC, ReactNode, useContext, useState } from 'react'
 import type { Budget } from '../redux/types'
+import { DialogContext } from './types'
 
-export type BudgetDialogContext = {
-  viewOpen: boolean
-  setViewOpen: Dispatch<boolean>
-  viewBudget: number | null
-  setViewBudget: Dispatch<number | null>
-
-  editOpen: boolean
-  setEditOpen: Dispatch<boolean>
-  editBudget: Budget | null
-  setEditBudget: Dispatch<Budget | null>
-
-  createOpen: boolean
-  setCreateOpen: Dispatch<boolean>
-
-  deleteOpen: boolean
-  setDeleteOpen: Dispatch<boolean>
-
-  // TODO: move to Redux
-  page: number
-  setPage: Dispatch<SetStateAction<number>>
-}
-
-const BudgetDialogContext = createContext<BudgetDialogContext>({
+const BudgetDialogContext = createContext<DialogContext<Budget>>({
   viewOpen: false,
   setViewOpen: () => {},
-  viewBudget: null,
-  setViewBudget: () => {},
+  viewId: null,
+  setViewId: () => {},
 
   editOpen: false,
   setEditOpen: () => {},
-  editBudget: null,
-  setEditBudget: () => {},
+  editItem: null,
+  setEditItem: () => {},
 
   createOpen: false,
   setCreateOpen: () => {},
@@ -56,10 +27,10 @@ export const useBudgetDialog = () => useContext(BudgetDialogContext)
 
 const BudgetDialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [viewOpen, setViewOpen] = useState<boolean>(false)
-  const [viewBudget, setViewBudget] = useState<number | null>(null)
+  const [viewId, setViewId] = useState<number | null>(null)
 
   const [editOpen, setEditOpen] = useState<boolean>(false)
-  const [editBudget, setEditBudget] = useState<Budget | null>(null)
+  const [editItem, setEditItem] = useState<Budget | null>(null)
 
   const [createOpen, setCreateOpen] = useState<boolean>(false)
 
@@ -67,16 +38,16 @@ const BudgetDialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const [page, setPage] = useState<number>(0)
 
-  const value: BudgetDialogContext = {
+  const value: DialogContext<Budget> = {
     viewOpen,
     setViewOpen,
-    viewBudget,
-    setViewBudget,
+    viewId,
+    setViewId,
 
     editOpen,
     setEditOpen,
-    editBudget,
-    setEditBudget,
+    editItem,
+    setEditItem,
 
     createOpen,
     setCreateOpen,
