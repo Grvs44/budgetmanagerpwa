@@ -1,27 +1,8 @@
 import { createContext, FC, ReactNode, useContext, useState } from 'react'
 import type { Budget } from '../redux/types'
-import { DialogContext } from './types'
+import { defaultValue, DialogContext } from './types'
 
-const BudgetDialogContext = createContext<DialogContext<Budget>>({
-  viewOpen: false,
-  setViewOpen: () => {},
-  viewId: null,
-  setViewId: () => {},
-
-  editOpen: false,
-  setEditOpen: () => {},
-  editItem: null,
-  setEditItem: () => {},
-
-  createOpen: false,
-  setCreateOpen: () => {},
-
-  deleteOpen: false,
-  setDeleteOpen: () => {},
-
-  page: 0,
-  setPage: () => {},
-})
+const BudgetDialogContext = createContext<DialogContext<Budget>>(defaultValue)
 
 export const useBudgetDialog = () => useContext(BudgetDialogContext)
 

@@ -22,3 +22,24 @@ export type DialogContext<T extends Entity> = {
   page: number
   setPage: Dispatch<SetStateAction<number>>
 }
+
+export const defaultValue: DialogContext<any> = {
+  viewOpen: false,
+  setViewOpen: () => {},
+  viewId: null,
+  setViewId: () => {},
+
+  editOpen: false,
+  setEditOpen: () => {},
+  editItem: null,
+  setEditItem: () => {},
+
+  createOpen: false,
+  setCreateOpen: () => {},
+
+  deleteOpen: false,
+  setDeleteOpen: () => {},
+
+  page: 0,
+  setPage: () => {},
+}
