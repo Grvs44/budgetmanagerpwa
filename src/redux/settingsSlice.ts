@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { Settings } from './types'
+import { useSelector } from 'react-redux'
+import type { Settings, State } from './types'
 
 const STORAGE_KEY = 'budgetmanagersettings'
 
@@ -25,6 +26,9 @@ export const settingsSlice = createSlice({
     },
   },
 })
+
+export const useCurrency = () =>
+  useSelector((state: State) => state.settings.currency)
 
 export const { setCurrency } = settingsSlice.actions
 export default settingsSlice.reducer
