@@ -32,7 +32,7 @@ export default function PaymentListItem({
             <Skeleton />
           )}
         </Typography>
-        <Typography>{item.date}</Typography>
+        <Typography>{new Date(item.date).toLocaleDateString()}</Typography>
         <Typography>
           {budget.data && !payee.isFetching ? budget.data.name : <Skeleton />}
         </Typography>
