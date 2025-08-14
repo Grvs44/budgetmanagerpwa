@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
-import { useBudgetDialog } from '../context/BudgetDialogProvider'
+import { useBudgetDialog } from '../context/DialogProviders'
 import {
   useGetBudgetQuery,
   useGetPayeeQuery,

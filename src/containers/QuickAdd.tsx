@@ -11,7 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Typography from '@mui/material/Typography'
 import PayeeForm from '../components/PayeeForm'
 import PaymentForm from '../components/PaymentForm'
-import { useBudgetDialog } from '../context/BudgetDialogProvider'
+import { useBudgetDialog } from '../context/DialogProviders'
 import {
   useCreatePayeeMutation,
   useCreatePaymentMutation,

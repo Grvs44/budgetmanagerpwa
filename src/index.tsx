@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
-import BudgetDialogProvider from './context/BudgetDialogProvider'
+import DialogProviders from './context/DialogProviders'
 import BudgetPage from './pages/BudgetPage'
 import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
@@ -71,9 +71,9 @@ createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BudgetDialogProvider>
+      <DialogProviders>
         <RouterProvider router={router} />
-      </BudgetDialogProvider>
+      </DialogProviders>
     </ThemeProvider>
   </Provider>,
 )

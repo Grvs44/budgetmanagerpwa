@@ -4,7 +4,7 @@ import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import BudgetListItem from '../components/BudgetListItem'
-import { useBudgetDialog } from '../context/BudgetDialogProvider'
+import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
 
 export default function BudgetList() {
