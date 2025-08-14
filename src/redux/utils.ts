@@ -12,7 +12,11 @@ export const showUserDetails = (user: User | null | undefined) =>
 export const getPaymentTitle = (
   payment: { amount: number },
   payee: { name: string },
+  currency: string,
 ) =>
-  `${Math.abs(payment.amount)} ${payment.amount > 0 ? 'from' : 'to'} ${
-    payee.name
-  }`
+  currency +
+  Math.abs(payment.amount).toFixed(2) +
+  ' ' +
+  (payment.amount > 0 ? 'from' : 'to') +
+  ' ' +
+  payee.name

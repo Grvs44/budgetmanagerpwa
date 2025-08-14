@@ -3,6 +3,7 @@ import ListItem from '@mui/material/ListItem'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
 import { useGetBudgetQuery, useGetPayeeQuery } from '../redux/apiSlice'
+import { useCurrency } from '../redux/settingsSlice'
 import type { PaymentItem } from '../redux/types'
 import { getPaymentTitle } from '../redux/utils'
 
@@ -15,6 +16,7 @@ export default function PaymentListItem({
   item,
   onClick,
 }: PaymentListItemProps) {
+  const currency = useCurrency()
   const payee = useGetPayeeQuery(item.payee)
   const budget = useGetBudgetQuery(payee?.data?.budget, {
     skip: payee.isFetching,
@@ -24,7 +26,11 @@ export default function PaymentListItem({
     <ListItem>
       <Box onClick={() => onClick(item.id)}>
         <Typography>
-          {payee.data ? getPaymentTitle(item, payee.data) : <Skeleton />}
+          {payee.data ? (
+            getPaymentTitle(item, payee.data, currency)
+          ) : (
+            <Skeleton />
+          )}
         </Typography>
         <Typography>{item.date}</Typography>
         <Typography>

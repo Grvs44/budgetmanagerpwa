@@ -12,7 +12,8 @@ import {
   useGetPaymentQuery,
   useGetUserQuery,
 } from '../redux/apiSlice'
-import { showUserDetails } from '../redux/utils'
+import { useCurrency } from '../redux/settingsSlice'
+import { getPaymentTitle, showUserDetails } from '../redux/utils'
 
 export type PaymmentViewDialogProps = {
   open: boolean
@@ -31,6 +32,7 @@ export default function PaymentViewDialog({
 }: PaymmentViewDialogProps) {
   const budgetDialog = useBudgetDialog()
   const payeeDialog = usePayeeDialog()
+  const currency = useCurrency()
   const payment = useGetPaymentQuery(paymentId, { skip: !open })
   const skip = !open || payment.isFetching
   const payee = useGetPayeeQuery(payment?.data?.payee, { skip })
@@ -43,11 +45,9 @@ export default function PaymentViewDialog({
   return (
     <Dialog open={open && paymentId != null} onClose={onClose}>
       <DialogTitle>
-        {!payment.data
-          ? 'Loading'
-          : `${Math.abs(payment?.data?.amount)} ${
-              payment?.data?.amount > 0 ? 'from' : 'to'
-            } ${payee?.data?.name}`}
+        {payee.data && payment.data
+          ? getPaymentTitle(payment.data, payee.data, currency)
+          : 'Loading'}
       </DialogTitle>
       <DialogContent>
         <Typography>
@@ -57,7 +57,7 @@ export default function PaymentViewDialog({
           Payee: {payee?.data ? payee.data.name : 'loading'}
         </Typography>
         <Typography>
-          Amount: {payment.data ? payment.data.amount : 'loading'}
+          Amount: {payment.data ? currency + payment.data.amount : 'loading'}
         </Typography>
         <Typography>
           Date: {payment.data ? payment.data.date : 'loading'}
