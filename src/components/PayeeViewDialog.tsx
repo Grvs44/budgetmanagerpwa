@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
+import { useBudgetDialog } from '../context/BudgetDialogProvider'
 import {
   useGetBudgetQuery,
   useGetPayeeQuery,
@@ -46,6 +47,7 @@ export default function PayeeViewDialog({
 }
 
 function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
+  const dialog = useBudgetDialog()
   const [showTotal, setShowTotal] = useState<boolean>(false)
   const payee = useGetPayeeQuery(payeeId, { skip: payeeId == null })
   const budget = useGetBudgetQuery(payee.data?.budget, {
@@ -76,6 +78,18 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
         </DialogContent>
       )}
       <DialogActions>
+        <Button
+          type="button"
+          disabled={!budget.isSuccess}
+          onClick={() => {
+            if (budget.data) {
+              dialog.setViewBudget(budget.data.id)
+              dialog.setViewOpen(true)
+            }
+          }}
+        >
+          View budget
+        </Button>
         <Button
           type="button"
           variant="contained"
