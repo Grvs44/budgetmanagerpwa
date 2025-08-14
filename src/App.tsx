@@ -4,6 +4,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import BudgetDialogContainer from './containers/BudgetDialogContainer'
+import PayeeDialogContainer from './containers/PayeeDialogContainer'
+import PaymentDialogContainer from './containers/PaymentDialogContainer'
 import TopBar from './containers/TopBar'
 import LoginPage from './pages/LoginPage'
 import { useGetCurrentUserQuery } from './redux/apiSlice'
@@ -38,6 +40,8 @@ export default function App() {
         <Outlet />
       </Box>
       <BudgetDialogContainer />
+      <PayeeDialogContainer />
+      <PaymentDialogContainer />
     </div>
   ) : (
     <LoginPage />

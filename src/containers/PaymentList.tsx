@@ -1,77 +1,27 @@
-import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import { Button, Container, List, Typography } from '@mui/material'
-import DeleteConfirmation from '../components/DeleteConfirmation'
-import PaymentForm from '../components/PaymentForm'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import List from '@mui/material/List'
+import Typography from '@mui/material/Typography'
 import PaymentListItem from '../components/PaymentListItem'
-import PaymentViewDialog from '../components/PaymentViewDialog'
-import {
-  useCreatePaymentMutation,
-  useDeletePaymentMutation,
-  useGetPaymentsQuery,
-  useUpdatePaymentMutation,
-} from '../redux/apiSlice'
-import { Payment, type SubmitPayment } from '../redux/types'
+import { usePaymentDialog } from '../context/DialogProviders'
+import { useGetPaymentsQuery } from '../redux/apiSlice'
 
 export default function PaymentList() {
-  const [createOpen, setCreateOpen] = useState<boolean>(false)
-  const [page, setPage] = useState<number>(0)
-  const query = useGetPaymentsQuery(page)
-  const [createPayment] = useCreatePaymentMutation()
-  const [viewOpen, setViewOpen] = useState<boolean>(false)
-  const [viewData, setViewData] = useState<number | null>(null)
-  const [editOpen, setEditOpen] = useState<boolean>(false)
-  const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
-  const [editData, setEditData] = useState<Payment | null>(null)
-
-  const [updatePayment] = useUpdatePaymentMutation()
-  const [deletePayment] = useDeletePaymentMutation()
+  const dialog = usePaymentDialog()
+  const query = useGetPaymentsQuery(dialog.page)
 
   const list = query.data
   if (query.isFetching || !list) return <p>Loading...</p>
 
-  const onCreateSubmit = async (_: any, data: SubmitPayment) => {
-    setPage(0)
-    const paymentData = await createPayment(data).unwrap()
-    setViewData(paymentData.id)
-    setViewOpen(true)
-  }
-
-  const onEdit = (data: Payment) => {
-    setEditData(data)
-    setViewOpen(false)
-    setEditOpen(true)
-  }
-
-  const onSubmit = async (
-    oldPayment: SubmitPayment | null,
-    payment: SubmitPayment,
-  ) => {
-    if (oldPayment == null || !oldPayment.id) {
-      alert('Update payment error')
-      return
-    }
-    await updatePayment({ id: oldPayment.id, ...payment }).unwrap()
-    setEditOpen(false)
-    setViewOpen(true)
-  }
-
-  const onDeleteSubmit = async () => {
-    if (viewData == null) return
-    setPage(0)
-    await deletePayment({ id: viewData }).unwrap()
-    setViewOpen(false)
-    setViewData(null)
-  }
-
   const onItemClick = (id: number) => {
-    setViewData(id)
-    setViewOpen(true)
+    dialog.setViewId(id)
+    dialog.setViewOpen(true)
   }
 
   return (
     <Container>
-      <Button onClick={() => setCreateOpen(true)}>
+      <Button onClick={() => dialog.setCreateOpen(true)}>
         <AddIcon /> New
       </Button>
       <Typography>
@@ -87,37 +37,10 @@ export default function PaymentList() {
         <p>No payments</p>
       )}
       {list.next ? (
-        <Button onClick={() => setPage(page + 1)}>Load more</Button>
+        <Button onClick={() => dialog.setPage((page) => page + 1)}>
+          Load more
+        </Button>
       ) : null}
-      <PaymentForm
-        onClose={() => setCreateOpen(false)}
-        onSubmit={onCreateSubmit}
-        open={createOpen}
-        title="Add payment"
-      />
-      <PaymentViewDialog
-        open={viewOpen}
-        onClose={() => {
-          setViewOpen(false)
-          setViewData(null)
-        }}
-        paymentId={viewData}
-        onEdit={onEdit}
-        onDelete={() => setDeleteOpen(true)}
-      />
-      <PaymentForm
-        open={editOpen}
-        payment={editData}
-        onClose={() => setEditOpen(false)}
-        onSubmit={onSubmit}
-        title="Edit payment"
-      />
-      <DeleteConfirmation
-        onClose={() => setDeleteOpen(false)}
-        onSubmit={onDeleteSubmit}
-        open={deleteOpen}
-        title="Are you sure you want to delete this payment?"
-      />
     </Container>
   )
 }
