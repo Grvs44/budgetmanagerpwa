@@ -29,7 +29,7 @@ export default function BudgetList() {
   const [createBudget] = useCreateBudgetMutation()
   const [deleteBudget] = useDeleteBudgetMutation()
 
-  if (query.isLoading) return <p>Loading...</p>
+  if (query.isFetching) return <p>Loading...</p>
   const list = query.data
 
   const onEdit = ({ budget }: { budget: Budget }) => {

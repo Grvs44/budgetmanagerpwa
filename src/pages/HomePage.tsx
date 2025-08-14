@@ -9,7 +9,7 @@ import type { State } from '../redux/types'
 
 export default function HomePage() {
   const total = useGetTotalQuery()
-  const { data: user, isLoading } = useGetCurrentUserQuery()
+  const { data: user, isFetching } = useGetCurrentUserQuery()
   const dispatch = useDispatch()
   const settings = useSelector((state: State) => state.settings)
 
@@ -20,11 +20,11 @@ export default function HomePage() {
   return (
     <Container>
       <Typography variant="h4" component="h1">
-        {isLoading || !user
+        {isFetching || !user
           ? 'Welcome'
           : 'Welcome, ' + (user.first_name ? user.first_name : user.username)}
       </Typography>
-      <Typography variant="h6" hidden={total.isLoading}>
+      <Typography variant="h6" hidden={total.isFetching}>
         Total: {settings.currency}
         {total.data}
       </Typography>

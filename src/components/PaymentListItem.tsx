@@ -17,7 +17,7 @@ export default function PaymentListItem({
 }: PaymentListItemProps) {
   const payee = useGetPayeeQuery(item.payee)
   const budget = useGetBudgetQuery(payee?.data?.budget, {
-    skip: payee.isLoading,
+    skip: payee.isFetching,
   })
 
   return (

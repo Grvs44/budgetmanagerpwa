@@ -33,11 +33,11 @@ export default function BudgetViewDialog(props: BudgetViewDialogProps) {
 
 function ViewContent(props: BudgetViewDialogProps) {
   const [showTotal, setShowTotal] = useState<boolean>(false)
-  const { data, isLoading } = useGetBudgetQuery(props.budgetId, {
+  const { data, isFetching } = useGetBudgetQuery(props.budgetId, {
     skip: props.budgetId == null,
   })
   const user = useGetUserQuery(data?.modified_by, {
-    skip: isLoading || data?.modified_by == null,
+    skip: isFetching || data?.modified_by == null,
   })
   const total = useGetBudgetTotalQuery(props.budgetId, {
     skip: !showTotal || props.budgetId == null,
@@ -46,7 +46,7 @@ function ViewContent(props: BudgetViewDialogProps) {
   return (
     <>
       <DialogTitle>{data ? data.name : <Skeleton />}</DialogTitle>
-      {isLoading || user.isLoading ? null : (
+      {isFetching || user.isFetching ? null : (
         <DialogContent>
           <Typography>{data?.description}</Typography>
           <Typography>{data?.active ? 'Active' : 'Inactive'}</Typography>
@@ -64,7 +64,7 @@ function ViewContent(props: BudgetViewDialogProps) {
           type="button"
           variant="contained"
           onClick={() => props.onDelete()}
-          disabled={isLoading}
+          disabled={isFetching}
         >
           Delete
         </Button>
@@ -72,7 +72,7 @@ function ViewContent(props: BudgetViewDialogProps) {
           type="button"
           variant="contained"
           onClick={data ? () => props.onEdit({ budget: data }) : undefined}
-          disabled={isLoading}
+          disabled={isFetching}
         >
           Edit
         </Button>

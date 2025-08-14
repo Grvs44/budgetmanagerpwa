@@ -49,20 +49,20 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
   const [showTotal, setShowTotal] = useState<boolean>(false)
   const payee = useGetPayeeQuery(payeeId, { skip: payeeId == null })
   const budget = useGetBudgetQuery(payee.data?.budget, {
-    skip: payee.isLoading,
+    skip: payee.isFetching,
   })
   const user = useGetUserQuery(payee.data?.modified_by, {
-    skip: payee.isLoading || payee.data?.modified_by == null,
+    skip: payee.isFetching || payee.data?.modified_by == null,
   })
   const total = useGetPayeeTotalQuery(payeeId, {
     skip: !showTotal || payeeId == null,
   })
-  const isLoading = payee.isLoading || budget.isLoading || user.isLoading
+  const isFetching = payee.isFetching || budget.isFetching || user.isFetching
 
   return (
     <>
       <DialogTitle>{payee.data ? payee.data.name : <Skeleton />}</DialogTitle>
-      {isLoading ? null : (
+      {isFetching ? null : (
         <DialogContent>
           <Typography>Budget: {budget.data?.name}</Typography>
           <Typography>{payee.data?.description}</Typography>
@@ -80,7 +80,7 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
           type="button"
           variant="contained"
           onClick={() => onDelete()}
-          disabled={isLoading}
+          disabled={isFetching}
         >
           Delete
         </Button>
@@ -88,7 +88,7 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
           type="button"
           variant="contained"
           onClick={() => onEdit(payee.data)}
-          disabled={isLoading}
+          disabled={isFetching}
         >
           Edit
         </Button>
