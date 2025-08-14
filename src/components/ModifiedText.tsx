@@ -15,19 +15,20 @@ export type ModifiedTextProps = {
   }
 }
 
-const ModifiedText: FC<ModifiedTextProps> = (props) => (
-  <Typography>
-    Last modified on {props.data?.last_modified} by{' '}
-    {props.data?.modified_by ? (
-      props.user.isFetching ? (
-        <Skeleton />
+const ModifiedText: FC<ModifiedTextProps> = (props) =>
+  props.data ? (
+    <Typography>
+      Last modified on {new Date(props.data.last_modified).toLocaleString()} by{' '}
+      {props.data?.modified_by ? (
+        props.user.isFetching ? (
+          <Skeleton />
+        ) : (
+          showUserDetails(props.user.data)
+        )
       ) : (
-        showUserDetails(props.user.data)
-      )
-    ) : (
-      'Administrator'
-    )}
-  </Typography>
-)
+        'Administrator'
+      )}
+    </Typography>
+  ) : null
 
 export default ModifiedText

@@ -3,7 +3,6 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
 import { useBudgetDialog, usePayeeDialog } from '../context/DialogProviders'
 import {
@@ -13,7 +12,8 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import { useCurrency } from '../redux/settingsSlice'
-import { getPaymentTitle, showUserDetails } from '../redux/utils'
+import { getPaymentTitle } from '../redux/utils'
+import ModifiedText from './ModifiedText'
 
 export type PaymmentViewDialogProps = {
   open: boolean
@@ -60,13 +60,13 @@ export default function PaymentViewDialog({
           Amount: {payment.data ? currency + payment.data.amount : 'loading'}
         </Typography>
         <Typography>
-          Date: {payment.data ? payment.data.date : 'loading'}
+          Date:{' '}
+          {payment.data
+            ? new Date(payment.data.date).toLocaleDateString()
+            : 'loading'}
         </Typography>
         {payment?.data?.pending ? <Typography>Pending</Typography> : null}
-        <Typography>
-          Last modified on {payment?.data?.last_modified} by{' '}
-          {user.data ? showUserDetails(user.data) : <Skeleton />}
-        </Typography>
+        <ModifiedText data={payment.data} user={user} />
       </DialogContent>
       <DialogActions>
         <Button
