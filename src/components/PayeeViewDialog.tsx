@@ -16,15 +16,12 @@ import {
 import ModifiedText from './ModifiedText'
 import TotalText from './TotalText'
 
-type ViewContentProps = {
+type PayeeViewDialogProps = {
+  open: boolean
   onClose: () => void
   onEdit: (data: any) => void
   payeeId: number | null
   onDelete: () => void
-}
-
-export type PayeeViewDialogProps = ViewContentProps & {
-  open: boolean
 }
 
 export default function PayeeViewDialog({
@@ -34,19 +31,6 @@ export default function PayeeViewDialog({
   payeeId,
   onDelete,
 }: PayeeViewDialogProps) {
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <ViewContent
-        onClose={onClose}
-        onEdit={onEdit}
-        payeeId={payeeId}
-        onDelete={onDelete}
-      />
-    </Dialog>
-  )
-}
-
-function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
   const dialog = useBudgetDialog()
   const [showTotal, setShowTotal] = useState<boolean>(false)
   const payee = useGetPayeeQuery(payeeId, { skip: payeeId == null })
@@ -62,7 +46,7 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
   const isFetching = payee.isFetching || budget.isFetching || user.isFetching
 
   return (
-    <>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle>{payee.data ? payee.data.name : <Skeleton />}</DialogTitle>
       {isFetching ? null : (
         <DialogContent>
@@ -110,6 +94,6 @@ function ViewContent({ onClose, onEdit, payeeId, onDelete }: ViewContentProps) {
           Close
         </Button>
       </DialogActions>
-    </>
+    </Dialog>
   )
 }
