@@ -9,33 +9,21 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Typography from '@mui/material/Typography'
-import BudgetForm from '../components/BudgetForm'
 import PayeeForm from '../components/PayeeForm'
 import PaymentForm from '../components/PaymentForm'
+import { useBudgetDialog } from '../context/BudgetDialogProvider'
 import {
-  useCreateBudgetMutation,
   useCreatePayeeMutation,
   useCreatePaymentMutation,
 } from '../redux/apiSlice'
 import type { SubmitBudget, SubmitPayee, SubmitPayment } from '../redux/types'
 
 const QuickAdd: FC = () => {
-  const [budgetOpen, setBudgetOpen] = useState<boolean>(false)
+  const budgetDialog = useBudgetDialog()
   const [payeeOpen, setPayeeOpen] = useState<boolean>(false)
   const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
-  const [createBudget] = useCreateBudgetMutation()
   const [createPayee] = useCreatePayeeMutation()
   const [createPayment] = useCreatePaymentMutation()
-
-  const onBudgetSubmit = async (_: any, data: SubmitBudget) => {
-    try {
-      await createBudget(data).unwrap()
-      alert('Added budget')
-    } catch (e) {
-      console.error(e)
-      alert('Error: ' + e)
-    }
-  }
 
   const onPayeeSubmit = async (_: any, data: SubmitPayee) => {
     try {
@@ -65,7 +53,7 @@ const QuickAdd: FC = () => {
         </Typography>
         <List>
           <ListItem>
-            <ListItemButton onClick={() => setBudgetOpen(true)}>
+            <ListItemButton onClick={() => budgetDialog.setCreateOpen(true)}>
               <ListItemIcon>
                 <SavingsIcon />
               </ListItemIcon>
@@ -90,12 +78,6 @@ const QuickAdd: FC = () => {
           </ListItem>
         </List>
       </CardContent>
-      <BudgetForm
-        open={budgetOpen}
-        onClose={() => setBudgetOpen(false)}
-        onSubmit={onBudgetSubmit}
-        title="Add budget"
-      />
       <PayeeForm
         open={payeeOpen}
         onClose={() => setPayeeOpen(false)}

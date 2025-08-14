@@ -47,10 +47,15 @@ const BudgetDialogContainer: FC = () => {
   }
 
   const onCreateSubmit = async (_: any, data: SubmitBudget) => {
-    const budget = await createBudget(data).unwrap()
-    dialog.setPage(0)
-    dialog.setViewBudget(budget.id)
-    dialog.setViewOpen(true)
+    try {
+      const budget = await createBudget(data).unwrap()
+      dialog.setPage(0)
+      dialog.setViewBudget(budget.id)
+      dialog.setViewOpen(true)
+    } catch (e) {
+      console.error(e)
+      alert('Error: ' + e)
+    }
   }
   return (
     <>
