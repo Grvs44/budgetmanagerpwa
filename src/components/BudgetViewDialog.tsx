@@ -24,14 +24,6 @@ export type BudgetViewDialogProps = {
 }
 
 export default function BudgetViewDialog(props: BudgetViewDialogProps) {
-  return (
-    <Dialog open={props.open} onClose={props.onClose}>
-      <ViewContent {...props} />
-    </Dialog>
-  )
-}
-
-function ViewContent(props: BudgetViewDialogProps) {
   const [showTotal, setShowTotal] = useState<boolean>(false)
   const { data, isFetching } = useGetBudgetQuery(props.budgetId, {
     skip: props.budgetId == null,
@@ -44,7 +36,7 @@ function ViewContent(props: BudgetViewDialogProps) {
   })
 
   return (
-    <>
+    <Dialog open={props.open} onClose={props.onClose}>
       <DialogTitle>{data ? data.name : <Skeleton />}</DialogTitle>
       {isFetching || user.isFetching ? null : (
         <DialogContent>
@@ -80,6 +72,6 @@ function ViewContent(props: BudgetViewDialogProps) {
           Close
         </Button>
       </DialogActions>
-    </>
+    </Dialog>
   )
 }
