@@ -55,31 +55,31 @@ const BudgetDialogContext = createContext<BudgetDialogContext>({
 export const useBudgetDialog = () => useContext(BudgetDialogContext)
 
 const BudgetDialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [budgetViewOpen, setBudgetViewOpen] = useState<boolean>(false)
+  const [viewOpen, setViewOpen] = useState<boolean>(false)
   const [viewBudget, setViewBudget] = useState<number | null>(null)
 
-  const [budgetEditOpen, setBudgetEditOpen] = useState<boolean>(false)
+  const [editOpen, setEditOpen] = useState<boolean>(false)
   const [editBudget, setEditBudget] = useState<Budget | null>(null)
 
-  const [budgetCreateOpen, setBudgetCreateOpen] = useState<boolean>(false)
+  const [createOpen, setCreateOpen] = useState<boolean>(false)
 
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
 
   const [page, setPage] = useState<number>(0)
 
   const value: BudgetDialogContext = {
-    viewOpen: budgetViewOpen,
-    setViewOpen: setBudgetViewOpen,
+    viewOpen,
+    setViewOpen,
     viewBudget,
     setViewBudget,
 
-    editOpen: budgetEditOpen,
-    setEditOpen: setBudgetEditOpen,
+    editOpen,
+    setEditOpen,
     editBudget,
     setEditBudget,
 
-    createOpen: budgetCreateOpen,
-    setCreateOpen: setBudgetCreateOpen,
+    createOpen,
+    setCreateOpen,
 
     deleteOpen,
     setDeleteOpen,
