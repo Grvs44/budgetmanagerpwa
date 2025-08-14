@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
-import { Box, CircularProgress } from '@mui/material'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import BudgetDialogContainer from './containers/BudgetDialogContainer'
 import TopBar from './containers/TopBar'
 import LoginPage from './pages/LoginPage'
 import { useGetCurrentUserQuery } from './redux/apiSlice'
@@ -35,6 +37,7 @@ export default function App() {
       <Box sx={{ my: 4 }}>
         <Outlet />
       </Box>
+      <BudgetDialogContainer />
     </div>
   ) : (
     <LoginPage />
