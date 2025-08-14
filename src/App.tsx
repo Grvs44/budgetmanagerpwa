@@ -23,7 +23,7 @@ export default function App() {
     [],
   )
 
-  return user.isLoading ? (
+  return user.isFetching ? (
     <Box
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
