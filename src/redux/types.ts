@@ -134,19 +134,23 @@ export type OrderField =
   | 'last_used'
   | '-last_used'
 
-export type BudgetFilters = {
+export interface PageFilter {
+  offset?: number
+}
+
+export type BudgetFilters = PageFilter&{
   active?: boolean
   name?: string
   ordering?: OrderField
 }
 
-export type PayeeFilters = {
+export type PayeeFilters = PageFilter&{
   budget?: number
   name?: string
   ordering?: OrderField
 }
 
-export type PaymentFilters = {
+export type PaymentFilters = PageFilter&{
   payee?: number
   payee__budget?: number
   pending?: boolean

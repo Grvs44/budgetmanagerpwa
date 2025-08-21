@@ -1,4 +1,4 @@
-import { User } from './types'
+import type { PageFilter, User } from './types'
 
 export const showUserDetails = (user: User | null | undefined) =>
   user
@@ -20,3 +20,11 @@ export const getPaymentTitle = (
   (payment.amount > 0 ? 'from' : 'to') +
   ' ' +
   payee.name
+
+// Adapted from https://github.com/Grvs44/Part-3-Project/blob/main/react/src/redux/utils.ts
+export const getFilterQuery = (filters: PageFilter) => {
+  if (filters.offset) filters.offset *= 10
+  const entries = Object.entries(filters).filter((e) => e[1] != undefined)
+  if (entries.length == 0) return ''
+  return '&' + new URLSearchParams(entries).toString()
+}
