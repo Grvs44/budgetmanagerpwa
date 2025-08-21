@@ -125,3 +125,36 @@ export interface PageState<T> {
   count: number
   next: string
 }
+
+export type OrderField =
+  | 'name'
+  | '-name'
+  | 'id'
+  | '-id'
+  | 'last_used'
+  | '-last_used'
+
+export type BudgetFilters = {
+  active?: boolean
+  name?: string
+  ordering?: OrderField
+}
+
+export type PayeeFilters = {
+  budget?: number
+  name?: string
+  ordering?: OrderField
+}
+
+export type PaymentFilters = {
+  payee?: number
+  payee__budget?: number
+  pending?: boolean
+  amount?: number
+  amount_gt?: number
+  amount_lt?: number
+  date?: string
+  date_gt?: string
+  date_lt?: string
+  ordering?: OrderField
+}
