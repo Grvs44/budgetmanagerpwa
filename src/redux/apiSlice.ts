@@ -2,14 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import Cookies from 'js-cookie'
 import type {
   Budget,
-  BudgetFilters,
+  BudgetQuery,
   Entity,
   PageState,
   Payee,
-  PayeeFilters,
+  PayeeQuery,
   PayeeSearch,
   Payment,
-  PaymentFilters,
+  PaymentQuery,
   SubmitBudget,
   SubmitPayee,
   SubmitPayment,
@@ -149,7 +149,7 @@ export const apiSlice = createApi({
     }),
 
     // Budgets
-    getBudgets: builder.query<PageState<Budget>, BudgetFilters>({
+    getBudgets: builder.query<PageState<Budget>, BudgetQuery>({
       query: (arg) => 'budget/?limit=10' + getFilterQuery(arg),
       serializeQueryArgs,
       merge,
@@ -224,7 +224,7 @@ export const apiSlice = createApi({
     }),
 
     // Payees
-    getPayees: builder.query<PageState<Payee>, PayeeFilters>({
+    getPayees: builder.query<PageState<Payee>, PayeeQuery>({
       query: (arg) => 'payee/?limit=10' + getFilterQuery(arg),
       providesTags: [{ type: 'Payee', id: PARTIAL }],
       serializeQueryArgs,
@@ -294,7 +294,7 @@ export const apiSlice = createApi({
     }),
 
     // Payments
-    getPayments: builder.query<PageState<Payment>, PaymentFilters>({
+    getPayments: builder.query<PageState<Payment>, PaymentQuery>({
       query: (arg) => 'payment/?limit=10' + getFilterQuery(arg),
       providesTags: [{ type: 'Payment', id: PARTIAL }],
       serializeQueryArgs,

@@ -138,19 +138,23 @@ export interface PageFilter {
   offset?: number
 }
 
-export type BudgetFilters = PageFilter&{
+export type BudgetFilters = {
   active?: boolean
   name?: string
   ordering?: OrderField
 }
 
-export type PayeeFilters = PageFilter&{
+export type BudgetQuery = PageFilter & BudgetFilters
+
+export type PayeeFilters = {
   budget?: number
   name?: string
   ordering?: OrderField
 }
 
-export type PaymentFilters = PageFilter&{
+export type PayeeQuery = PageFilter & BudgetFilters
+
+export type PaymentFilters = {
   payee?: number
   payee__budget?: number
   pending?: boolean
@@ -162,3 +166,5 @@ export type PaymentFilters = PageFilter&{
   date_lt?: string
   ordering?: OrderField
 }
+
+export type PaymentQuery = PageFilter & BudgetFilters

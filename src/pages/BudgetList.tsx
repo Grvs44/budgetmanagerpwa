@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -6,6 +6,7 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import BudgetListItem from '../components/BudgetListItem'
+import BudgetFilterDialog from '../containers/BudgetFilterDialog'
 import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
 import { setTitle } from '../redux/titleSlice'
@@ -14,6 +15,7 @@ const BudgetList: FC = () => {
   const dispatch = useDispatch()
   const dialog = useBudgetDialog()
   const query = useGetBudgetsQuery({ offset: dialog.page * 10 })
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
 
   useEffect(() => {
     dispatch(setTitle('Budgets'))
@@ -35,6 +37,11 @@ const BudgetList: FC = () => {
       <Typography>
         Showing {list?.results.length} of {list?.count}
       </Typography>
+      <Button onClick={() => setFiltersOpen(true)}>Filters and search</Button>
+      <BudgetFilterDialog
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+      />
       {list?.count ? (
         <List>
           {list.results.map((item) => (
