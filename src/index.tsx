@@ -1,16 +1,16 @@
 import CssBaseline from '@mui/material/CssBaseline'
-import { ThemeProvider } from '@mui/material/styles'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import DialogProviders from './context/DialogProviders'
-import BudgetPage from './pages/BudgetPage'
+import BudgetList from './pages/BudgetList'
 import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
 import JoinPage from './pages/JoinPage'
-import PayeePage from './pages/PayeePage'
-import PaymentPage from './pages/PaymentPage'
+import PayeeList from './pages/PayeeList'
+import PaymentList from './pages/PaymentList'
 import SettingsPage from './pages/SettingsPage'
 import store from './redux/store'
 import theme from './theme'
@@ -37,27 +37,27 @@ const router = createBrowserRouter([
       },
       {
         path: 'budget',
-        element: <BudgetPage />,
+        element: <BudgetList />,
       },
       {
         path: 'payee',
-        element: <PayeePage />,
+        element: <PayeeList />,
       },
       {
         path: 'payment',
-        element: <PaymentPage />,
+        element: <PaymentList />,
       },
       {
         path: 'budget/:budgetId/payee',
-        element: <PayeePage />,
+        element: <PayeeList />,
       },
       {
         path: 'budget/:budgetId/payment',
-        element: <PaymentPage />,
+        element: <PaymentList />,
       },
       {
         path: 'payee/:payeeId/payment',
-        element: <PaymentPage />,
+        element: <PaymentList />,
       },
       {
         path: 'settings',

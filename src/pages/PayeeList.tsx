@@ -1,15 +1,23 @@
+import { FC, useEffect } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
-import PaymentListItem from '../components/PaymentListItem'
-import { usePaymentDialog } from '../context/DialogProviders'
-import { useGetPaymentsQuery } from '../redux/apiSlice'
+import { useDispatch } from 'react-redux'
+import PayeeListItem from '../components/PayeeListItem'
+import { usePayeeDialog } from '../context/DialogProviders'
+import { useGetPayeesQuery } from '../redux/apiSlice'
+import { setTitle } from '../redux/titleSlice'
 
-export default function PaymentList() {
-  const dialog = usePaymentDialog()
-  const query = useGetPaymentsQuery({ offset: dialog.page * 10 })
+const PayeeList: FC = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setTitle('Payees'))
+  }, [])
+  const dialog = usePayeeDialog()
+  const query = useGetPayeesQuery({ offset: dialog.page * 10 })
 
   const list = query.data
   if (query.isFetching || !list) return <p>Loading...</p>
@@ -30,11 +38,11 @@ export default function PaymentList() {
       {list.count ? (
         <List>
           {list.results.map((item) => (
-            <PaymentListItem item={item} key={item.id} onClick={onItemClick} />
+            <PayeeListItem item={item} key={item.id} onClick={onItemClick} />
           ))}
         </List>
       ) : (
-        <p>No payments</p>
+        <p>No payees</p>
       )}
       {list.next ? (
         <Button onClick={() => dialog.setPage((page) => page + 1)}>
@@ -44,3 +52,5 @@ export default function PaymentList() {
     </Container>
   )
 }
+
+export default PayeeList

@@ -1,15 +1,23 @@
+import { FC, useEffect } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
+import { useDispatch } from 'react-redux'
 import BudgetListItem from '../components/BudgetListItem'
 import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
+import { setTitle } from '../redux/titleSlice'
 
-export default function BudgetList() {
+const BudgetList: FC = () => {
+  const dispatch = useDispatch()
   const dialog = useBudgetDialog()
   const query = useGetBudgetsQuery({ offset: dialog.page * 10 })
+
+  useEffect(() => {
+    dispatch(setTitle('Budgets'))
+  }, [])
 
   if (query.isFetching) return <p>Loading...</p>
   const list = query.data
@@ -44,3 +52,5 @@ export default function BudgetList() {
     </Container>
   )
 }
+
+export default BudgetList
