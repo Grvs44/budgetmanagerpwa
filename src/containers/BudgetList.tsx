@@ -9,7 +9,7 @@ import { useGetBudgetsQuery } from '../redux/apiSlice'
 
 export default function BudgetList() {
   const dialog = useBudgetDialog()
-  const query = useGetBudgetsQuery(dialog.page)
+  const query = useGetBudgetsQuery({ offset: dialog.page * 10 })
 
   if (query.isFetching) return <p>Loading...</p>
   const list = query.data

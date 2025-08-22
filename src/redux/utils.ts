@@ -23,7 +23,6 @@ export const getPaymentTitle = (
 
 // Adapted from https://github.com/Grvs44/Part-3-Project/blob/main/react/src/redux/utils.ts
 export const getFilterQuery = (filters: PageFilter) => {
-  if (filters.offset) filters.offset *= 10
   const entries = Object.entries(filters).filter((e) => e[1] != undefined)
   if (entries.length == 0) return ''
   return '&' + new URLSearchParams(entries).toString()

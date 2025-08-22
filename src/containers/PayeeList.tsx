@@ -9,7 +9,7 @@ import { useGetPayeesQuery } from '../redux/apiSlice'
 
 export default function PayeeList() {
   const dialog = usePayeeDialog()
-  const query = useGetPayeesQuery(dialog.page)
+  const query = useGetPayeesQuery({ offset: dialog.page * 10 })
 
   const list = query.data
   if (query.isFetching || !list) return <p>Loading...</p>

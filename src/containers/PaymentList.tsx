@@ -9,7 +9,7 @@ import { useGetPaymentsQuery } from '../redux/apiSlice'
 
 export default function PaymentList() {
   const dialog = usePaymentDialog()
-  const query = useGetPaymentsQuery(dialog.page)
+  const query = useGetPaymentsQuery({ offset: dialog.page * 10 })
 
   const list = query.data
   if (query.isFetching || !list) return <p>Loading...</p>
