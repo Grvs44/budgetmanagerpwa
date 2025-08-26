@@ -139,7 +139,7 @@ export interface PageFilter {
 }
 
 export type BudgetFilters = {
-  active?: boolean
+  active?: 'false' | 'true'
   name?: string
   ordering?: OrderField
 }

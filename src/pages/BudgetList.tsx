@@ -10,11 +10,13 @@ import BudgetFilterDialog from '../containers/BudgetFilterDialog'
 import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
 import { setTitle } from '../redux/titleSlice'
+import type { BudgetFilters } from '../redux/types'
 
 const BudgetList: FC = () => {
   const dispatch = useDispatch()
   const dialog = useBudgetDialog()
-  const query = useGetBudgetsQuery({ offset: dialog.page * 10 })
+  const [filters, setFilters] = useState<BudgetFilters>({})
+  const query = useGetBudgetsQuery({ offset: dialog.page * 10, ...filters })
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
 
   useEffect(() => {
@@ -39,8 +41,10 @@ const BudgetList: FC = () => {
       </Typography>
       <Button onClick={() => setFiltersOpen(true)}>Filters and search</Button>
       <BudgetFilterDialog
+        filters={filters}
         open={filtersOpen}
         onClose={() => setFiltersOpen(false)}
+        onSubmit={setFilters}
       />
       {list?.count ? (
         <List>

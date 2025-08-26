@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, FormEventHandler, useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -10,17 +10,44 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import OrderSelect from '../components/OrderSelect'
+import type { BudgetFilters, OrderField } from '../redux/types'
 
 const BudgetFilterDialog: FC<{
+  filters: BudgetFilters
   open: boolean
   onClose: () => void
+  onSubmit: (filters: BudgetFilters) => void
 }> = (props) => {
   const [name, setName] = useState<string>('')
   const [active, setActive] = useState<string | null>('all')
-  const [order, setOrder] = useState<string>('name')
+  const [order, setOrder] = useState<OrderField>('name')
+
+  const onSubmit: FormEventHandler = (event) => {
+    event.preventDefault()
+    props.onClose()
+    props.onSubmit({
+      name: name || undefined,
+      active: active == 'false' || active == 'true' ? active : undefined,
+      ordering: order || undefined,
+    })
+  }
+
+  const resetFilters = () => {
+    setName(props.filters.name || '')
+    setActive(props.filters.active || 'all')
+    setOrder(props.filters.ordering || 'name')
+  }
+
+  useEffect(() => {
+    if (props.open) resetFilters()
+  }, [props.filters, props.open])
 
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog
+      open={props.open}
+      onClose={props.onClose}
+      slotProps={{ paper: { component: 'form', onSubmit } }}
+    >
       <DialogTitle>Filters</DialogTitle>
       <DialogContent>
         <TextField
@@ -46,6 +73,9 @@ const BudgetFilterDialog: FC<{
         <OrderSelect value={order} setValue={setOrder} />
       </DialogContent>
       <DialogActions>
+        <Button type="button" onClick={resetFilters}>
+          Reset
+        </Button>
         <Button type="button" onClick={props.onClose}>
           Cancel
         </Button>

@@ -3,10 +3,11 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
+import type { OrderField } from '../redux/types'
 
 const OrderSelect: FC<{
   value: string
-  setValue: (value: string) => void
+  setValue: (value: OrderField) => void
 }> = (props) => (
   <FormControl fullWidth>
     <InputLabel id="active-label">Active</InputLabel>
@@ -14,7 +15,7 @@ const OrderSelect: FC<{
       labelId="active-label"
       value={props.value}
       label="Active"
-      onChange={(e) => props.setValue(e.target.value)}
+      onChange={(e) => props.setValue(e.target.value as OrderField)}
     >
       <MenuItem value="name">Name (ascending)</MenuItem>
       <MenuItem value="-name">Name (descending)</MenuItem>
