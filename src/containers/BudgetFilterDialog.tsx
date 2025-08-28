@@ -26,14 +26,14 @@ const BudgetFilterDialog: FC<{
     event.preventDefault()
     props.onClose()
     props.onSubmit({
-      name: name || undefined,
+      search: name || undefined,
       active: active == 'false' || active == 'true' ? active : undefined,
       ordering: order || undefined,
     })
   }
 
   const resetFilters = () => {
-    setName(props.filters.name || '')
+    setName(props.filters.search || '')
     setActive(props.filters.active || 'all')
     setOrder(props.filters.ordering || 'name')
   }

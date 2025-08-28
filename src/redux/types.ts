@@ -148,7 +148,7 @@ export interface PageFilter {
 
 export type BudgetFilters = {
   active?: 'false' | 'true'
-  name?: string
+  search?: string
   ordering?: OrderField
 }
 
