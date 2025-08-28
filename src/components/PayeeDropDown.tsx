@@ -19,7 +19,6 @@ const PayeeDropDown: FC<PayeeDropDownProps> = (props) => {
   return (
     <DropDown
       label="Payee"
-      required
       disabled={props.budget == null || props.disabled}
       data={query.data?.results || []}
       isFetching={query.isFetching}

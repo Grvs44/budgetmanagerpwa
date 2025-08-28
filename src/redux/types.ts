@@ -165,7 +165,7 @@ export type PayeeQuery = PageFilter & BudgetFilters
 export type PaymentFilters = {
   payee?: number
   payee__budget?: number
-  pending?: boolean
+  pending?: 'false' | 'true'
   amount?: number
   amount_gt?: number
   amount_lt?: number

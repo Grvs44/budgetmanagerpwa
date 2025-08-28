@@ -72,6 +72,7 @@ export default function PaymentForm({
             value={payee}
             onChange={setPayee}
             budget={budget || null}
+            required
           />
         </ListItem>
         <ListItem>
