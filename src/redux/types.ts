@@ -156,7 +156,7 @@ export type BudgetQuery = PageFilter & BudgetFilters
 
 export type PayeeFilters = {
   budget?: number
-  name?: string
+  search?: string
   ordering?: OrderField
 }
 

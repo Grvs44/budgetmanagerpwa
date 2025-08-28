@@ -65,7 +65,7 @@ export default function PaymentForm({
     >
       <List>
         <ListItem>
-          <BudgetDropDown value={budget} onChange={setBudget} />
+          <BudgetDropDown value={budget} onChange={setBudget} required />
         </ListItem>
         <ListItem>
           <PayeeDropDown

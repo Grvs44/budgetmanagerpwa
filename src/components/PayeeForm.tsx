@@ -44,6 +44,7 @@ export default function PayeeForm(props: PayeeFormProps) {
             value={data}
             disabled={budget.isFetching}
             onChange={setData}
+            required
           />
         </ListItem>
         <ListItem>
