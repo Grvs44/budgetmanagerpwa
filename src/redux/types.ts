@@ -160,19 +160,19 @@ export type PayeeFilters = {
   ordering?: OrderField
 }
 
-export type PayeeQuery = PageFilter & BudgetFilters
+export type PayeeQuery = PageFilter & PayeeFilters
 
 export type PaymentFilters = {
   payee?: number
   payee__budget?: number
   pending?: 'false' | 'true'
-  amount?: number
-  amount_gt?: number
-  amount_lt?: number
+  amount?: number | string
+  amount_gt?: number | string
+  amount_lt?: number | string
   date?: string
   date_gt?: string
   date_lt?: string
   ordering?: PaymentOrderField
 }
 
-export type PaymentQuery = PageFilter & BudgetFilters
+export type PaymentQuery = PageFilter & PaymentFilters

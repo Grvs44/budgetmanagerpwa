@@ -14,12 +14,13 @@ const FilterModeSelect: FC<{
   value: FilterMode
   onChange: (value: FilterMode) => void
   label: string
+  labelId: string
 }> = (props) => {
   return (
     <FormControl fullWidth>
-      <InputLabel id={props.label + '-label'}>{props.label}</InputLabel>
+      <InputLabel id={props.labelId}>{props.label}</InputLabel>
       <Select
-        labelId={props.label + '-label'}
+        labelId={props.labelId}
         value={props.value}
         label={props.label}
         onChange={(e) => props.onChange(e.target.value)}

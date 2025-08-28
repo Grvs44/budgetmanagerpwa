@@ -1,5 +1,4 @@
 import { FC, FormEventHandler, useEffect, useState } from 'react'
-import { TextField } from '@mui/material'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -9,21 +8,25 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
+import Stack from '@mui/material/Stack'
+import TextField from '@mui/material/TextField'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import BudgetDropDown from '../components/BudgetDropDown'
-import { FilterMode } from '../components/FilterModeSelect'
+import FilterModeSelect, { FilterMode } from '../components/FilterModeSelect'
 import PayeeDropDown from '../components/PayeeDropDown'
 import type { Nameable, PaymentOrderField } from '../redux/types'
+import 'dayjs/locale/en-gb'
+import type { PickerValue } from '@mui/x-date-pickers/internals'
 
 export type PaymentDialogFilters = {
-  budget?: Nameable
-  payee?: Nameable
-  pending?: string
-  amount?: string
-  amount_gt?: string
-  amount_lt?: string
-  date?: string
-  date_gt?: string
-  date_lt?: string
+  budget?: Nameable | null
+  payee?: Nameable | null
+  pending?: 'false' | 'true'
+  amount?: string | null
+  amountMode?: FilterMode
+  date?: PickerValue
   dateMode?: FilterMode
   ordering?: PaymentOrderField
 }
@@ -37,55 +40,45 @@ const PaymentFilterDialog: FC<{
   const [budget, setBudget] = useState<Nameable | null>(null)
   const [payee, setPayee] = useState<Nameable | null>(null)
   const [pending, setPending] = useState<string | null>('a')
-  const [amount, setAmount] = useState<string | null>(null)
+  const [amount, setAmount] = useState<string>('')
   const [amountMode, setAmountMode] = useState<FilterMode>(FilterMode.Equal)
-  const [date, setDate] = useState<string | null>(null)
+  const [date, setDate] = useState<PickerValue>(null)
   const [dateMode, setDateMode] = useState<FilterMode>(FilterMode.Equal)
   const [order, setOrder] = useState<PaymentOrderField>('-date')
 
   const onSubmit: FormEventHandler = (event) => {
     event.preventDefault()
     props.onClose()
-    const filters: PaymentDialogFilters = {
-      budget: budget || undefined,
-      payee: payee || undefined,
+    props.onSubmit({
+      budget,
+      payee,
       pending: pending == 'true' || pending == 'false' ? pending : undefined,
-      ordering: order || undefined,
-    }
-    switch (amountMode) {
-      case FilterMode.Equal:
-        filters.amount = amount || undefined
-        break
-      case FilterMode.More:
-        filters.amount_gt = amount || undefined
-        break
-      default:
-        filters.amount_lt = amount || undefined
-    }
-    switch (dateMode) {
-      case FilterMode.Equal:
-        filters.date = date || undefined
-        break
-      case FilterMode.More:
-        filters.amount_gt = date || undefined
-        break
-      case FilterMode.Less:
-        filters.amount_lt = date || undefined
-    }
-    props.onSubmit(filters)
+      amount,
+      amountMode,
+      date,
+      dateMode,
+      ordering: order,
+    })
   }
 
   const resetFilters = () => {
-    if (props.filters.budget) {
-      setBudget(props.filters.budget)
-      setPayee(props.filters.payee || null)
-    }
+    setBudget(props.filters.budget || null)
+    setPayee(props.filters.payee || null)
+    setPending(props.filters.pending || 'a')
+    setAmount(props.filters.amount || '')
+    setAmountMode(props.filters.amountMode || FilterMode.Equal)
+    setDate(props.filters.date || null)
+    setDateMode(props.filters.dateMode || FilterMode.Equal)
     setOrder(props.filters.ordering || '-date')
   }
 
   useEffect(() => {
     if (props.open) resetFilters()
   }, [props.filters, props.open])
+
+  useEffect(() => {
+    if (budget == null) setPayee(null)
+  }, [budget])
 
   return (
     <Dialog
@@ -98,7 +91,7 @@ const PaymentFilterDialog: FC<{
         <BudgetDropDown value={budget} onChange={setBudget} />
         <PayeeDropDown value={payee} onChange={setPayee} budget={budget} />
         <FormControl fullWidth>
-          <InputLabel id="pending-label">Active</InputLabel>
+          <InputLabel id="pending-label">Pending</InputLabel>
           <Select
             labelId="pending-label"
             value={pending}
@@ -110,13 +103,43 @@ const PaymentFilterDialog: FC<{
             <MenuItem value="false">Settled</MenuItem>
           </Select>
         </FormControl>
-        <TextField
-          name="amount"
-          label="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          fullWidth
-        />
+        <Stack direction="row">
+          <TextField
+            name="amount"
+            label="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            fullWidth
+            type="number"
+            slotProps={{ htmlInput: { step: '0.01' } }}
+            autoComplete="false"
+          />
+          <FilterModeSelect
+            value={amountMode}
+            onChange={setAmountMode}
+            label="Amount filter type"
+            labelId="amount-label"
+          />
+        </Stack>
+        <Stack>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            adapterLocale="en-gb"
+          >
+            <DatePicker
+              name="date"
+              label="Date"
+              value={date}
+              onChange={setDate}
+            />
+            <FilterModeSelect
+              value={dateMode}
+              onChange={setDateMode}
+              label="Date filter type"
+              labelId="date-label"
+            />
+          </LocalizationProvider>
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={resetFilters}>
