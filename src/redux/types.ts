@@ -134,6 +134,14 @@ export type OrderField =
   | 'last_used'
   | '-last_used'
 
+export type PaymentOrderField =
+  | 'amount'
+  | '-amount'
+  | 'date'
+  | '-date'
+  | 'id'
+  | '-id'
+
 export interface PageFilter {
   offset?: number
 }
@@ -164,7 +172,7 @@ export type PaymentFilters = {
   date?: string
   date_gt?: string
   date_lt?: string
-  ordering?: OrderField
+  ordering?: PaymentOrderField
 }
 
 export type PaymentQuery = PageFilter & BudgetFilters
