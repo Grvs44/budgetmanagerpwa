@@ -126,22 +126,6 @@ export interface PageState<T> {
   next: string
 }
 
-export type OrderField =
-  | 'name'
-  | '-name'
-  | 'id'
-  | '-id'
-  | 'last_used'
-  | '-last_used'
-
-export type PaymentOrderField =
-  | 'amount'
-  | '-amount'
-  | 'date'
-  | '-date'
-  | 'id'
-  | '-id'
-
 export interface PageFilter {
   offset?: number
 }
@@ -149,7 +133,7 @@ export interface PageFilter {
 export type BudgetFilters = {
   active?: 'false' | 'true'
   search?: string
-  ordering?: OrderField
+  ordering?: string
 }
 
 export type BudgetQuery = PageFilter & BudgetFilters
@@ -157,7 +141,7 @@ export type BudgetQuery = PageFilter & BudgetFilters
 export type PayeeFilters = {
   budget?: number
   search?: string
-  ordering?: OrderField
+  ordering?: string
 }
 
 export type PayeeQuery = PageFilter & PayeeFilters
@@ -172,7 +156,7 @@ export type PaymentFilters = {
   date?: string
   date_gt?: string
   date_lt?: string
-  ordering?: PaymentOrderField
+  ordering?: string
 }
 
 export type PaymentQuery = PageFilter & PaymentFilters

@@ -9,8 +9,8 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
-import OrderSelect from '../components/OrderSelect'
-import type { BudgetFilters, OrderField } from '../redux/types'
+import OrderSelect, { orderItems } from '../components/OrderSelect'
+import type { BudgetFilters } from '../redux/types'
 
 const BudgetFilterDialog: FC<{
   filters: BudgetFilters
@@ -20,7 +20,7 @@ const BudgetFilterDialog: FC<{
 }> = (props) => {
   const [name, setName] = useState<string>('')
   const [active, setActive] = useState<string | null>('all')
-  const [order, setOrder] = useState<OrderField>('name')
+  const [order, setOrder] = useState<string>('name')
 
   const onSubmit: FormEventHandler = (event) => {
     event.preventDefault()
@@ -70,7 +70,11 @@ const BudgetFilterDialog: FC<{
             <MenuItem value="false">Inactive</MenuItem>
           </Select>
         </FormControl>
-        <OrderSelect value={order} setValue={setOrder} />
+        <OrderSelect
+          value={order}
+          setValue={setOrder}
+          orderItems={orderItems}
+        />
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={resetFilters}>

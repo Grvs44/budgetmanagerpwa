@@ -3,11 +3,24 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-import type { OrderField } from '../redux/types'
+
+export type OrderItem = [string, string]
+
+export const orderItems: OrderItem[] = [
+  ['name', 'Name'],
+  ['id', 'Date created'],
+  ['last_used', 'Last used'],
+]
+
+export const paymentOrderItems: OrderItem[] = [
+  ['amount', 'Amount'],
+  ...orderItems.slice(1),
+]
 
 const OrderSelect: FC<{
   value: string
-  setValue: (value: OrderField) => void
+  setValue: (value: string) => void
+  orderItems: OrderItem[]
 }> = (props) => (
   <FormControl fullWidth>
     <InputLabel id="order-label">Ordering</InputLabel>
@@ -15,14 +28,12 @@ const OrderSelect: FC<{
       labelId="order-label"
       value={props.value}
       label="Ordering"
-      onChange={(e) => props.setValue(e.target.value as OrderField)}
+      onChange={(e) => props.setValue(e.target.value)}
     >
-      <MenuItem value="name">Name (ascending)</MenuItem>
-      <MenuItem value="-name">Name (descending)</MenuItem>
-      <MenuItem value="id">Date created (ascending)</MenuItem>
-      <MenuItem value="-id">Date created (descending)</MenuItem>
-      <MenuItem value="last_used">Last used (ascending)</MenuItem>
-      <MenuItem value="-last_used">Last used (descending)</MenuItem>
+      {props.orderItems.flatMap((item) => [
+        <MenuItem value={item[0]}>{item[1]} (ascending)</MenuItem>,
+        <MenuItem value={'-' + item[0]}>{item[1]} (descending)</MenuItem>,
+      ])}
     </Select>
   </FormControl>
 )

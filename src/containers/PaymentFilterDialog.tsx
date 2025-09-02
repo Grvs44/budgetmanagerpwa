@@ -16,9 +16,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import BudgetDropDown from '../components/BudgetDropDown'
 import FilterModeSelect, { FilterMode } from '../components/FilterModeSelect'
 import PayeeDropDown from '../components/PayeeDropDown'
-import type { Nameable, PaymentOrderField } from '../redux/types'
+import type { Nameable } from '../redux/types'
 import 'dayjs/locale/en-gb'
 import type { PickerValue } from '@mui/x-date-pickers/internals'
+import OrderSelect, { paymentOrderItems } from '../components/OrderSelect'
 
 export type PaymentDialogFilters = {
   budget?: Nameable | null
@@ -28,7 +29,7 @@ export type PaymentDialogFilters = {
   amountMode?: FilterMode
   date?: PickerValue
   dateMode?: FilterMode
-  ordering?: PaymentOrderField
+  ordering?: string
 }
 
 const PaymentFilterDialog: FC<{
@@ -44,7 +45,7 @@ const PaymentFilterDialog: FC<{
   const [amountMode, setAmountMode] = useState<FilterMode>(FilterMode.Equal)
   const [date, setDate] = useState<PickerValue>(null)
   const [dateMode, setDateMode] = useState<FilterMode>(FilterMode.Equal)
-  const [order, setOrder] = useState<PaymentOrderField>('-date')
+  const [order, setOrder] = useState<string>('-date')
 
   const onSubmit: FormEventHandler = (event) => {
     event.preventDefault()
@@ -140,6 +141,11 @@ const PaymentFilterDialog: FC<{
             />
           </LocalizationProvider>
         </Stack>
+        <OrderSelect
+          value={order}
+          setValue={setOrder}
+          orderItems={paymentOrderItems}
+        />
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={resetFilters}>

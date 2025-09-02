@@ -6,13 +6,13 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
 import BudgetDropDown from '../components/BudgetDropDown'
-import OrderSelect from '../components/OrderSelect'
-import type { Nameable, OrderField } from '../redux/types'
+import OrderSelect, { orderItems } from '../components/OrderSelect'
+import type { Nameable } from '../redux/types'
 
 export type PayeeDialogFilters = {
   budget?: Nameable
   search?: string
-  ordering?: OrderField
+  ordering?: string
 }
 
 const PayeeFilterDialog: FC<{
@@ -23,7 +23,7 @@ const PayeeFilterDialog: FC<{
 }> = (props) => {
   const [budget, setBudget] = useState<Nameable | null>(null)
   const [name, setName] = useState<string>('')
-  const [order, setOrder] = useState<OrderField>('name')
+  const [order, setOrder] = useState<string>('name')
 
   const onSubmit: FormEventHandler = (event) => {
     event.preventDefault()
@@ -61,7 +61,11 @@ const PayeeFilterDialog: FC<{
           name="name"
           fullWidth
         />
-        <OrderSelect value={order} setValue={setOrder} />
+        <OrderSelect
+          value={order}
+          setValue={setOrder}
+          orderItems={orderItems}
+        />
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={resetFilters}>
