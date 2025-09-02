@@ -20,6 +20,7 @@ const getFilters = (filters: PaymentDialogFilters) => {
     payee: filters.payee?.id,
     payee__budget: filters.payee ? undefined : filters.budget?.id,
     ordering: filters.ordering,
+    pending: filters.pending,
   }
   if (filters.amount) {
     switch (filters.amountMode) {
