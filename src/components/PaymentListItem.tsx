@@ -19,7 +19,7 @@ export default function PaymentListItem({
   const currency = useCurrency()
   const payee = useGetPayeeQuery(item.payee)
   const budget = useGetBudgetQuery(payee?.data?.budget, {
-    skip: payee.isFetching,
+    skip: payee.isFetching || payee.data == undefined,
   })
 
   return (

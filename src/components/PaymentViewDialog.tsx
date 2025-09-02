@@ -37,7 +37,7 @@ export default function PaymentViewDialog({
   const skip = !open || payment.isFetching
   const payee = useGetPayeeQuery(payment?.data?.payee, { skip })
   const budget = useGetBudgetQuery(payee?.data?.budget, {
-    skip: skip || payee.isFetching,
+    skip: skip || payee.isFetching || payee.data == undefined,
   })
   const user = useGetUserQuery(payment?.data?.modified_by, {
     skip: skip || payment.data?.modified_by == null,
