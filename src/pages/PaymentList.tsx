@@ -53,7 +53,9 @@ const getFilters = (filters: PaymentDialogFilters) => {
 const PaymentList: FC = () => {
   const dispatch = useDispatch()
   const dialog = usePaymentDialog()
-  const [filters, setFilters] = useState<PaymentDialogFilters>({})
+  const [filters, setFilters] = useState<PaymentDialogFilters>({
+    ordering: '-date',
+  })
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
   const query = useGetPaymentsQuery({
     offset: dialog.page * 10,

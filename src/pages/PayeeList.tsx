@@ -21,7 +21,9 @@ const getFilters = ({ budget, ...filters }: PayeeDialogFilters) => ({
 const PayeeList: FC = () => {
   const dispatch = useDispatch()
   const dialog = usePayeeDialog()
-  const [filters, setFilters] = useState<PayeeDialogFilters>({})
+  const [filters, setFilters] = useState<PayeeDialogFilters>({
+    ordering: 'name',
+  })
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
   const query = useGetPayeesQuery({
     offset: dialog.page * 10,

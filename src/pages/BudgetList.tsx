@@ -15,7 +15,9 @@ import type { BudgetFilters } from '../redux/types'
 const BudgetList: FC = () => {
   const dispatch = useDispatch()
   const dialog = useBudgetDialog()
-  const [filters, setFilters] = useState<BudgetFilters>({})
+  const [filters, setFilters] = useState<BudgetFilters>({
+    ordering: 'name',
+  })
   const query = useGetBudgetsQuery({ offset: dialog.page * 10, ...filters })
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
 
