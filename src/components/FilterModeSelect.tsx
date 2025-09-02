@@ -26,8 +26,8 @@ const FilterModeSelect: FC<{
         onChange={(e) => props.onChange(e.target.value)}
       >
         <MenuItem value={FilterMode.Equal}>Equal</MenuItem>
-        <MenuItem value={FilterMode.More}>Greater than</MenuItem>
-        <MenuItem value={FilterMode.Less}>Less than</MenuItem>
+        <MenuItem value={FilterMode.More}>Greater or equal</MenuItem>
+        <MenuItem value={FilterMode.Less}>Less or equal</MenuItem>
       </Select>
     </FormControl>
   )
