@@ -13,6 +13,7 @@ export const orderItems: OrderItem[] = [
 ]
 
 export const paymentOrderItems: OrderItem[] = [
+  ['date', 'Date'],
   ['amount', 'Amount'],
   ...orderItems.slice(1),
 ]
