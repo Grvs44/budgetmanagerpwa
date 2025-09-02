@@ -10,11 +10,11 @@ const OrderSelect: FC<{
   setValue: (value: OrderField) => void
 }> = (props) => (
   <FormControl fullWidth>
-    <InputLabel id="active-label">Active</InputLabel>
+    <InputLabel id="order-label">Ordering</InputLabel>
     <Select
-      labelId="active-label"
+      labelId="order-label"
       value={props.value}
-      label="Active"
+      label="Ordering"
       onChange={(e) => props.setValue(e.target.value as OrderField)}
     >
       <MenuItem value="name">Name (ascending)</MenuItem>
