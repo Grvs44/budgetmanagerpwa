@@ -6,6 +6,8 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
@@ -50,31 +52,39 @@ const BudgetFilterDialog: FC<{
     >
       <DialogTitle>Filters</DialogTitle>
       <DialogContent>
-        <TextField
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          label="Name"
-          name="name"
-          fullWidth
-        />
-        <FormControl fullWidth>
-          <InputLabel id="active-label">Active</InputLabel>
-          <Select
-            labelId="active-label"
-            value={active}
-            label="Active"
-            onChange={(e) => setActive(e.target.value)}
-          >
-            <MenuItem value="all">All</MenuItem>
-            <MenuItem value="true">Active</MenuItem>
-            <MenuItem value="false">Inactive</MenuItem>
-          </Select>
-        </FormControl>
-        <OrderSelect
-          value={order}
-          setValue={setOrder}
-          orderItems={orderItems}
-        />
+        <List>
+          <ListItem>
+            <TextField
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              label="Name"
+              name="name"
+              fullWidth
+            />
+          </ListItem>
+          <ListItem>
+            <FormControl fullWidth>
+              <InputLabel id="active-label">Active</InputLabel>
+              <Select
+                labelId="active-label"
+                value={active}
+                label="Active"
+                onChange={(e) => setActive(e.target.value)}
+              >
+                <MenuItem value="all">All</MenuItem>
+                <MenuItem value="true">Active</MenuItem>
+                <MenuItem value="false">Inactive</MenuItem>
+              </Select>
+            </FormControl>
+          </ListItem>
+          <ListItem>
+            <OrderSelect
+              value={order}
+              setValue={setOrder}
+              orderItems={orderItems}
+            />
+          </ListItem>
+        </List>
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={resetFilters}>

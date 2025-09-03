@@ -4,6 +4,8 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import TextField from '@mui/material/TextField'
 import BudgetDropDown from '../components/BudgetDropDown'
 import OrderSelect, { orderItems } from '../components/OrderSelect'
@@ -53,19 +55,27 @@ const PayeeFilterDialog: FC<{
     >
       <DialogTitle>Filters</DialogTitle>
       <DialogContent>
-        <BudgetDropDown value={budget} onChange={setBudget} />
-        <TextField
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          label="Payee name"
-          name="name"
-          fullWidth
-        />
-        <OrderSelect
-          value={order}
-          setValue={setOrder}
-          orderItems={orderItems}
-        />
+        <List>
+          <ListItem>
+            <BudgetDropDown value={budget} onChange={setBudget} />
+          </ListItem>
+          <ListItem>
+            <TextField
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              label="Payee name"
+              name="name"
+              fullWidth
+            />
+          </ListItem>
+          <ListItem>
+            <OrderSelect
+              value={order}
+              setValue={setOrder}
+              orderItems={orderItems}
+            />
+          </ListItem>
+        </List>
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={resetFilters}>
