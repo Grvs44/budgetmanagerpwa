@@ -69,7 +69,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} noSsr>
       <CssBaseline />
       <DialogProviders>
         <RouterProvider router={router} />
