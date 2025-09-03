@@ -27,6 +27,7 @@ const PayeeDropDown: FC<PayeeDropDownProps> = (props) => {
       input={input}
       setInput={setInput}
       value={props.value}
+      fullWidth
       {...props}
     />
   )

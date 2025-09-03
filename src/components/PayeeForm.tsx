@@ -54,6 +54,7 @@ export default function PayeeForm(props: PayeeFormProps) {
             label="Name"
             required
             autoComplete="false"
+            fullWidth
           />
         </ListItem>
         <ListItem>
@@ -62,6 +63,7 @@ export default function PayeeForm(props: PayeeFormProps) {
             defaultValue={props.payee?.description}
             label="Description"
             multiline
+            fullWidth
           />
         </ListItem>
       </List>

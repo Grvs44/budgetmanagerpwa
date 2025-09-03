@@ -26,6 +26,7 @@ const BudgetDropDown: FC<BudgetDropDownProps> = (props) => {
       input={input}
       setInput={setInput}
       value={props.value}
+      fullWidth
       {...props}
     />
   )
