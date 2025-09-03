@@ -1,9 +1,9 @@
 import type { ManifestOptions } from 'vite-plugin-pwa'
 
-const manifest: Partial<ManifestOptions> = {
+const manifest: (id?: string) => Partial<ManifestOptions> = (id) => ({
   short_name: 'Budget Manager',
   name: 'Budget Manager',
-  id: '/budgetmanager/',
+  id,
   icons: [
     {
       src: 'favicon.ico',
@@ -25,6 +25,6 @@ const manifest: Partial<ManifestOptions> = {
   scope: '.',
   display_override: ['window-controls-overlay', 'standalone'],
   theme_color: '#556cd6',
-}
+})
 
 export default manifest

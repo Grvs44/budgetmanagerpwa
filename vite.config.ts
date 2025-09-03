@@ -20,7 +20,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'service-worker.ts',
-      manifest,
+      manifest: manifest(base),
     }),
     createHtmlPlugin({ minify: true }),
   ],
