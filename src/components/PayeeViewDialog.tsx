@@ -35,7 +35,7 @@ export default function PayeeViewDialog({
   const [showTotal, setShowTotal] = useState<boolean>(false)
   const payee = useGetPayeeQuery(payeeId, { skip: payeeId == null })
   const budget = useGetBudgetQuery(payee.data?.budget, {
-    skip: payee.isFetching,
+    skip: payee.isFetching || payee.data == undefined,
   })
   const user = useGetUserQuery(payee.data?.modified_by, {
     skip: payee.isFetching || payee.data?.modified_by == null,

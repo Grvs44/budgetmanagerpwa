@@ -2,11 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import Cookies from 'js-cookie'
 import type {
   Budget,
+  BudgetQuery,
   Entity,
   PageState,
   Payee,
+  PayeeQuery,
   PayeeSearch,
   Payment,
+  PaymentQuery,
   SubmitBudget,
   SubmitPayee,
   SubmitPayment,
@@ -16,6 +19,7 @@ import type {
   User,
   UserLogin,
 } from './types'
+import { getFilterQuery } from './utils'
 
 const PARTIAL = -1
 
@@ -145,8 +149,8 @@ export const apiSlice = createApi({
     }),
 
     // Budgets
-    getBudgets: builder.query<PageState<Budget>, number | undefined>({
-      query: (page = 0) => `budget/?offset=${page * 10}&limit=10`,
+    getBudgets: builder.query<PageState<Budget>, BudgetQuery>({
+      query: (arg) => 'budget/?limit=10' + getFilterQuery(arg),
       serializeQueryArgs,
       merge,
       forceRefetch,
@@ -194,7 +198,7 @@ export const apiSlice = createApi({
           )
           console.log('dispatched 1/2')
           dispatch(
-            apiSlice.util.updateQueryData('getBudgets', undefined, (draft) => {
+            apiSlice.util.updateQueryData('getBudgets', {}, (draft) => {
               const old = draft.results.find((e: Entity) => e.id === id)
               const upd = query.data
               if (old) {
@@ -220,8 +224,8 @@ export const apiSlice = createApi({
     }),
 
     // Payees
-    getPayees: builder.query<PageState<Payee>, number | undefined>({
-      query: (page = 0) => `payee/?offset=${page * 10}&limit=10`,
+    getPayees: builder.query<PageState<Payee>, PayeeQuery>({
+      query: (arg) => 'payee/?limit=10' + getFilterQuery(arg),
       providesTags: [{ type: 'Payee', id: PARTIAL }],
       serializeQueryArgs,
       merge,
@@ -263,7 +267,7 @@ export const apiSlice = createApi({
           console.log(query.data)
           console.log('fulfilled')
           dispatch(
-            apiSlice.util.updateQueryData('getPayees', undefined, (draft) => {
+            apiSlice.util.updateQueryData('getPayees', {}, (draft) => {
               draft.results = draft.results.map((e: Payee) =>
                 e.id == id ? query.data : e,
               )
@@ -290,9 +294,8 @@ export const apiSlice = createApi({
     }),
 
     // Payments
-    getPayments: builder.query<PageState<Payment>, number | undefined>({
-      query: (page = 0) =>
-        `payment/?offset=${page * 10}&limit=10&ordering=-date`,
+    getPayments: builder.query<PageState<Payment>, PaymentQuery>({
+      query: (arg) => 'payment/?limit=10' + getFilterQuery(arg),
       providesTags: [{ type: 'Payment', id: PARTIAL }],
       serializeQueryArgs,
       merge,
@@ -324,7 +327,7 @@ export const apiSlice = createApi({
           console.log(query.data)
           console.log('fulfilled')
           dispatch(
-            apiSlice.util.updateQueryData('getPayments', undefined, (draft) => {
+            apiSlice.util.updateQueryData('getPayments', {}, (draft) => {
               console.log('a1')
               console.log(draft)
               const item = draft.results.find((e: Entity) => e.id === id)

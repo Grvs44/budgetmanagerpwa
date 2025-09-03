@@ -37,6 +37,7 @@ export default function BudgetForm(props: BudgetFormProps) {
             label="Name"
             required
             autoComplete="false"
+            fullWidth
           />
         </ListItem>
         <ListItem>
@@ -45,6 +46,7 @@ export default function BudgetForm(props: BudgetFormProps) {
             defaultValue={budget.description}
             label="Description"
             multiline
+            fullWidth
           />
         </ListItem>
         <ListItem>

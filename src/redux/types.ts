@@ -125,3 +125,38 @@ export interface PageState<T> {
   count: number
   next: string
 }
+
+export interface PageFilter {
+  offset?: number
+}
+
+export type BudgetFilters = {
+  active?: 'false' | 'true'
+  search?: string
+  ordering?: string
+}
+
+export type BudgetQuery = PageFilter & BudgetFilters
+
+export type PayeeFilters = {
+  budget?: number
+  search?: string
+  ordering?: string
+}
+
+export type PayeeQuery = PageFilter & PayeeFilters
+
+export type PaymentFilters = {
+  payee?: number
+  payee__budget?: number
+  pending?: 'false' | 'true'
+  amount?: number | string
+  amount_gt?: number | string
+  amount_lt?: number | string
+  date?: string
+  date_gt?: string
+  date_lt?: string
+  ordering?: string
+}
+
+export type PaymentQuery = PageFilter & PaymentFilters

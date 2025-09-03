@@ -8,6 +8,7 @@ export type BudgetDropDownProps = {
   disabled?: boolean
   onChange: (value: Nameable | null) => void
   value?: Nameable | null
+  required?: boolean
 }
 
 const BudgetDropDown: FC<BudgetDropDownProps> = (props) => {
@@ -18,7 +19,6 @@ const BudgetDropDown: FC<BudgetDropDownProps> = (props) => {
   return (
     <DropDown
       label="Budget"
-      required
       data={query.data?.results || []}
       isFetching={query.isFetching}
       open={open}
@@ -26,6 +26,7 @@ const BudgetDropDown: FC<BudgetDropDownProps> = (props) => {
       input={input}
       setInput={setInput}
       value={props.value}
+      fullWidth
       {...props}
     />
   )

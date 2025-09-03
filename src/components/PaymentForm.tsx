@@ -65,13 +65,14 @@ export default function PaymentForm({
     >
       <List>
         <ListItem>
-          <BudgetDropDown value={budget} onChange={setBudget} />
+          <BudgetDropDown value={budget} onChange={setBudget} required />
         </ListItem>
         <ListItem>
           <PayeeDropDown
             value={payee}
             onChange={setPayee}
             budget={budget || null}
+            required
           />
         </ListItem>
         <ListItem>
@@ -83,6 +84,7 @@ export default function PaymentForm({
             slotProps={{ htmlInput: { step: '0.01' } }}
             required
             autoComplete="false"
+            fullWidth
           />
         </ListItem>
         <ListItem>
@@ -105,6 +107,7 @@ export default function PaymentForm({
             defaultValue={payment.notes}
             label="Notes"
             multiline
+            fullWidth
           />
         </ListItem>
         <ListItem>

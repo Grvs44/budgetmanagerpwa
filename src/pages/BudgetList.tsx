@@ -1,15 +1,29 @@
+import { FC, useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
+import { useDispatch } from 'react-redux'
 import BudgetListItem from '../components/BudgetListItem'
+import BudgetFilterDialog from '../containers/BudgetFilterDialog'
 import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
+import { setTitle } from '../redux/titleSlice'
+import type { BudgetFilters } from '../redux/types'
 
-export default function BudgetList() {
+const BudgetList: FC = () => {
+  const dispatch = useDispatch()
   const dialog = useBudgetDialog()
-  const query = useGetBudgetsQuery(dialog.page)
+  const [filters, setFilters] = useState<BudgetFilters>({
+    ordering: 'name',
+  })
+  const query = useGetBudgetsQuery({ offset: dialog.page * 10, ...filters })
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    dispatch(setTitle('Budgets'))
+  }, [])
 
   if (query.isFetching) return <p>Loading...</p>
   const list = query.data
@@ -27,6 +41,13 @@ export default function BudgetList() {
       <Typography>
         Showing {list?.results.length} of {list?.count}
       </Typography>
+      <Button onClick={() => setFiltersOpen(true)}>Filters and search</Button>
+      <BudgetFilterDialog
+        filters={filters}
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        onSubmit={setFilters}
+      />
       {list?.count ? (
         <List>
           {list.results.map((item) => (
@@ -44,3 +65,5 @@ export default function BudgetList() {
     </Container>
   )
 }
+
+export default BudgetList
