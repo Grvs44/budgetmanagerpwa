@@ -6,6 +6,7 @@ import type { Plugin } from 'vite'
 import jsconfigPaths from 'vite-jsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { VitePWA } from 'vite-plugin-pwa'
+import manifest from './src/manifest'
 
 dotenv.config()
 const base = process.env.VITE_BASE_URL
@@ -19,7 +20,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'service-worker.ts',
-      manifest: false,
+      manifest,
     }),
     createHtmlPlugin({ minify: true }),
   ],
