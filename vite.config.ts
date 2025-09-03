@@ -23,7 +23,7 @@ export default defineConfig({
     }),
     createHtmlPlugin({ minify: true }),
   ],
-  base: base || './',
+  base,
   server: {
     open: base,
     port: 3000,
