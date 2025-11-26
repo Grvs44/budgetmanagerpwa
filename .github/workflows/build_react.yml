@@ -1,4 +1,4 @@
-# Adapted from Grvs/Inclusive-Venues
+# Adapted from Grvs44/Inclusive-Venues
 name: Build React
 on:
   release:
