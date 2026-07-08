@@ -13,8 +13,8 @@ import {
   useGetPayeeTotalQuery,
   useGetUserQuery,
 } from '../redux/apiSlice'
-import ModifiedText from './ModifiedText'
-import TotalText from './TotalText'
+import ModifiedText from '../components/ModifiedText'
+import TotalText from '../components/TotalText'
 
 type PayeeViewDialogProps = {
   open: boolean

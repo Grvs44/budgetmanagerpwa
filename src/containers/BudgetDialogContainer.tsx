@@ -1,7 +1,7 @@
 import type { FC } from 'react'
-import BudgetForm, { BudgetFormProps } from '../components/BudgetForm'
-import BudgetViewDialog from '../components/BudgetViewDialog'
-import DeleteConfirmation from '../components/DeleteConfirmation'
+import BudgetForm, { BudgetFormProps } from '../dialogs/BudgetForm'
+import BudgetViewDialog from '../dialogs/BudgetViewDialog'
+import DeleteConfirmation from '../dialogs/DeleteConfirmation'
 import { useBudgetDialog } from '../context/DialogProviders'
 import {
   useCreateBudgetMutation,

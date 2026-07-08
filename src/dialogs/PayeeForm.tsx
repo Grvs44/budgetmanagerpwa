@@ -4,7 +4,7 @@ import ListItem from '@mui/material/ListItem'
 import TextField from '@mui/material/TextField'
 import { useGetBudgetQuery } from '../redux/apiSlice'
 import type { EditablePayee, Nameable, SubmitPayee } from '../redux/types'
-import BudgetDropDown from './BudgetDropDown'
+import BudgetDropDown from '../components/BudgetDropDown'
 import FormDialog from './FormDialog'
 
 export type PayeeFormProps = {

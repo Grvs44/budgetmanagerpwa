@@ -5,7 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import type { User } from '../redux/types'
-import AccountDialog from './AccountDialog'
+import AccountDialog from '../dialogs/AccountDialog'
 
 export type AccountListItemProps = { user: User }
 

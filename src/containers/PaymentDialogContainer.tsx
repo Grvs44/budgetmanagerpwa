@@ -1,7 +1,7 @@
 import type { FC } from 'react'
-import DeleteConfirmation from '../components/DeleteConfirmation'
-import PaymentForm from '../components/PaymentForm'
-import PaymentViewDialog from '../components/PaymentViewDialog'
+import DeleteConfirmation from '../dialogs/DeleteConfirmation'
+import PaymentForm from '../dialogs/PaymentForm'
+import PaymentViewDialog from '../dialogs/PaymentViewDialog'
 import { usePaymentDialog } from '../context/DialogProviders'
 import {
   useCreatePaymentMutation,

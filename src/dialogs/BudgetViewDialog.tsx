@@ -12,8 +12,8 @@ import {
   useGetUserQuery,
 } from '../redux/apiSlice'
 import type { Budget } from '../redux/types'
-import ModifiedText from './ModifiedText'
-import TotalText from './TotalText'
+import ModifiedText from '../components/ModifiedText'
+import TotalText from '../components/TotalText'
 
 export type BudgetViewDialogProps = {
   open: boolean
