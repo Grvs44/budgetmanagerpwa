@@ -1,4 +1,4 @@
-import { FC, FormEventHandler, useState } from 'react'
+import { FC, SubmitEventHandler, useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -18,7 +18,7 @@ const JoinDialog: FC<JoinDialogProps> = (props) => {
   const [joinBudget] = useJoinBudgetMutation()
   const [loading, setLoading] = useState<boolean>(false)
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+  const onSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     setLoading(true)
     try {

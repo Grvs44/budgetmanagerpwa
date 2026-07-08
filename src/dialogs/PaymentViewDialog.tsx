@@ -13,7 +13,7 @@ import {
 } from '../redux/apiSlice'
 import { useCurrency } from '../redux/settingsSlice'
 import { getPaymentTitle } from '../redux/utils'
-import ModifiedText from './ModifiedText'
+import ModifiedText from '../components/ModifiedText'
 
 export type PaymmentViewDialogProps = {
   open: boolean

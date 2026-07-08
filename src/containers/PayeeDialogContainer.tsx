@@ -1,7 +1,7 @@
 import type { FC } from 'react'
-import DeleteConfirmation from '../components/DeleteConfirmation'
-import PayeeForm from '../components/PayeeForm'
-import PayeeViewDialog from '../components/PayeeViewDialog'
+import DeleteConfirmation from '../dialogs/DeleteConfirmation'
+import PayeeForm from '../dialogs/PayeeForm'
+import PayeeViewDialog from '../dialogs/PayeeViewDialog'
 import { usePayeeDialog } from '../context/DialogProviders'
 import {
   useCreatePayeeMutation,

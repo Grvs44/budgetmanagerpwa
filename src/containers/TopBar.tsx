@@ -4,9 +4,9 @@ import AppBar from '@mui/material/AppBar'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import MenuDrawer from '../components/MenuDrawer'
 import TitleBar from '../components/TitleBar'
 import type { User } from '../redux/types'
+import MenuDrawer from './MenuDrawer'
 
 export type TopBarProps = {
   user: User

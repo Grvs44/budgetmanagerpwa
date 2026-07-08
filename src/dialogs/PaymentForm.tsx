@@ -13,8 +13,8 @@ import FormDialog from './FormDialog'
 import 'dayjs/locale/en-gb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { EditablePayment, Nameable } from '../redux/types'
-import BudgetDropDown from './BudgetDropDown'
-import PayeeDropDown from './PayeeDropDown'
+import BudgetDropDown from '../components/BudgetDropDown'
+import PayeeDropDown from '../components/PayeeDropDown'
 
 dayjs.extend(customParseFormat)
 
