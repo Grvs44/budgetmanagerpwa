@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "vite",
-    "host": "vite --host",
+    "preview": "vite preview",
     "build": "tsc && vite build"
   },
   "browserslist": {
