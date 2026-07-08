@@ -13,9 +13,9 @@ import SwipeableDrawer, {
   SwipeableDrawerProps,
 } from '@mui/material/SwipeableDrawer'
 import type { User } from '../redux/types'
-import AccountListItem from './AccountListItem'
-import InstallPwaListItem from './InstallPwaListItem'
-import ListItemButtonLink from './ListItemButtonLink'
+import AccountListItem from '../components/AccountListItem'
+import InstallPwaListItem from '../components/InstallPwaListItem'
+import ListItemButtonLink from '../components/ListItemButtonLink'
 
 export type MenuDrawerProps = SwipeableDrawerProps & { user: User }
 
