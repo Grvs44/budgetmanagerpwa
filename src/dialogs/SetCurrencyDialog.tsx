@@ -1,4 +1,4 @@
-import type { FC, FormEventHandler } from 'react'
+import type { FC, SubmitEventHandler } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -14,7 +14,7 @@ export type SetCurrencyDialogProps = {
 }
 
 const SetCurrencyDialog: FC<SetCurrencyDialogProps> = (props) => {
-  const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const onSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()
     props.onSubmit(new FormData(event.currentTarget).get('currency') as any)
   }
