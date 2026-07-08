@@ -46,8 +46,10 @@ export default function PaymentForm({
   })
   const [payee, setPayee] = useState<Nameable | null | undefined>(null)
   const [budget, setBudget] = useState<Nameable | null | undefined>(null)
+
   useEffect(() => setPayee(payeeQuery.data || null), [payeeQuery.data])
   useEffect(() => setBudget(budgetQuery.data || null), [budgetQuery.data])
+
   const onFormSubmit = (formData: EditablePayment) => {
     if (payee == null) alert('Missing payee')
     else {
@@ -56,6 +58,7 @@ export default function PaymentForm({
       onClose()
     }
   }
+
   return (
     <FormDialog
       open={open}
@@ -65,7 +68,14 @@ export default function PaymentForm({
     >
       <List>
         <ListItem>
-          <BudgetDropDown value={budget} onChange={setBudget} required />
+          <BudgetDropDown
+            value={budget}
+            onChange={(budget) => {
+              setBudget(budget)
+              setPayee(null)
+            }}
+            required
+          />
         </ListItem>
         <ListItem>
           <PayeeDropDown
