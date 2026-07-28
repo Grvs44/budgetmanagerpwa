@@ -1,5 +1,8 @@
-import Box from '@mui/material/Box'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import SavingsIcon from '@mui/icons-material/Savings'
 import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
 import { useGetBudgetQuery, useGetPayeeQuery } from '../redux/apiSlice'
@@ -24,19 +27,35 @@ export default function PaymentListItem({
 
   return (
     <ListItem>
-      <Box onClick={() => onClick(item.id)}>
-        <Typography>
-          {payee.data ? (
-            getPaymentTitle(item, payee.data, currency)
-          ) : (
-            <Skeleton />
-          )}
-        </Typography>
-        <Typography>{new Date(item.date).toLocaleDateString()}</Typography>
-        <Typography>
-          {budget.data && !payee.isFetching ? budget.data.name : <Skeleton />}
-        </Typography>
-      </Box>
+      <ListItemButton onClick={() => onClick(item.id)}>
+        <ListItemText
+          primary={
+            payee.data ? (
+              getPaymentTitle(item, payee.data, currency)
+            ) : (
+              <Skeleton />
+            )
+          }
+          secondary={
+            <>
+              <Typography>
+                <CalendarMonthIcon titleAccess='Date' />
+                {new Date(item.date).toLocaleDateString()}
+              </Typography>
+              <Typography>
+                {budget.data && !payee.isFetching ? (
+                  <>
+                    <SavingsIcon titleAccess='Budget' />
+                    {budget.data.name}
+                  </>
+                ) : (
+                  <Skeleton />
+                )}
+              </Typography>
+            </>
+          }
+        />
+      </ListItemButton>
     </ListItem>
   )
 }

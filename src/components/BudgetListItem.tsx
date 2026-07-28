@@ -1,6 +1,8 @@
-import Box from '@mui/material/Box'
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import CrossIcon from '@mui/icons-material/DisabledByDefault'
 import ListItem from '@mui/material/ListItem'
-import Typography from '@mui/material/Typography'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import type { BudgetItem } from '../redux/types'
 
 export type BudgetListItemProps = {
@@ -11,14 +13,18 @@ export type BudgetListItemProps = {
 export default function BudgetListItem({ item, onClick }: BudgetListItemProps) {
   return (
     <ListItem>
-      <Box onClick={() => onClick(item.id)}>
-        <Typography>{item.name}</Typography>
-        {item.active ? (
-          <Typography>active</Typography>
-        ) : (
-          <Typography>inactive</Typography>
-        )}
-      </Box>
+      <ListItemButton onClick={() => onClick(item.id)}>
+        <ListItemText
+          primary={item.name}
+          secondary={
+            item.active ? (
+              <CheckBoxIcon titleAccess="Active" />
+            ) : (
+              <CrossIcon titleAccess="Inactive" />
+            )
+          }
+        />
+      </ListItemButton>
     </ListItem>
   )
 }
