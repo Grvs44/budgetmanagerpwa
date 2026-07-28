@@ -6,6 +6,8 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
+import ModifiedText from '../components/ModifiedText'
+import TotalText from '../components/TotalText'
 import { useBudgetDialog } from '../context/DialogProviders'
 import {
   useGetBudgetQuery,
@@ -13,8 +15,6 @@ import {
   useGetPayeeTotalQuery,
   useGetUserQuery,
 } from '../redux/apiSlice'
-import ModifiedText from '../components/ModifiedText'
-import TotalText from '../components/TotalText'
 
 type PayeeViewDialogProps = {
   open: boolean
@@ -48,23 +48,25 @@ export default function PayeeViewDialog({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{payee.data ? payee.data.name : <Skeleton />}</DialogTitle>
-      {isFetching ? null : (
-        <DialogContent>
-          <Typography>Budget: {budget.data?.name}</Typography>
-          <Typography>{payee.data?.description}</Typography>
-          <ModifiedText data={payee.data} user={user} />
-          <TotalText
-            data={total.data}
-            isFetching={total.isFetching}
-            show={showTotal}
-            onShow={() => setShowTotal(true)}
-          />
-        </DialogContent>
-      )}
+      <DialogContent>
+        <Typography>
+          {isFetching ? <Skeleton /> : 'Budget: ' + budget.data?.name}
+        </Typography>
+        <Typography>
+          {isFetching ? <Skeleton /> : payee.data?.description}
+        </Typography>
+        <ModifiedText data={payee.data} user={user} isFetching={isFetching} />
+        <TotalText
+          data={total.data}
+          isFetching={isFetching || total.isFetching}
+          show={showTotal}
+          onShow={() => setShowTotal(true)}
+        />
+      </DialogContent>
       <DialogActions>
         <Button
           type="button"
-          disabled={!budget.isSuccess}
+          disabled={isFetching || !budget.isSuccess}
           onClick={() => {
             if (budget.data) {
               dialog.setViewId(budget.data.id)

@@ -15,15 +15,12 @@ const TotalText: FC<TotalTextProps> = (props) => {
   const currency = useCurrency()
   return (
     <Typography>
-      {'Total: '}
-      {props.show ? (
-        props.isFetching ? (
-          <Skeleton />
-        ) : (
-          currency + props.data
-        )
+      {props.isFetching ? (
+        <Skeleton />
+      ) : props.show ? (
+        <>Total: {currency + props.data}</>
       ) : (
-        <Button onClick={props.onShow}>Show</Button>
+        <Button onClick={props.onShow}>Show total</Button>
       )}
     </Typography>
   )

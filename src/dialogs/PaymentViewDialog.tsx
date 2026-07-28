@@ -3,7 +3,9 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
+import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
+import ModifiedText from '../components/ModifiedText'
 import { useBudgetDialog, usePayeeDialog } from '../context/DialogProviders'
 import {
   useGetBudgetQuery,
@@ -13,7 +15,6 @@ import {
 } from '../redux/apiSlice'
 import { useCurrency } from '../redux/settingsSlice'
 import { getPaymentTitle } from '../redux/utils'
-import ModifiedText from '../components/ModifiedText'
 
 export type PaymmentViewDialogProps = {
   open: boolean
@@ -42,36 +43,49 @@ export default function PaymentViewDialog({
   const user = useGetUserQuery(payment?.data?.modified_by, {
     skip: skip || payment.data?.modified_by == null,
   })
+  const isFetching =
+    budget.isFetching ||
+    payee.isFetching ||
+    payment.isFetching ||
+    user.isFetching
+
   return (
     <Dialog open={open && paymentId != null} onClose={onClose}>
       <DialogTitle>
-        {payee.data && payment.data
-          ? getPaymentTitle(payment.data, payee.data, currency)
-          : 'Loading'}
+        {!isFetching && payee.data && payment.data ? (
+          getPaymentTitle(payment.data, payee.data, currency)
+        ) : (
+          <Skeleton />
+        )}
       </DialogTitle>
       <DialogContent>
         <Typography>
-          Budget: {budget?.data ? budget.data.name : 'loading'}
+          {isFetching ? <Skeleton /> : 'Budget: ' + budget.data?.name}
         </Typography>
         <Typography>
-          Payee: {payee?.data ? payee.data.name : 'loading'}
+          {isFetching ? <Skeleton /> : 'Payee: ' + payee.data?.name}
         </Typography>
         <Typography>
-          Amount: {payment.data ? currency + payment.data.amount : 'loading'}
+          {isFetching ? (
+            <Skeleton />
+          ) : (
+            'Amount: ' + currency + payment.data?.amount
+          )}
         </Typography>
         <Typography>
-          Date:{' '}
-          {payment.data
-            ? new Date(payment.data.date).toLocaleDateString()
-            : 'loading'}
+          {isFetching || payment.data == undefined ? (
+            <Skeleton />
+          ) : (
+            <>Date: {new Date(payment.data.date).toLocaleDateString()}</>
+          )}
         </Typography>
         {payment?.data?.pending ? <Typography>Pending</Typography> : null}
-        <ModifiedText data={payment.data} user={user} />
+        <ModifiedText data={payment.data} user={user} isFetching={isFetching} />
       </DialogContent>
       <DialogActions>
         <Button
           type="button"
-          disabled={!budget.isSuccess}
+          disabled={isFetching || !budget.isSuccess}
           onClick={() => {
             if (budget.data) {
               budgetDialog.setViewId(budget.data.id)
@@ -83,7 +97,7 @@ export default function PaymentViewDialog({
         </Button>
         <Button
           type="button"
-          disabled={!payee.isSuccess}
+          disabled={isFetching || !payee.isSuccess}
           onClick={() => {
             if (payee.data) {
               payeeDialog.setViewId(payee.data.id)

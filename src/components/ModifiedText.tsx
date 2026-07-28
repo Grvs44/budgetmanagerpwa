@@ -11,24 +11,23 @@ export type ModifiedTextProps = {
   }
   user: {
     data?: User
-    isFetching: boolean
   }
+  isFetching: boolean
 }
 
 const ModifiedText: FC<ModifiedTextProps> = (props) =>
-  props.data ? (
     <Typography>
-      Last modified on {new Date(props.data.last_modified).toLocaleString()} by{' '}
-      {props.data?.modified_by ? (
-        props.user.isFetching ? (
-          <Skeleton />
-        ) : (
-          showUserDetails(props.user.data)
-        )
+      {props.isFetching || !props.data ? (
+        <Skeleton />
       ) : (
-        'Administrator'
+        <>
+          Last modified on {new Date(props.data.last_modified).toLocaleString()}{' '}
+          by{' '}
+          {props.data?.modified_by
+            ? showUserDetails(props.user.data)
+            : 'Administrator'}
+        </>
       )}
     </Typography>
-  ) : null
 
 export default ModifiedText
