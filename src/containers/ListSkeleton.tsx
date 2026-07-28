@@ -8,9 +8,9 @@ import Skeleton from '@mui/material/Skeleton'
 const ListSkeleton: FC = () => (
   <Container>
     <List>
-      {new Array(10).fill(null).map((_, i) => (
+      {new Array(4).fill(null).map((_, i) => (
         <ListItem key={i}>
-          <ListItemText primary={<Skeleton />} />
+          <ListItemText primary={<Skeleton sx={{ height: '3em' }} />} />
         </ListItem>
       ))}
     </List>
