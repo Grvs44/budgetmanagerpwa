@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import { FilterMode } from '../components/FilterModeSelect'
 import PaymentListItem from '../components/PaymentListItem'
+import ListSkeleton from '../containers/ListSkeleton'
 import PaymentFilterDialog, {
   PaymentDialogFilters,
 } from '../containers/PaymentFilterDialog'
@@ -66,13 +67,13 @@ const PaymentList: FC = () => {
     dispatch(setTitle('Payments'))
   }, [])
 
-  const list = query.data
-  if (query.isFetching || !list) return <p>Loading...</p>
-
   const onItemClick = (id: number) => {
     dialog.setViewId(id)
     dialog.setViewOpen(true)
   }
+
+  const list = query.data
+  if (query.isFetching || !list) return <ListSkeleton />
 
   return (
     <Container>

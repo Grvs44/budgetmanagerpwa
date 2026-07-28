@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import BudgetListItem from '../components/BudgetListItem'
 import BudgetFilterDialog from '../containers/BudgetFilterDialog'
+import ListSkeleton from '../containers/ListSkeleton'
 import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
 import { setTitle } from '../redux/titleSlice'
@@ -25,7 +26,7 @@ const BudgetList: FC = () => {
     dispatch(setTitle('Budgets'))
   }, [])
 
-  if (query.isFetching) return <p>Loading...</p>
+  if (query.isFetching) return <ListSkeleton />
   const list = query.data
 
   const onItemClick = (id: number) => {

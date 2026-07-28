@@ -6,6 +6,7 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import PayeeListItem from '../components/PayeeListItem'
+import ListSkeleton from '../containers/ListSkeleton'
 import PayeeFilterDialog, {
   PayeeDialogFilters,
 } from '../containers/PayeeFilterDialog'
@@ -34,13 +35,13 @@ const PayeeList: FC = () => {
     dispatch(setTitle('Payees'))
   }, [])
 
-  const list = query.data
-  if (query.isFetching || !list) return <p>Loading...</p>
-
   const onItemClick = (id: number) => {
     dialog.setViewId(id)
     dialog.setViewOpen(true)
   }
+
+  const list = query.data
+  if (query.isFetching || !list) return <ListSkeleton />
 
   return (
     <Container>
