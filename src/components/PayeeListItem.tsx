@@ -22,7 +22,7 @@ export default function PayeeListItem({ item, onClick }: PayeeListItemProps) {
           secondary={
             budget.data ? (
               <>
-                <SavingsIcon titleAccess="Budget" sx={{ fontSize: '1.2em' }} />{' '}
+                <SavingsIcon titleAccess="Budget" sx={{ fontSize: '1.5em' }} />{' '}
                 {budget.data.name}
               </>
             ) : (
