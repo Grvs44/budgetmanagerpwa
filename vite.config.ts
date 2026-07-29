@@ -4,7 +4,7 @@ import license from 'rollup-plugin-license'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
 import jsconfigPaths from 'vite-jsconfig-paths'
-import { createHtmlPlugin } from 'vite-plugin-html'
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { VitePWA } from 'vite-plugin-pwa'
 import manifest from './src/manifest'
 
@@ -22,7 +22,7 @@ export default defineConfig({
       filename: 'service-worker.ts',
       manifest: manifest(base),
     }),
-    createHtmlPlugin({ minify: true }),
+    ViteMinifyPlugin({}),
   ],
   base,
   server: {
