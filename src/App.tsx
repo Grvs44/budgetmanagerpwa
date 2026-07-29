@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import BudgetDialogContainer from './containers/BudgetDialogContainer'
 import LoadingBox from './containers/LoadingBox'
 import PayeeDialogContainer from './containers/PayeeDialogContainer'

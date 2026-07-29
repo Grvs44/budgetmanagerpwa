@@ -3,8 +3,7 @@ import dotenv from 'dotenv'
 import license from 'rollup-plugin-license'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
-import jsconfigPaths from 'vite-jsconfig-paths'
-import { createHtmlPlugin } from 'vite-plugin-html'
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { VitePWA } from 'vite-plugin-pwa'
 import manifest from './src/manifest'
 
@@ -14,7 +13,6 @@ const base = process.env.VITE_BASE_URL
 export default defineConfig({
   plugins: [
     react(),
-    jsconfigPaths(),
     VitePWA({
       injectRegister: 'inline',
       strategies: 'injectManifest',
@@ -22,7 +20,7 @@ export default defineConfig({
       filename: 'service-worker.ts',
       manifest: manifest(base),
     }),
-    createHtmlPlugin({ minify: true }),
+    ViteMinifyPlugin({}),
   ],
   base,
   server: {
@@ -47,9 +45,8 @@ export default defineConfig({
           p: ['@mui/x-date-pickers'],
           d: ['dayjs'],
           c: ['js-cookie'],
-          r: ['react', 'react-dom'],
           x: ['react-redux'],
-          o: ['react-router-dom'],
+          o: ['react-router'],
         },
       },
       plugins: [
