@@ -1,33 +1,31 @@
 import { useEffect } from 'react'
-import { Container, Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import { useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import LoadingBox from '../containers/LoadingBox'
 import QuickAdd from '../containers/QuickAdd'
-import { useGetCurrentUserQuery, useGetTotalQuery } from '../redux/apiSlice'
+import TotalBox from '../containers/TotalBox'
+import { useGetCurrentUserQuery } from '../redux/apiSlice'
 import { setTitle } from '../redux/titleSlice'
-import type { State } from '../redux/types'
 
 export default function HomePage() {
-  const total = useGetTotalQuery()
   const { data: user, isFetching } = useGetCurrentUserQuery()
   const dispatch = useDispatch()
-  const settings = useSelector((state: State) => state.settings)
 
   useEffect(() => {
     dispatch(setTitle('Budget Manager'))
   }, [])
 
-  return (
+  return isFetching ? (
+    <LoadingBox />
+  ) : (
     <Container>
       <Typography variant="h4" component="h1">
-        {isFetching || !user
-          ? 'Welcome'
-          : 'Welcome, ' + (user.first_name ? user.first_name : user.username)}
+        {'Welcome, '}
+        {user ? (user?.first_name ? user.first_name : user?.username) : ''}!
       </Typography>
-      <Typography variant="h6" hidden={total.isFetching}>
-        Total: {settings.currency}
-        {total.data}
-      </Typography>
+      <TotalBox />
       <QuickAdd />
       <Outlet />
     </Container>
