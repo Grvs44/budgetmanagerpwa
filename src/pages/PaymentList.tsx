@@ -99,8 +99,8 @@ const PaymentList: FC = () => {
         </List>
       ) : (
         <Typography>
-          You currently don't have any payments. Click "New" above to create
-          one.
+          You currently don't have any payments. Check the filters above or
+          create a new one.
         </Typography>
       )}
       {list?.next ? (

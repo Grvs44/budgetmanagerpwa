@@ -67,7 +67,8 @@ const PayeeList: FC = () => {
         </List>
       ) : (
         <Typography>
-          You currently don't have any payees. Click "New" above to create one.
+          You currently don't have any payees. Check the filters above or create
+          a new one.
         </Typography>
       )}
       {list?.next ? (

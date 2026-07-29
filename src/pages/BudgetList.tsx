@@ -58,7 +58,8 @@ const BudgetList: FC = () => {
         </List>
       ) : (
         <Typography>
-          You currently don't have any budgets. Click "New" above to create one.
+          You currently don't have any budgets. Check the filters above or
+          create a new one.
         </Typography>
       )}
       {list?.next ? (
