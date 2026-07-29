@@ -45,9 +45,8 @@ export default defineConfig({
           p: ['@mui/x-date-pickers'],
           d: ['dayjs'],
           c: ['js-cookie'],
-          r: ['react', 'react-dom'],
           x: ['react-redux'],
-          o: ['react-router-dom'],
+          o: ['react-router'],
         },
       },
       plugins: [
