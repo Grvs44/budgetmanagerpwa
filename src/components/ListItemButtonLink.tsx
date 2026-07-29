@@ -1,5 +1,4 @@
-import { Link as RouteLink } from 'react-router-dom'
-import type { LinkProps } from 'react-router-dom'
+import { Link as RouteLink, LinkProps } from 'react-router'
 import { ListItemButton } from '@mui/material'
 import type { ListItemButtonProps } from '@mui/material'
 

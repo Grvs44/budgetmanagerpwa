@@ -2,7 +2,7 @@
 import { FC, useEffect, useState } from 'react'
 import MuiDialog from '@mui/material/Dialog'
 import type { DialogProps } from '@mui/material/Dialog'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 
 export enum DialogType {
   BudgetView,
