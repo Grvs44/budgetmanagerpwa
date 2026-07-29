@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react'
-import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
@@ -7,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import { FilterMode } from '../components/FilterModeSelect'
 import LoadMoreButton from '../components/LoadMoreButton'
+import NewFab from '../components/NewFab'
 import PaymentListItem from '../components/PaymentListItem'
 import ListSkeleton from '../containers/ListSkeleton'
 import PaymentFilterDialog, {
@@ -78,9 +78,7 @@ const PaymentList: FC = () => {
 
   return (
     <Container>
-      <Button onClick={() => dialog.setCreateOpen(true)}>
-        <AddIcon /> New
-      </Button>
+      <NewFab onClick={() => dialog.setCreateOpen(true)} />
       <Typography>
         Showing {list.results.length} of {list.count}
       </Typography>
