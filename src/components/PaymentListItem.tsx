@@ -1,7 +1,10 @@
-import Box from '@mui/material/Box'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import SavingsIcon from '@mui/icons-material/Savings'
+import Grid from '@mui/material/Grid'
 import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import Skeleton from '@mui/material/Skeleton'
-import Typography from '@mui/material/Typography'
 import { useGetBudgetQuery, useGetPayeeQuery } from '../redux/apiSlice'
 import { useCurrency } from '../redux/settingsSlice'
 import type { PaymentItem } from '../redux/types'
@@ -24,19 +27,41 @@ export default function PaymentListItem({
 
   return (
     <ListItem>
-      <Box onClick={() => onClick(item.id)}>
-        <Typography>
-          {payee.data ? (
-            getPaymentTitle(item, payee.data, currency)
-          ) : (
-            <Skeleton />
-          )}
-        </Typography>
-        <Typography>{new Date(item.date).toLocaleDateString()}</Typography>
-        <Typography>
-          {budget.data && !payee.isFetching ? budget.data.name : <Skeleton />}
-        </Typography>
-      </Box>
+      <ListItemButton onClick={() => onClick(item.id)}>
+        <ListItemText
+          primary={
+            payee.data ? (
+              getPaymentTitle(item, payee.data, currency)
+            ) : (
+              <Skeleton />
+            )
+          }
+          secondary={
+            <Grid container spacing={2}>
+              <Grid>
+                <CalendarMonthIcon
+                  titleAccess="Date"
+                  sx={{ fontSize: '1.5em' }}
+                />
+                {new Date(item.date).toLocaleDateString()}
+              </Grid>
+              <Grid>
+                {budget.data && !payee.isFetching ? (
+                  <>
+                    <SavingsIcon
+                      titleAccess="Budget"
+                      sx={{ fontSize: '1.5em' }}
+                    />
+                    {budget.data.name}
+                  </>
+                ) : (
+                  <Skeleton />
+                )}
+              </Grid>
+            </Grid>
+          }
+        />
+      </ListItemButton>
     </ListItem>
   )
 }

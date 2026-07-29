@@ -1,12 +1,14 @@
 import { FC, useEffect, useState } from 'react'
-import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import { FilterMode } from '../components/FilterModeSelect'
+import LoadMoreButton from '../components/LoadMoreButton'
+import NewFab from '../components/NewFab'
 import PaymentListItem from '../components/PaymentListItem'
+import ListSkeleton from '../containers/ListSkeleton'
 import PaymentFilterDialog, {
   PaymentDialogFilters,
 } from '../containers/PaymentFilterDialog'
@@ -66,19 +68,17 @@ const PaymentList: FC = () => {
     dispatch(setTitle('Payments'))
   }, [])
 
-  const list = query.data
-  if (query.isFetching || !list) return <p>Loading...</p>
-
   const onItemClick = (id: number) => {
     dialog.setViewId(id)
     dialog.setViewOpen(true)
   }
 
+  const list = query.data
+  if (query.isFetching || !list) return <ListSkeleton />
+
   return (
     <Container>
-      <Button onClick={() => dialog.setCreateOpen(true)}>
-        <AddIcon /> New
-      </Button>
+      <NewFab onClick={() => dialog.setCreateOpen(true)} />
       <Typography>
         Showing {list.results.length} of {list.count}
       </Typography>
@@ -96,12 +96,13 @@ const PaymentList: FC = () => {
           ))}
         </List>
       ) : (
-        <p>No payments</p>
+        <Typography>
+          You currently don't have any payments. Check the filters above or
+          create a new one.
+        </Typography>
       )}
-      {list.next ? (
-        <Button onClick={() => dialog.setPage((page) => page + 1)}>
-          Load more
-        </Button>
+      {list?.next ? (
+        <LoadMoreButton onClick={() => dialog.setPage((page) => page + 1)} />
       ) : null}
     </Container>
   )

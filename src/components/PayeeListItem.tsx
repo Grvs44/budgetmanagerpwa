@@ -1,7 +1,8 @@
-import Box from '@mui/material/Box'
+import SavingsIcon from '@mui/icons-material/Savings'
 import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import Skeleton from '@mui/material/Skeleton'
-import Typography from '@mui/material/Typography'
 import { useGetBudgetQuery } from '../redux/apiSlice'
 import type { PayeeItem } from '../redux/types'
 
@@ -15,12 +16,21 @@ export default function PayeeListItem({ item, onClick }: PayeeListItemProps) {
 
   return (
     <ListItem>
-      <Box onClick={() => onClick(item.id)}>
-        <Typography>{item.name}</Typography>
-        <Typography>
-          Budget: {budget.data ? budget.data.name : <Skeleton />}
-        </Typography>
-      </Box>
+      <ListItemButton onClick={() => onClick(item.id)}>
+        <ListItemText
+          primary={item.name}
+          secondary={
+            budget.data ? (
+              <>
+                <SavingsIcon titleAccess="Budget" sx={{ fontSize: '1.5em' }} />{' '}
+                {budget.data.name}
+              </>
+            ) : (
+              <Skeleton />
+            )
+          }
+        />
+      </ListItemButton>
     </ListItem>
   )
 }

@@ -1,6 +1,8 @@
-import Box from '@mui/material/Box'
+import TickIcon from '@mui/icons-material/CheckBox'
+import CrossIcon from '@mui/icons-material/DisabledByDefault'
+import Grid from '@mui/material/Grid'
 import ListItem from '@mui/material/ListItem'
-import Typography from '@mui/material/Typography'
+import ListItemButton from '@mui/material/ListItemButton'
 import type { BudgetItem } from '../redux/types'
 
 export type BudgetListItemProps = {
@@ -11,14 +13,18 @@ export type BudgetListItemProps = {
 export default function BudgetListItem({ item, onClick }: BudgetListItemProps) {
   return (
     <ListItem>
-      <Box onClick={() => onClick(item.id)}>
-        <Typography>{item.name}</Typography>
-        {item.active ? (
-          <Typography>active</Typography>
-        ) : (
-          <Typography>inactive</Typography>
-        )}
-      </Box>
+      <ListItemButton onClick={() => onClick(item.id)}>
+        <Grid container spacing={2}>
+          <Grid size={{ sm: 12, md: 8 }}>{item.name}</Grid>
+          <Grid size={2}>
+            {item.active ? (
+              <TickIcon titleAccess="Active" color="info" />
+            ) : (
+              <CrossIcon titleAccess="Inactive" color="warning" />
+            )}
+          </Grid>
+        </Grid>
+      </ListItemButton>
     </ListItem>
   )
 }

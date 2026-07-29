@@ -1,12 +1,14 @@
 import { FC, useEffect, useState } from 'react'
-import AddIcon from '@mui/icons-material/Add'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import BudgetListItem from '../components/BudgetListItem'
+import LoadMoreButton from '../components/LoadMoreButton'
+import NewFab from '../components/NewFab'
 import BudgetFilterDialog from '../containers/BudgetFilterDialog'
+import ListSkeleton from '../containers/ListSkeleton'
 import { useBudgetDialog } from '../context/DialogProviders'
 import { useGetBudgetsQuery } from '../redux/apiSlice'
 import { setTitle } from '../redux/titleSlice'
@@ -25,7 +27,7 @@ const BudgetList: FC = () => {
     dispatch(setTitle('Budgets'))
   }, [])
 
-  if (query.isFetching) return <p>Loading...</p>
+  if (query.isFetching) return <ListSkeleton />
   const list = query.data
 
   const onItemClick = (id: number) => {
@@ -35,9 +37,7 @@ const BudgetList: FC = () => {
 
   return (
     <Container>
-      <Button onClick={() => dialog.setCreateOpen(true)}>
-        <AddIcon /> New
-      </Button>
+      <NewFab onClick={() => dialog.setCreateOpen(true)} />
       <Typography>
         Showing {list?.results.length} of {list?.count}
       </Typography>
@@ -55,12 +55,13 @@ const BudgetList: FC = () => {
           ))}
         </List>
       ) : (
-        <p>No budgets</p>
+        <Typography>
+          You currently don't have any budgets. Check the filters above or
+          create a new one.
+        </Typography>
       )}
       {list?.next ? (
-        <Button onClick={() => dialog.setPage((page) => page + 1)}>
-          Load more
-        </Button>
+        <LoadMoreButton onClick={() => dialog.setPage((page) => page + 1)} />
       ) : null}
     </Container>
   )
