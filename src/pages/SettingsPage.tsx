@@ -18,7 +18,7 @@ const SettingsPage: FC = () => {
       <SettingsContainer />
       <Divider />
       <Typography color="textSecondary">
-        Version {import.meta.env.VITE_VERSION} by Elli Greaves (2025)
+        Version {import.meta.env.VITE_VERSION} by Elli Greaves (2026)
       </Typography>
       <LicenseContainer />
     </Container>
