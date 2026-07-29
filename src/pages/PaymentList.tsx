@@ -6,6 +6,7 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import { FilterMode } from '../components/FilterModeSelect'
+import LoadMoreButton from '../components/LoadMoreButton'
 import PaymentListItem from '../components/PaymentListItem'
 import ListSkeleton from '../containers/ListSkeleton'
 import PaymentFilterDialog, {
@@ -97,12 +98,13 @@ const PaymentList: FC = () => {
           ))}
         </List>
       ) : (
-        <p>No payments</p>
+        <Typography>
+          You currently don't have any payments. Click "New" above to create
+          one.
+        </Typography>
       )}
-      {list.next ? (
-        <Button onClick={() => dialog.setPage((page) => page + 1)}>
-          Load more
-        </Button>
+      {list?.next ? (
+        <LoadMoreButton onClick={() => dialog.setPage((page) => page + 1)} />
       ) : null}
     </Container>
   )

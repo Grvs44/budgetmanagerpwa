@@ -6,6 +6,7 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
 import BudgetListItem from '../components/BudgetListItem'
+import LoadMoreButton from '../components/LoadMoreButton'
 import BudgetFilterDialog from '../containers/BudgetFilterDialog'
 import ListSkeleton from '../containers/ListSkeleton'
 import { useBudgetDialog } from '../context/DialogProviders'
@@ -56,12 +57,12 @@ const BudgetList: FC = () => {
           ))}
         </List>
       ) : (
-        <p>No budgets</p>
+        <Typography>
+          You currently don't have any budgets. Click "New" above to create one.
+        </Typography>
       )}
       {list?.next ? (
-        <Button onClick={() => dialog.setPage((page) => page + 1)}>
-          Load more
-        </Button>
+        <LoadMoreButton onClick={() => dialog.setPage((page) => page + 1)} />
       ) : null}
     </Container>
   )

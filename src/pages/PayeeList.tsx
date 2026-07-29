@@ -5,6 +5,7 @@ import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import { useDispatch } from 'react-redux'
+import LoadMoreButton from '../components/LoadMoreButton'
 import PayeeListItem from '../components/PayeeListItem'
 import ListSkeleton from '../containers/ListSkeleton'
 import PayeeFilterDialog, {
@@ -65,12 +66,12 @@ const PayeeList: FC = () => {
           ))}
         </List>
       ) : (
-        <p>No payees</p>
+        <Typography>
+          You currently don't have any payees. Click "New" above to create one.
+        </Typography>
       )}
-      {list.next ? (
-        <Button onClick={() => dialog.setPage((page) => page + 1)}>
-          Load more
-        </Button>
+      {list?.next ? (
+        <LoadMoreButton onClick={() => dialog.setPage((page) => page + 1)} />
       ) : null}
     </Container>
   )
