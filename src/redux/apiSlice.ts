@@ -159,7 +159,8 @@ export const apiSlice = createApi({
     }),
     getBudgetsSearch: builder.query<PageState<Budget>, string>({
       query: (name) =>
-        'budget/?limit=10&ordering=-last_used&search=' + encodeURI(name),
+        'budget/?limit=10&active=true&ordering=-last_used&search=' +
+        encodeURI(name),
       providesTags: [{ type: 'Budget', id: PARTIAL }],
     }),
     getBudget: builder.query<Budget, number | null | undefined>({
